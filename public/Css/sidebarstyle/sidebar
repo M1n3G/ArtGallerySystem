@@ -1,0 +1,7 @@
+/* -- SIDEBAR -- */
+body{
+	font-family: var(--font-secondary);
+	font-size: 16x;
+	color: black;
+}
+

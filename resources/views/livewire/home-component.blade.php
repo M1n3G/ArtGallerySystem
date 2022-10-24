@@ -4,7 +4,7 @@
     .carousel-inner,
     .carousel-item,
     .carousel-item.active {
-        height: 106vh;
+        height: 100vh;
     }
 
     .carousel-item:nth-child(1) {

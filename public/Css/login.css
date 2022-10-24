@@ -1,0 +1,16 @@
+@import url("css/variables.css");
+
+body {
+    font-family: var(--font-secondary)
+}
+
+.loginBtn {
+    width:250px;
+    padding: 10px;
+    color: white;
+}
+
+.loginBtn:hover {
+    background-color: var(--color-primary);
+    color: white;
+}
