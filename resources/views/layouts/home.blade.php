@@ -18,16 +18,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}">
-  <link rel="stylesheet" href="{{ asset('assets/vendor/aos/aos.css') }}">
-  <link rel="stylesheet" href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('assets/css/variables.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/aos/aos.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/variables.css') }}">
 
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
-  <link rel="stylesheet" href="{{ asset('Css/carousel/carouselstyle.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/home.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('Css/carousel/carouselstyle.css') }}">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -37,10 +37,10 @@
 
 </head>
 
-<body>
+<body style="padding-top:85px">
 
   <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top" data-scrollto-offset="0">
+  <header id="header" class="header fixed-top bg-white" data-scrollto-offset="0">
     <div class="container-fluid d-flex align-items-center justify-content-between">
 
       <a href="/" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
@@ -48,19 +48,19 @@
       </a>
 
       <!-- Navbar -->
-      <nav id="navbar" class="navbar">
+      <nav id="navbar" class="navbar bg-white">
         <ul>
-          <li><a class="nav-link scrollto" href="">Artists</a></li>
-          <li><a class="nav-link scrollto" href="">Exhibtions</a></li>
-          <li><a class="nav-link scrollto" href="">Store</a></li>
-          <li><a class="nav-link scrollto" href="">Auction</a></li>
-          <li><a class="nav-link scrollto" href="">Forum</a></li>
-          <li><a class="nav-link scrollto" href="">About</a></li>
+          <li><a class="link" href="" style="text-decoration: none">Artists</a></li>
+          <li><a class="link" href="" style="text-decoration: none">Exhibtions</a></li>
+          <li><a class="link" href="/store" style="text-decoration: none">Store</a></li>
+          <li><a class="link" href="" style="text-decoration: none">Auction</a></li>
+          <li><a class="link" href="" style="text-decoration: none">Forum</a></li>
+          <li><a class="link" href="" style="text-decoration: none">About</a></li>
+          <li><a class="link" href="/cart" style="text-decoration: none">Cart</a></li>
         </ul>
-        <i class="bi bi-list mobile-nav-toggle d-none"></i>
       </nav><!-- .navbar -->
 
-      <a class="btn-getstarted scrollto" href="" style="text-decoration: none;">Login</a>
+      <a class="btn-getstarted scrollto" href="/login" style="text-decoration: none;">Login</a>
 
     </div>
   </header><!-- End Header -->
@@ -68,15 +68,15 @@
   {{ $slot }}
 
   <!-- ======= Footer ======= -->
-  <!-- <footer id="footer" class="footer">
+  <footer id="footer" class="footer">
 
-    <div class="footer-content">
+    <div class="footer-content" style="background-color: #f4f4f4">
       <div class="container">
         <div class="row">
 
           <div class="col-lg-3 col-md-6">
             <div class="footer-info">
-              <h3>ArtCells</h3>
+              <h3 style="color:black">ArtCells</h3>
               <p>
                 Level 1 Block E The Square @ Jaya One, 72A, <br>
                 Jln Profesor Diraja Ungku Aziz, 46200 Petaling Jaya, Selangor <br><br>
@@ -90,7 +90,7 @@
           <div class="col-lg-2 col-md-6 footer-links">
           </div>
 
-          <div class="col-lg-2 col-md-6 footer-links">
+          <div class="col-lg-2 col-md-6 footer-links" style="color:black">
             <h4>Operating Hour</h4>
             <p>
               Mon–Sat, 10am–7pm, </br>
@@ -123,7 +123,7 @@
       </div>
     </div>
 
-  </footer>End Footer -->
+  </footer> <!-- End Footer -->
 
   <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
   <div id="preloader"></div>

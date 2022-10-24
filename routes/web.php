@@ -1,6 +1,11 @@
 <?php
 
 use App\Http\Livewire\HomeComponent;
+use App\Http\Livewire\StoreComponent;
+use App\Http\Livewire\CartComponent;
+use App\Http\Livewire\CheckoutComponent;
+use App\Http\Livewire\LoginComponent;
+use App\Http\Livewire\RegisterComponent;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,5 +23,22 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+// Home
 Route::get('/', HomeComponent::class);
+
+//Store
+Route::get('/store', StoreComponent::class);
+
+//Cart
+Route::get('/cart', CartComponent::class);
+
+//Checkout
+Route::get('/checkout', CheckoutComponent::class);
+
+//Login
+Route::get('/login', LoginComponent::class);
+
+//Register
+Route::get('/register', RegisterComponent::class);
+
 

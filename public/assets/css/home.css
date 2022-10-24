@@ -1,16 +1,7 @@
-/**
-* Template Name: HeroBiz - v2.3.1
-* Template URL: https://bootstrapmade.com/herobiz-bootstrap-business-template/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
-
-/**
-* Check out variables.css for easy customization of colors, typography, and other repetitive properties
-*/
 /*--------------------------------------------------------------
-# General
+# HOME CSS
 --------------------------------------------------------------*/
+
 :root {
   scroll-behavior: smooth;
 }
@@ -258,6 +249,7 @@ section {
   font-weight: 500;
 }
 
+/* Login text */
 .header .btn-getstarted,
 .header .btn-getstarted:focus {
   font-size: 16px;
@@ -267,6 +259,8 @@ section {
   border-radius: 4px;
   transition: 0.3s;
   font-family: var(--font-secondary);
+  width:115px;
+  text-align: center;
 }
 
 .header .btn-getstarted:hover,
@@ -317,7 +311,7 @@ section {
     font-family: var(--font-secondary);
     font-size: 16px;
     font-weight: 400;
-    color: rgba(var(--color-secondary-dark-rgb), 0.7);
+    color: rgba(var(--color-black), 0.7);
     white-space: nowrap;
     transition: 0.3s;
     position: relative;
@@ -368,7 +362,7 @@ section {
   .navbar .dropdown .active,
   .navbar .dropdown .active:focus,
   .navbar .dropdown:hover>a {
-    color: var(--color-white);
+    color: var(--color-black);
     background: var(--color-secondary);
   }
 
@@ -466,242 +460,7 @@ section {
   }
 }
 
-/*--------------------------------------------------------------
-# Mobile Navigation
---------------------------------------------------------------*/
-@media (max-width: 1279px) {
-  .navbar {
-    position: fixed;
-    top: 0;
-    left: -100%;
-    width: calc(100% - 70px);
-    bottom: 0;
-    transition: 0.3s;
-    z-index: 9997;
-  }
 
-  .navbar ul {
-    position: absolute;
-    inset: 0;
-    padding: 10px 0;
-    margin: 0;
-    background: rgba(var(--color-secondary-rgb), 0.9);
-    overflow-y: auto;
-    transition: 0.3s;
-    z-index: 9998;
-  }
-
-  .navbar a,
-  .navbar a:focus {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 20px;
-    font-size: 16px;
-    font-weight: 500;
-    color: rgba(var(--color-white-rgb), 0.7);
-    white-space: nowrap;
-    transition: 0.3s;
-  }
-
-  .navbar a i,
-  .navbar a:focus i {
-    font-size: 12px;
-    line-height: 0;
-    margin-left: 5px;
-  }
-
-  .navbar a:hover,
-  .navbar .active,
-  .navbar .active:focus,
-  .navbar li:hover>a {
-    color: var(--color-white);
-  }
-
-  .navbar .dropdown ul,
-  .navbar .dropdown .dropdown ul {
-    position: static;
-    display: none;
-    padding: 10px 0;
-    margin: 10px 20px;
-    transition: all 0.5s ease-in-out;
-    border: 1px solid rgba(var(--color-secondary-light-rgb), 0.3);
-  }
-
-  .navbar .dropdown>.dropdown-active,
-  .navbar .dropdown .dropdown>.dropdown-active {
-    display: block;
-  }
-
-  .mobile-nav-toggle {
-    display: block !important;
-    color: var(--color-secondary);
-    font-size: 28px;
-    cursor: pointer;
-    line-height: 0;
-    transition: 0.5s;
-    position: fixed;
-    top: 20px;
-    z-index: 9999;
-    right: 20px;
-  }
-
-  .mobile-nav-toggle.bi-x {
-    color: var(--color-white);
-  }
-
-  .mobile-nav-active {
-    overflow: hidden;
-    z-index: 9995;
-    position: relative;
-  }
-
-  .mobile-nav-active .navbar {
-    left: 0;
-  }
-
-  .mobile-nav-active .navbar:before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: rgba(var(--color-secondary-rgb), 0.8);
-    z-index: 9996;
-  }
-}
-
-/*--------------------------------------------------------------
-# Index Page
---------------------------------------------------------------*/
-/*--------------------------------------------------------------
-# Animated Hero Section
---------------------------------------------------------------*/
-.hero-animated {
-  width: 100%;
-  max-width: 100%;
-  max-height: 20%;
-  background-size: cover;
-  position: relative;
-  padding: 100px 0 60px;
-}
-
-.hero-animated h2 {
-  margin: 0 0 10px 0;
-  font-size: 48px;
-  font-weight: 300;
-  color: var(--color-secondary);
-  font-family: var(--font-secondary);
-}
-
-.hero-animated h2 span {
-  color: var(--color-primary);
-}
-
-.hero-animated p {
-  color: rgba(var(--color-secondary-rgb), 0.8);
-  margin: 0 0 30px 0;
-  font-size: 20px;
-  font-weight: 400;
-}
-
-.hero-animated .animated {
-  margin-bottom: 60px;
-  animation: up-down 2s ease-in-out infinite alternate-reverse both;
-}
-
-@media (min-width: 992px) {
-  .hero-animated .animated {
-    max-width: 45%;
-  }
-}
-
-@media (max-width: 991px) {
-  .hero-animated .animated {
-    max-width: 60%;
-  }
-}
-
-@media (max-width: 575px) {
-  .hero-animated .animated {
-    max-width: 80%;
-  }
-}
-
-.hero-animated .btn-get-started {
-  font-size: 16px;
-  font-weight: 400;
-  display: inline-block;
-  padding: 10px 28px;
-  border-radius: 4px;
-  transition: 0.5s;
-  color: var(--color-white);
-  background: var(--color-primary);
-  font-family: var(--font-secondary);
-}
-
-.hero-animated .btn-get-started:hover {
-  background: rgba(var(--color-primary-rgb), 0.8);
-}
-
-.hero-animated .btn-watch-video {
-  font-size: 16px;
-  transition: 0.5s;
-  margin-left: 25px;
-  font-family: var(--font-secondary);
-  color: var(--color-secondary);
-  font-weight: 600;
-}
-
-.hero-animated .btn-watch-video i {
-  color: var(--color-primary);
-  font-size: 32px;
-  transition: 0.3s;
-  line-height: 0;
-  margin-right: 8px;
-}
-
-.hero-animated .btn-watch-video:hover {
-  color: var(--color-primary);
-}
-
-.hero-animated .btn-watch-video:hover i {
-  color: rgba(var(--color-primary-rgb), 0.8);
-}
-
-@media (max-width: 640px) {
-  .hero-animated h2 {
-    font-size: 32px;
-  }
-
-  .hero-animated p {
-    font-size: 18px;
-    margin-bottom: 30px;
-  }
-
-  .hero-animated .btn-get-started,
-  .hero-animated .btn-watch-video {
-    font-size: 14px;
-  }
-}
-
-@-webkit-keyframes up-down {
-  0% {
-    transform: translateY(10px);
-  }
-
-  100% {
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes up-down {
-  0% {
-    transform: translateY(10px);
-  }
-
-  100% {
-    transform: translateY(-10px);
-  }
-}
 
 
 /*--------------------------------------------------------------
@@ -713,7 +472,6 @@ section {
 }
 
 .footer .footer-content {
-  background: var(--color-secondary);
   padding: 60px 0 30px 0;
 }
 
@@ -739,13 +497,13 @@ section {
   line-height: 24px;
   margin-bottom: 0;
   font-family: var(--font-primary);
-  color: var(--color-white);
+  color: var(--color-black);
 }
 
 .footer .footer-content h4 {
   font-size: 16px;
   font-weight: 600;
-  color: var(--color-white);
+  color: var(--color-black);
   position: relative;
   padding-bottom: 12px;
   margin-bottom: 15px;
@@ -774,7 +532,7 @@ section {
 
 .footer .footer-content .footer-links ul i {
   padding-right: 2px;
-  color: var(--color-white);
+  color: var(--color-black);
   font-size: 12px;
   line-height: 1;
 }
@@ -790,52 +548,16 @@ section {
 }
 
 .footer .footer-content .footer-links ul a {
-  color: rgba(var(--color-white-rgb), 0.7);
+  color: rgba(var(--color-black-rgb), 0.7);
   transition: 0.3s;
   display: inline-block;
   line-height: 1;
 }
 
 .footer .footer-content .footer-links ul a:hover {
-  color: var(--color-white);
+  color: var(--color-black);
 }
 
-.footer .footer-content .footer-newsletter form {
-  margin-top: 30px;
-  background: var(--color-white);
-  padding: 6px 10px;
-  position: relative;
-  border-radius: 4px;
-}
-
-.footer .footer-content .footer-newsletter form input[type=email] {
-  border: 0;
-  padding: 4px;
-  width: calc(100% - 110px);
-}
-
-.footer .footer-content .footer-newsletter form input[type=email]:focus-visible {
-  outline: none;
-}
-
-.footer .footer-content .footer-newsletter form input[type=submit] {
-  position: absolute;
-  top: 0;
-  right: -2px;
-  bottom: 0;
-  border: 0;
-  background: none;
-  font-size: 16px;
-  padding: 0 20px;
-  background: var(--color-primary);
-  color: var(--color-white);
-  transition: 0.3s;
-  border-radius: 0 4px 4px 0;
-}
-
-.footer .footer-content .footer-newsletter form input[type=submit]:hover {
-  background: rgba(var(--color-primary-rgb), 0.85);
-}
 
 .footer .footer-legal {
   padding: 30px 0;
@@ -845,7 +567,7 @@ section {
 .footer .footer-legal .credits {
   padding-top: 4px;
   font-size: 13px;
-  color: var(--color-white);
+  color: var(--color-black);
 }
 
 .footer .footer-legal .credits a {
