@@ -1,167 +1,111 @@
 <head>
-    <link rel="stylesheet" type="text/css" href="{{ asset('Css/sidebarstyle/chosen-min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('Css/sidebarstyle/color-01.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('Css/sidebarstyle/sidebarstyle.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('Css/sidebar.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/variables.css') }}">
 </head>
 
 <!--Main area-->
-<main id="main" class="main-site left-sidebar">
+<main id="main" class="main-site left-sidebar" style="margin-top: 25px;">
 
     <div class="container">
 
-        <!-- BREADCUMB LINK -->
-        <div class="wrap-breadcrumb">
-            <ul>
-                <li class="item-link"> <a href="/">HOME</a> </li>
-                <li class="item-link"><span>Artwork</span></li>
-            </ul>
-        </div>
+        <!-- TITLE -->
+        <h5 class="store-Title mt-4 mb-4" style="font-family: 'Poppins', sans-serif;">Original Contemporary Artworks for Sale</h5>
 
-
+        <!-- FILTER -->
         <div class="row">
+            <div class="d-none d-md-block col-md-4 col-lg-3">
+                <!-- BREADCUMB -->
+                <div class="row mt-4 breadcumb-top">
+                    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/" class="text-decoration-none">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Artwork</li>
+                        </ol>
+                    </nav>
+                </div>
 
-            <!-- SIDEBAR -->
-            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 sitebar">
+                <hr class="mt-2 mb-4" />
 
-                <div class="widget mercado-widget medium-widget">
-                    <h2 class="widget-title">Medium</h2>
-                    <div class="widget-content">
-                        <ul class="list-category">
-                            <li class="category-item">
-                                <a href="#" class="cate-link">Design</a>
-                            </li>
-                            <li class="category-item">
-                                <a href="#" class="cate-link">Drawing</a>
-                            </li>
-                            <li class="category-item">
-                                <a href="#" class="cate-link">Painting</a>
-                            </li>
-                            <li class="category-item">
-                                <a href="#" class="cate-link">Photography</a>
-                            </li>
-                            <li class="category-item">
-                                <a href="#" class="cate-link">Illustration</a>
-                            </li>
-                        </ul>
+                <!-- MEDIUM -->
+                <div class="d-none d-md-block mb-5">
+
+                    <div class="d-flex mt-2 mb-2">
+                        <p class="widget-title" style="flex: 0 0 90%; margin-bottom: 0px;">Medium</p>
+                        <i class="fa fa-caret-down" aria-hidden="true"></i></button>
+
                     </div>
-                </div><!-- End medium widget-->
 
-                <div class="widget mercado-widget filter-widget brand-widget">
-                    <h2 class="widget-title">Style</h2>
-                    <div class="widget-content">
-                        <ul class="list-style vertical-list list-limited" data-show="6">
-                            <li class="list-item"><a class="filter-link active" href="#">Abstract</a></li>
-                            <li class="list-item"><a class="filter-link " href="#">Figurative</a></li>
-                            <li class="list-item"><a class="filter-link " href="#">Printer & Ink</a></li>
-                            <li class="list-item"><a class="filter-link " href="#">CPUs & Prosecsors</a></li>
-                            <li class="list-item"><a class="filter-link " href="#">Sound & Speaker</a></li>
-                            <li class="list-item"><a class="filter-link " href="#">Shop Smartphone & Tablets</a></li>
-                            <li class="list-item default-hiden"><a class="filter-link " href="#">Printer & Ink</a></li>
-                            <li class="list-item default-hiden"><a class="filter-link " href="#">CPUs & Prosecsors</a></li>
-                            <li class="list-item default-hiden"><a class="filter-link " href="#">Sound & Speaker</a></li>
-                            <li class="list-item default-hiden"><a class="filter-link " href="#">Shop Smartphone & Tablets</a></li>
-                            <li class="list-item"><a data-label='Show less<i class="fa fa-angle-up" aria-hidden="true"></i>' class="btn-control control-show-more" href="#">Show more<i class="fa fa-angle-down" aria-hidden="true"></i></a></li>
-                        </ul>
+                    <form action="" method="GET">
+                        <div class="input-group mb-3">
+                            <select class="form-select" name="cat" id="inputGroupSelect02">
+                                <option selected>Any Medium</option>
+                                <option value="medium">Test</option>
+                                <option value="medium">Test</option>
+
+                            </select>
+                            <button class="btn btn-outline-secondary searchBtn" type="submit">
+                                <i class="fa fa-search" aria-hidden="true"></i></button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- STYLE -->
+                <div class="d-none d-md-block mb-5">
+
+                    <div class="d-flex mt-2 mb-2">
+                        <p class="widget-title" style="flex: 0 0 90%; margin-bottom: 0px;">Style</p>
+                        <i class="fa fa-caret-down" aria-hidden="true"></i></button>
+
                     </div>
-                </div><!-- brand widget-->
 
-                <div class="widget mercado-widget filter-widget price-filter">
-                    <h2 class="widget-title">Price</h2>
-                    <div class="widget-content">
-                        <div id="slider-range"></div>
-                        <p>
-                            <label for="amount">Price:</label>
-                            <input type="text" id="amount" readonly>
-                            <button class="filter-submit">Filter</button>
-                        </p>
+                    <form action="" method="GET">
+                        <div class="input-group mb-3">
+                            <select class="form-select" name="cat" id="inputGroupSelect02">
+                                <option selected>Any Style</option>
+                                <option value="medium">Test</option>
+                                <option value="medium">Test</option>
+
+                            </select>
+                            <button class="btn btn-outline-secondary searchBtn" type="submit">
+                                <i class="fa fa-search" aria-hidden="true"></i></button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- PRICE -->
+                <div class="d-none d-md-block mb-5">
+
+                    <div class="d-flex mt-2 mb-2">
+                        <p class="widget-title" style="flex: 0 0 90%; margin-bottom: 0px;">PRICE</p>
+                        <i class="fa fa-caret-down" aria-hidden="true"></i></button>
+
                     </div>
-                </div><!-- Price-->
 
-        
-                <div class="widget mercado-widget widget-product">
-                    <h2 class="widget-title">Popular Products</h2>
-                    <div class="widget-content">
-                        <ul class="products">
-                            <li class="product-item">
-                                <div class="product product-widget-style">
-                                    <div class="thumbnnail">
-                                        <a href="detail.html" title="Radiant-360 R6 Wireless Omnidirectional Speaker [White]">
-                                            <figure><img src="assets/images/products/digital_01.jpg" alt=""></figure>
-                                        </a>
-                                    </div>
-                                    <div class="product-info">
-                                        <a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker...</span></a>
-                                        <div class="wrap-price"><span class="product-price">$168.00</span></div>
-                                    </div>
-                                </div>
-                            </li>
+                    <form action="" method="GET">
+                        <div class="input-group mb-3">
+                            <select class="form-select" name="cat" id="inputGroupSelect02">
+                                <option selected>Any Price</option>
+                                <option value="medium">Test</option>
+                                <option value="medium">Test</option>
 
-                            <li class="product-item">
-                                <div class="product product-widget-style">
-                                    <div class="thumbnnail">
-                                        <a href="detail.html" title="Radiant-360 R6 Wireless Omnidirectional Speaker [White]">
-                                            <figure><img src="assets/images/products/digital_17.jpg" alt=""></figure>
-                                        </a>
-                                    </div>
-                                    <div class="product-info">
-                                        <a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker...</span></a>
-                                        <div class="wrap-price"><span class="product-price">$168.00</span></div>
-                                    </div>
-                                </div>
-                            </li>
+                            </select>
+                            <button class="btn btn-outline-secondary searchBtn" type="submit">
+                                <i class="fa fa-search" aria-hidden="true"></i></button>
+                        </div>
+                    </form>
+                </div>
 
-                            <li class="product-item">
-                                <div class="product product-widget-style">
-                                    <div class="thumbnnail">
-                                        <a href="detail.html" title="Radiant-360 R6 Wireless Omnidirectional Speaker [White]">
-                                            <figure><img src="assets/images/products/digital_18.jpg" alt=""></figure>
-                                        </a>
-                                    </div>
-                                    <div class="product-info">
-                                        <a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker...</span></a>
-                                        <div class="wrap-price"><span class="product-price">$168.00</span></div>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li class="product-item">
-                                <div class="product product-widget-style">
-                                    <div class="thumbnnail">
-                                        <a href="detail.html" title="Radiant-360 R6 Wireless Omnidirectional Speaker [White]">
-                                            <figure><img src="assets/images/products/digital_20.jpg" alt=""></figure>
-                                        </a>
-                                    </div>
-                                    <div class="product-info">
-                                        <a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker...</span></a>
-                                        <div class="wrap-price"><span class="product-price">$168.00</span></div>
-                                    </div>
-                                </div>
-                            </li>
-
-                        </ul>
-                    </div>
-                </div><!-- brand widget-->
 
             </div>
-            <!--end sitebar-->
 
             <!-- ARTWORKS -->
             <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12 main-content-area">
 
-                <div class="banner-shop">
-                    <a href="#" class="banner-link">
-                        <figure><img src="assets/images/shop-banner.jpg" alt=""></figure>
-                    </a>
-                </div>
 
-                <div class="wrap-shop-control">
+                <div class="sort-control">
 
-                    <h1 class="shop-title">Digital & Electronics</h1>
-
-                    <div class="wrap-right">
-
-                        <div class="sort-item orderby ">
+                    <div class="row" style="height: 50px;">
+                        <div class="col-xl-4">
                             <select name="orderby" class="use-chosen">
                                 <option value="menu_order" selected="selected">Default sorting</option>
                                 <option value="popularity">Sort by popularity</option>
@@ -172,7 +116,7 @@
                             </select>
                         </div>
 
-                        <div class="sort-item product-per-page">
+                        <div class="col-xl-4">
                             <select name="post-per-page" class="use-chosen">
                                 <option value="12" selected="selected">12 per page</option>
                                 <option value="16">16 per page</option>
@@ -184,7 +128,7 @@
                             </select>
                         </div>
 
-                        <div class="change-display-mode">
+                        <div class="col-xl-4">
                             <a href="#" class="grid-mode display-mode active"><i class="fa fa-th"></i>Grid</a>
                             <a href="list.html" class="list-mode display-mode"><i class="fa fa-th-list"></i>List</a>
                         </div>
@@ -194,8 +138,8 @@
                 </div>
                 <!--end wrap shop control-->
 
-                <div class="row">
 
+                <div class="row">
                     <ul class="product-list grid-products equal-container">
 
                         <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
@@ -240,7 +184,7 @@
                                 </div>
                             </div>
                         </li>
-                        
+
 
                     </ul>
 
