@@ -6,6 +6,7 @@ use App\Http\Livewire\CartComponent;
 use App\Http\Livewire\CheckoutComponent;
 use App\Http\Livewire\LoginComponent;
 use App\Http\Livewire\RegisterComponent;
+use App\Http\Livewire\AboutComponent;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,11 +21,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Route::get('/', function () {
-//     return view('welcome');
+//     return view('layouts.home');
 // });
 
 // Home
 Route::get('/', HomeComponent::class);
+Route::get('/home', HomeComponent::class);
 
 //Store
 Route::get('/store', StoreComponent::class);
@@ -40,5 +42,9 @@ Route::get('/login', LoginComponent::class);
 
 //Register
 Route::get('/register', RegisterComponent::class);
+
+//About
+Route::get('/about', AboutComponent::class);
+
 
 

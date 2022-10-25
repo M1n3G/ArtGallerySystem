@@ -23,11 +23,11 @@
   <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/aos/aos.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/variables.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('Css/variables.css') }}">
 
   <!-- Custom CSS -->
-  <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/home.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ asset('Css/carousel/carouselstyle.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('Css/home.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('Css/carousel.css') }}">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -43,9 +43,9 @@
   <header id="header" class="header fixed-top" data-scrollto-offset="0" style="background-color: #FCFCFC">
     <div class="container-fluid d-flex align-items-center justify-content-between">
 
-      <a href="/" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
+      <a href="/home" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
         <img src="{{ asset('Img/Logo/artcellslogo.png') }}" alt="logo" style="width: 55px">
-        
+
       </a>
 
       <!-- Navbar -->
@@ -56,7 +56,7 @@
           <li><a class="link" href="/store" style="text-decoration: none">Store</a></li>
           <li><a class="link" href="" style="text-decoration: none">Auction</a></li>
           <li><a class="link" href="" style="text-decoration: none">Forum</a></li>
-          <li><a class="link" href="" style="text-decoration: none">About</a></li>
+          <li><a class="link" href="/about" style="text-decoration: none">About</a></li>
           <li><a class="link" href="/cart" style="text-decoration: none">Cart</a></li>
         </ul>
       </nav><!-- .navbar -->
@@ -79,11 +79,11 @@
             <div class="footer-info">
               <h3 style="color:black">ArtCells</h3>
               <p>
-                Level 1 Block E The Square @ Jaya One, 72A, <br>
-                Jln Profesor Diraja Ungku Aziz, 46200 Petaling Jaya, Selangor <br><br>
+                Level 32 Block B Mercu 3, Jalan Bangsar, KL Eco City,<br />
+                59200 Kuala Lumpur, Federal Territory of Kuala Lumpur <br /><br />
 
-                <strong>Phone:</strong> 03-2553187<br>
-                <strong>Email:</strong> artcells@gmail.com<br>
+                <strong>Phone:</strong> 03-2553187<br />
+                <strong>Email:</strong> artcells@gmail.com<br />
               </p>
             </div>
           </div>
