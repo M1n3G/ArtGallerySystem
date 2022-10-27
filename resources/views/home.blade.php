@@ -1,3 +1,6 @@
+@extends('master')
+@section('content')
+
 <style>
     /* Carousel styling */
     #introCarousel,
@@ -39,7 +42,6 @@
         color: #fff !important;
     }
 </style>
-
 
 <!--- HOME CONTENT --->
 <main id="main" class="main-site" data-aos="zoom-in">
@@ -112,3 +114,4 @@
     </div>
     <!-- Carousel wrapper -->
 </main>
+@endsection

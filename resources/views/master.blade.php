@@ -32,9 +32,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
-  @livewireStyles
-
 </head>
 
 <body style="padding-top:85px">
@@ -43,7 +42,7 @@
   <header id="header" class="header fixed-top" data-scrollto-offset="0" style="background-color: #FCFCFC">
     <div class="container-fluid d-flex align-items-center justify-content-between">
 
-      <a href="/home" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
+      <a href="/" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
         <img src="{{ asset('Img/Logo/artcellslogo.png') }}" alt="logo" style="width: 55px">
 
       </a>
@@ -53,7 +52,7 @@
         <ul>
           <li><a class="link" href="" style="text-decoration: none">Artists</a></li>
           <li><a class="link" href="" style="text-decoration: none">Exhibtions</a></li>
-          <li><a class="link" href="/store" style="text-decoration: none">Store</a></li>
+          <li><a class="link" href="{{route('store.index')}}" style="text-decoration: none">Store</a></li>
           <li><a class="link" href="" style="text-decoration: none">Auction</a></li>
           <li><a class="link" href="" style="text-decoration: none">Forum</a></li>
           <li><a class="link" href="/about" style="text-decoration: none">About</a></li>
@@ -66,7 +65,7 @@
     </div>
   </header><!-- End Header -->
 
-  {{ $slot }}
+  @yield('content')
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
@@ -153,7 +152,6 @@
       cycle: true
     });
   </script>
-  @livewireScripts
 
 </body>
 

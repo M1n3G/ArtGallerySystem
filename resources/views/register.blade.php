@@ -1,3 +1,6 @@
+@extends('master')
+@section('content')
+
 <head>
   <link rel="stylesheet" type="text/css" href="{{ asset('Css/register.css') }}">
 </head>
@@ -50,3 +53,4 @@
     </div>
   </div>
 </main>
+@endsection

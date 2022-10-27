@@ -1,3 +1,6 @@
+@extends('master')
+@section('content')
+
 <head>
   <link rel="stylesheet" type="text/css" href="{{ asset('Css/login.css') }}">
 </head>
@@ -42,3 +45,4 @@
     </div>
   </div>
 </main>
+@endsection
