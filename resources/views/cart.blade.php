@@ -1,3 +1,6 @@
+@extends('master')
+@section('content')
+
 <head>
     <style>
         body {
@@ -79,3 +82,4 @@
 
     </main>
 </body>
+@endsection

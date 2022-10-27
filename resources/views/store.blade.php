@@ -1,6 +1,9 @@
+@extends('master')
+@section('content')
+
 <head>
-    <link rel="stylesheet" type="text/css" href="{{ asset('Css/sidebar.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('Css/variables.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('Css/sidebar.css') }}">   
+    <link rel="stylesheet" type="text/css" href="{{ asset('Css/card.css') }}">
 </head>
 
 <!--Main area-->
@@ -12,14 +15,14 @@
         <h5 class="store-Title" style="font-family: 'Poppins', sans-serif;">Original Contemporary Artworks for Sale</h5>
 
         <!-- FILTER -->
-        <div class="row"  data-aos="fade-left">
-            <div class="d-none d-md-block col-md-4 col-lg-3">
+        <div class="row" data-aos="fade-left">
+            <div class="d-none d-md-block col-md-4 col-lg-3 sticky-top">
                 <!-- BREADCUMB -->
                 <div class="row mt-4 breadcumb-top">
                     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/home" class="text-decoration-none">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Artwork</li>
+                            <li class="breadcrumb-item active" aria-current="page">Store</li>
                         </ol>
                     </nav>
                 </div>
@@ -39,8 +42,13 @@
                         <div class="input-group mb-3">
                             <select class="form-select" name="cat" id="inputGroupSelect02">
                                 <option selected>Any Medium</option>
-                                <option value="medium">Test</option>
-                                <option value="medium">Test</option>
+                                <option value="drawing">Drawing</option>
+                                <option value="painting">Painting</option>
+                                <option value="threeDimensionalArt">Three-Dimensional Art</option>
+                                <option value="mixedMedia">Mixed-media</option>
+                                <option value="photography">Photography</option>
+                                <option value="graphicArt">Graphic Art</option>
+                                <option value="illustration">Illustration</option>
 
                             </select>
                             <button class="btn btn-outline-secondary searchBtn" type="submit">
@@ -62,9 +70,12 @@
                         <div class="input-group mb-3">
                             <select class="form-select" name="cat" id="inputGroupSelect02">
                                 <option selected>Any Style</option>
-                                <option value="medium">Test</option>
-                                <option value="medium">Test</option>
-
+                                <option value="abstract">Abstract</option>
+                                <option value="figurative">Figurative</option>
+                                <option value="geometric">Geometric</option>
+                                <option value="minimalist">Minimalist</option>
+                                <option value="nature">Nature</option>
+                                <option value="potrraiture">Potrraiture</option>
                             </select>
                             <button class="btn btn-outline-secondary searchBtn" type="submit">
                                 <i class="fa fa-search" aria-hidden="true"></i></button>
@@ -85,8 +96,11 @@
                         <div class="input-group mb-3">
                             <select class="form-select" name="cat" id="inputGroupSelect02">
                                 <option selected>Any Price</option>
-                                <option value="medium">Test</option>
-                                <option value="medium">Test</option>
+                                <option value="below">RM 5,000 & below</option>
+                                <option value="5">RM 5,000 - RM 10,000</option>
+                                <option value="10">RM 10,000 - RM 20,000</option>
+                                <option value="20">RM 20,000 - RM 30,000</option>
+                                <option value="above">RM 30,000 & above</option>
                             </select>
 
                             <button class="btn btn-outline-secondary searchBtn" type="submit">
@@ -144,138 +158,36 @@
             </div>
 
             <!-- ARTWORKS -->
+
             <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12 ml-4 main-content-area">
 
                 <!-- ROW FOR CARD -->
+
                 <div class="row w-100 p-0 w-0">
 
                     <!-- Column for card-->
+                    @foreach($artwork as $art)
                     <div class="col-lg-4 cardMb">
-                        <div class="card mx-auto h-100" style="width: 18rem; ">
-                            <img src="{{ asset('Img/weilinggallery.jpg') }}" class="card-img-top" alt="">
+                        <div class="card mx-auto h-100" style="width: 18rem;">
+                            <img src="{{$art -> artworkImg}}" class="card-img-top" alt="">
 
                             <div class="card-body">
-                                <h5 class="card-title text-center">Art1</h5>
+                                <h5 class="card-title text-center fw-bold">{{$art -> artworkName}}</h5>
                                 <hr />
-                                <div class="card-text">
-                                    <div class="text-center">Chong Ming</div>
-                                    <div class="text-center">Painting</div>
-                                    <div class="text-center">MYR 2,100</div>
+                                <div class="card-text lh-lg">
+                                    <div class="text-center">{{$art -> artist}}</div>
+                                    <div class="text-center" style="color:#9d9d9d; font-size:13px;">{{$art -> artworkMedium}}</div>
+                                    <div class="text-center fw-bolder" style="color:#910000; font-size:18px;">MYR {{$art -> artworkPrice}}</div>
                                     <hr />
                                     <div class=" text-center">
-                                        <button type="button" class="btn btn-dark">View Details</button>
+                                        <button type="button" class="btn btn-dark"><a href="{{route('storeDetails.details',$art->id)}}" style="color:white; text-decoration: none">View Details</a></button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Column for card-->
-                    <div class="col-lg-4 cardMb">
-                        <div class="card mx-auto h-100" style="width: 18rem; ">
-                            <img src="{{ asset('Img/pinkguygallery.jpeg') }}" class="card-img-top" alt="">
-
-                            <div class="card-body">
-                                <h5 class="card-title text-center">Art1</h5>
-                                <hr />
-                                <div class="card-text">
-                                    <div class="text-center">Chong Ming</div>
-                                    <div class="text-center">Painting</div>
-                                    <div class="text-center">MYR 2,100</div>
-                                    <hr />
-                                    <div class=" text-center">
-                                        <button type="button" class="btn btn-dark">View Details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Column for card-->
-                    <div class="col-lg-4 cardMb">
-                        <div class="card mx-auto h-100" style="width: 18rem; ">
-                            <img src="{{ asset('Img/ilhamartshow2022.jpg') }}" class="card-img-top" alt="">
-
-                            <div class="card-body">
-                                <h5 class="card-title text-center">Art1</h5>
-                                <hr />
-                                <div class="card-text">
-                                    <div class="text-center">Chong Ming</div>
-                                    <div class="text-center">Painting</div>
-                                    <div class="text-center">MYR 2,100</div>
-                                    <hr />
-                                    <div class=" text-center">
-                                        <button type="button" class="btn btn-dark">View Details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Column for card-->
-                    <div class="col-lg-4 cardMb">
-                        <div class="card mx-auto h-100" style="width: 18rem; ">
-                            <img src="{{ asset('Img/ilhamartshow2022.jpg') }}" class="card-img-top" alt="">
-
-                            <div class="card-body">
-                                <h5 class="card-title text-center">Art1</h5>
-                                <hr />
-                                <div class="card-text">
-                                    <div class="text-center">Chong Ming</div>
-                                    <div class="text-center">Painting</div>
-                                    <div class="text-center">MYR 2,100</div>
-                                    <hr />
-                                    <div class=" text-center">
-                                        <button type="button" class="btn btn-dark">View Details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Column for card-->
-                    <div class="col-lg-4 cardMb">
-                        <div class="card mx-auto h-100" style="width: 18rem; ">
-                            <img src="{{ asset('Img/ilhamartshow2022.jpg') }}" class="card-img-top" alt="">
-
-                            <div class="card-body">
-                                <h5 class="card-title text-center">Art1</h5>
-                                <hr />
-                                <div class="card-text">
-                                    <div class="text-center">Chong Ming</div>
-                                    <div class="text-center">Painting</div>
-                                    <div class="text-center">MYR 2,100</div>
-                                    <hr />
-                                    <div class=" text-center">
-                                        <button type="button" class="btn btn-dark">View Details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Column for card-->
-                    <div class="col-lg-4 cardMb">
-                        <div class="card mx-auto h-100" style="width: 18rem; ">
-                            <img src="{{ asset('Img/ilhamartshow2022.jpg') }}" class="card-img-top" alt="">
-
-                            <div class="card-body">
-                                <h5 class="card-title text-center">Art1</h5>
-                                <hr />
-                                <div class="card-text">
-                                    <div class="text-center">Chong Ming</div>
-                                    <div class="text-center">Painting</div>
-                                    <div class="text-center">MYR 2,100</div>
-                                    <hr />
-                                    <div class=" text-center">
-                                        <button type="button" class="btn btn-dark">View Details</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
-
                 <hr />
 
                 <!-- PAGINATION -->
@@ -292,15 +204,16 @@
                         </li>
                     </ul>
                 </nav>
-            </div>
-            <!--end main artworks area-->
 
+                <!--end main artworks area-->
+
+
+            </div>
+            <!--end row-->
 
         </div>
-        <!--end row-->
-
-    </div>
-    <!--end container-->
+        <!--end container-->
 
 </main>
 <!--main area-->
+@endsection

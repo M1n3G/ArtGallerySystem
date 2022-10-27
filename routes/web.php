@@ -1,12 +1,6 @@
 <?php
 
-use App\Http\Livewire\HomeComponent;
-use App\Http\Livewire\StoreComponent;
-use App\Http\Livewire\CartComponent;
-use App\Http\Livewire\CheckoutComponent;
-use App\Http\Livewire\LoginComponent;
-use App\Http\Livewire\RegisterComponent;
-use App\Http\Livewire\AboutComponent;
+use App\Http\Controllers\ArtworkController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,31 +14,39 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('layouts.home');
-// });
-
 // Home
-Route::get('/', HomeComponent::class);
-Route::get('/home', HomeComponent::class);
+Route::get('/', function () {
+    return view('home');
+});
+
+Route::get('/home', function () {
+    return view('home');
+});
 
 //Store
-Route::get('/store', StoreComponent::class);
+Route::get('/store', 'ArtworkController@index') ->name('store.index');
+Route::get('/storeDetails/{id}', 'ArtworkController@details') ->name('storeDetails.details');
+// Route::get('/storeDetails/{id}', [ArtworkController::class,'details']);
 
-//Cart
-Route::get('/cart', CartComponent::class);
+// Cart
+Route::get('/cart', function () {
+    return view('cart');
+});
 
-//Checkout
-Route::get('/checkout', CheckoutComponent::class);
+// Login
+Route::get('/login', function () {
+    return view('login');
+});
 
-//Login
-Route::get('/login', LoginComponent::class);
+// Register
+Route::get('/register', function () {
+    return view('register');
+});
 
-//Register
-Route::get('/register', RegisterComponent::class);
-
-//About
-Route::get('/about', AboutComponent::class);
+// About
+Route::get('/about', function () {
+    return view('about');
+});
 
 
 

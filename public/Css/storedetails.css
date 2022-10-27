@@ -1,0 +1,40 @@
+.card-header .fa {
+    transition: .3s transform ease-in-out;
+}
+
+.card-header .collapsed .fa {
+    transform: rotate(90deg);
+}
+
+.p {
+    font-family: 'Poppins', serif;
+}
+
+.wishlistBtn {
+    color: #910000;
+    outline-color: #910000;
+}
+
+.wishlistBtn:hover {
+    color: white;
+    background-color: #910000;
+    outline-color: #910000;
+}
+
+.magnify {
+    position: relative;
+    cursor: none;
+}
+
+.magnify-large {
+    position: absolute;
+    display: none;
+    width: 500px;
+    height: 500px;
+    -webkit-box-shadow: 0 0 0 7px rgba(204, 204, 204, 0.55), 0 0 7px 7px rgba(0, 0, 0, 0.25), inset 0 0 40px 2px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.55), 0 0 7px 7px rgba(0, 0, 0, 0.25), inset 0 0 40px 2px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.55), 0 0 7px 7px rgba(0, 0, 0, 0.25), inset 0 0 40px 2px rgba(0, 0, 0, 0.25);
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+}
