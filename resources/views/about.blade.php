@@ -10,7 +10,7 @@
 
                 <div class="col-lg-5 text-center pt-2">
                     <div class="row about-img">
-                        <img src="{{ asset('Img/hyungkooleeart.png') }}" class="center-block img-fluid" alt="image">
+                        <img src="{{ asset('Img/Exhibitions/hyungkooleeart.png') }}" class="center-block img-fluid" alt="image">
                     </div>
                 </div>
 

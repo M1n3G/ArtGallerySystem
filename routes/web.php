@@ -18,15 +18,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home');
 });
-
 Route::get('/home', function () {
     return view('home');
 });
 
 //Store
-Route::get('/store', 'ArtworkController@index') ->name('store.index');
-Route::get('/storeDetails/{id}', 'ArtworkController@details') ->name('storeDetails.details');
-// Route::get('/storeDetails/{id}', [ArtworkController::class,'details']);
+Route::get('/store', 'ArtController@index') ->name('store.index');
+Route::get('/storeDetails/{artID}', 'ArtController@details') ->name('storeDetails.details');
 
 // Cart
 Route::get('/cart', function () {
@@ -47,6 +45,12 @@ Route::get('/register', function () {
 Route::get('/about', function () {
     return view('about');
 });
+
+//Exhibitions
+Route::get('/exhibitions', function () {
+    return view('exhibitions');
+});
+
 
 
 
