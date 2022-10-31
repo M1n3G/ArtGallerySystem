@@ -166,45 +166,45 @@
                 <div class="row w-100 p-0 w-0">
 
                     <!-- Column for card-->
-                    @foreach($artwork as $art)
+                    @if (!empty($data) && $data->count())
+                    @foreach($data as $key => $value)
                     <div class="col-lg-4 cardMb">
                         <div class="card mx-auto h-100" style="width: 18rem;">
-                            <img src="{{$art -> artworkImg}}" class="card-img-top" alt="">
+                            <img src="{{$value -> artImg}}" class="card-img-top" alt="">
 
                             <div class="card-body">
-                                <h5 class="card-title text-center fw-bold">{{$art -> artworkName}}</h5>
+                                <h5 class="card-title text-center text-uppercase fw-bold">{{$value -> artName}}</h5>
                                 <hr />
                                 <div class="card-text lh-lg">
-                                    <div class="text-center">{{$art -> artist}}</div>
-                                    <div class="text-center" style="color:#9d9d9d; font-size:13px;">{{$art -> artworkMedium}}</div>
-                                    <div class="text-center fw-bolder" style="color:#910000; font-size:18px;">MYR {{$art -> artworkPrice}}</div>
+                                    <div class="text-center text-uppercase">{{$value-> artist}}</div>
+                                    <div class="text-center" style="color:#9d9d9d; font-size:13px;">{{$value -> artMedium}}</div>
+                                    <div class="text-center fw-bolder" style="color:#910000; font-size:18px;">MYR {{$value -> artPrice}}</div>
                                     <hr />
                                     <div class=" text-center">
-                                        <button type="button" class="btn btn-dark"><a href="{{route('storeDetails.details',$art->id)}}" style="color:white; text-decoration: none">View Details</a></button>
+                                        <button type="button" class="btn btn-dark"><a href="{{route('storeDetails.details',$value->artID)}}" style="color:white; text-decoration: none">View Details</a></button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     @endforeach
+                    @else
+                    <div class="row">
+                        <h3 class="text-center">There are no art.</h3>
+                    </div>
+                    @endif
+                   
                 </div>
+                
                 <hr />
-
+     
                 <!-- PAGINATION -->
                 <nav aria-label="pageNavigation">
                     <ul class="pagination justify-content-end">
-                        <li class="page-item disabled">
-                            <a class="page-link">Previous</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
+                    {!! $data->appends(Request::all())->links() !!}
                     </ul>
                 </nav>
-
+             
                 <!--end main artworks area-->
 
 

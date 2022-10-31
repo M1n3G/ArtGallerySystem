@@ -51,7 +51,7 @@
       <nav id="navbar" class="navbar bg-white">
         <ul>
           <li><a class="link" href="" style="text-decoration: none">Artists</a></li>
-          <li><a class="link" href="" style="text-decoration: none">Exhibtions</a></li>
+          <li><a class="link" href="/exhibitions" style="text-decoration: none">Exhibitions</a></li>
           <li><a class="link" href="{{route('store.index')}}" style="text-decoration: none">Store</a></li>
           <li><a class="link" href="" style="text-decoration: none">Auction</a></li>
           <li><a class="link" href="" style="text-decoration: none">Forum</a></li>

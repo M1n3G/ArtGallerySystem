@@ -13,13 +13,13 @@
                 <ol class="breadcrumb" style="font-family: 'Poppins', sans-serif;">
                     <li class="breadcrumb-item"><a href="/home" class="text-decoration-none">Home</a></li>
                     <li class="breadcrumb-item active"><a href="/store" class="text-decoration-none">Store</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{$artwork -> artworkName}}</a></li>
+                    <li class="text-uppercase breadcrumb-item active" aria-current="page">{{$data -> artName}}</a></li>
                 </ol>
             </nav>
         </div>
         <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-6 border text-center" style="height:700px; max-height:700px;">
-                <img class="card-img-top mb-md-0 artImg" src="{{asset($artwork['artworkImg'])}}" alt="{{$artwork -> artworkName}}" style="width:535px; height:525px; max-width:535px; max-height:525px; margin-top:75px;" />
+                <img class="card-img-top mb-md-0 artImg" src="{{asset($data['artImg'])}}" alt="{{$data -> artName}}" style="width:535px; height:525px; max-width:535px; max-height:525px; margin-top:75px;" />
                 <button type="button" class="btn btn-outline-dark mt-4" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width:150px;">
                     View Image
                 </button>
@@ -27,7 +27,7 @@
             <div class="col-md-6 lh-lg">
                 <div class="row">
                     <div class="col-md-10">
-                        <h1 class="fw-bolder" style="font-size:45px;">{{$artwork -> artworkName}}</h1>
+                        <h1 class="text-uppercase fw-bold" style="font-size:45px;">{{$data -> artName}}</h1>
                     </div>
                     <div class="col-md-2">
                         <button class="rounded-circle btn btn-outline-dark mt-2 wishlistBtn" style="float:right;" type="button">
@@ -36,14 +36,14 @@
                     </div>
                 </div>
 
-                <p style="color:#9d9d9d; font-size:18px;">BY {{$artwork -> artist}}</p>
+                <p class="text-uppercase" style="color:#9d9d9d; font-size:18px;">BY {{$data -> artist}}</p>
                 <div class="row">
                     <div class="col-md-6">
-                        <p class="fw-bold" style="color:#910000; font-size:28px;">MYR {{$artwork -> artworkPrice}}</p>
+                        <p class="fw-bold" style="color:#910000; font-size:28px;">MYR {{$data -> artPrice}}</p>
                     </div>
                     <div class="col-md-6">
-                        <button class="btn btn-outline-dark mt-2" style="float:right;" type="button">
-                            <i class="bi-cart-fill me-1"></i>Add to cart
+                        <button class="btn btn-outline-dark mt-2" style="width:150px; float:right;" type="button">
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to cart
                         </button>
                     </div>
                 </div>
@@ -58,12 +58,12 @@
 
                         <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
                             <div class="card-body">
-                                <p class="fw-bolder">Year:<br /></p>{{$artwork -> artworkYear}}</p>
-                                <p class="fw-bolder">Description:<br /></p>{{$artwork -> artworkDesc}}</p>
+                                <p class="fw-bolder">Year:<br /></p>{{$data -> artYear}}</p>
+                                <p class="fw-bolder">Description:<br /></p>{{$data -> artDesc}}</p>
                                 <p class="fw-bolder">Dimension:<br /></p>
-                                {{$artwork -> artworkWidth}} cm (Width) x {{$artwork -> artworkHeight}} cm (Height)</p>
-                                <p class="fw-bolder">Medium:<br /></p>{{$artwork -> artworkMedium}}</p>
-                                <p class="fw-bolder">Style:<br /></p>{{$artwork -> artworkStyle}}</p>
+                                {{$data -> artWidth}} cm (Width) x {{$data -> artHeight}} cm (Height)</p>
+                                <p class="fw-bolder">Medium:<br /></p>{{$data -> artMedium}}</p>
+                                <p class="fw-bolder">Style:<br /></p>{{$data -> artStyle}}</p>
                                 <span style="color:#9d9d9d; font-size:12px;">Note: Actual colours may vary due to photography & computer settings.</span>
                             </div>
                         </div>
@@ -84,7 +84,7 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
             <div class="modal-body ">
-                <img src="{{asset($artwork['artworkImg'])}}" alt="{{$artwork -> artworkName}}" style="width:750px; height:750px; max-width:750px; max-height:750px;" />
+                <img src="{{asset($data['artImg'])}}" alt="{{$data -> artName}}" style="width:750px; height:750px; max-width:750px; max-height:750px;" />
             </div>
 
         </div>
@@ -125,37 +125,36 @@
             </div>
             <hr />
         </div>
+    </div>
+    <!-- Related items section-->
+    <div class="container px-4 px-lg-5 bg-light mt-4">
+        <h3 class="text-uppercase fw-bolder mt-4 mb-4">More works by {{$data -> artistName}}</h3>
 
-        <!-- Related items section-->
-        <section class="py-5 bg-light">
-            <div class="container px-4 px-lg-5 mt-5">
-                <h2 class="fw-bolder mb-4">Related products</h2>
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Product</h5>
-                                    <!-- Product price-->
-                                    $40.00 - $80.00
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-                            </div>
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            @foreach($artistWork as $art)
+            <div class="col mb-5">
+                <div class="card mx-auto" style="width:280px; max-width:280px;">
+                    <!-- Product image-->
+                    <img class="card-img-top" src="{{asset($art['artImg'])}}" style="width:280px; max-width:280px; height:300px; max-height:300px;" alt="{{$art -> artName}}" />
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <h5 class="fw-bolder">{{$art -> artName}}</h5>
+                            <div class="text-center mt-4 fw-bolder" style="color:#910000; font-size:18px;">MYR {{$art -> artPrice}}</div>
                         </div>
                     </div>
-
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{route('storeDetails.details',$art->artID)}}" style="width:150px;">View Details</a></div>
+                    </div>
                 </div>
             </div>
-        </section>
+            @endforeach
 
+        </div>
+
+        <hr />
+    </div>
 
 </main>
 

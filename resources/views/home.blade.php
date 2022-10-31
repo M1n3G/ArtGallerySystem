@@ -11,21 +11,21 @@
     }
 
     .carousel-item:nth-child(1) {
-        background-image: url("../Img/weilinggallery.jpg");
+        background-image: url("../Img/Exhibitions/weilinggallery.jpg");
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center center;
     }
 
     .carousel-item:nth-child(2) {
-        background-image: url("../Img/pinkguygallery.jpeg");
+        background-image: url("../Img/Exhibitions/pinkguygallery.jpeg");
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center center;
     }
 
     .carousel-item:nth-child(3) {
-        background-image: url("../Img/ilhamartshow2022.jpg");
+        background-image: url("../Img/Exhibitions/ilhamartshow2022.jpg");
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center center;
@@ -64,7 +64,7 @@
                             <hr />
                             <h1 class="mb-4 mt-4" style="font-family: 'Expressway Rg', serif;  font-size: 60px;">Wei-Ling Contemporary</h1>
                             <h4 class="mb-4 mt-4" style="font-family: 'Expressway Rg', serif;  font-size: 20px;">KUALA LUMPUR | MALAYSIA</h4>
-                            <a class="btn btn-outline-light btn-lg m-2 mt-4" style="font-family: 'Roboto', sans-serif;  font-size: 17px;" href="/" role="button" rel="nofollow" target="_blank">Explore Now</a>
+                            <a class="btn btn-outline-light btn-lg m-2 mt-4" style="font-family: 'Roboto', sans-serif;  font-size: 17px;" href="/exhibitions" role="button" rel="nofollow" target="_blank">Explore Now</a>
                         </div>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                             <hr />
                             <h1 class="mb-4 mt-4" style="font-family: 'Expressway Rg', serif;  font-size: 60px;">Twinkle Twinkle Little Star: Celebrating a journey of 39 years in Framing</h1>
                             <h4 class="mb-4 mt-4" style="font-family: 'Expressway Rg', serif;  font-size: 20px;">KUALA LUMPUR | MALAYSIA</h4>
-                            <a class="btn btn-outline-light btn-lg m-2 mt-4" style="font-family: 'Roboto', sans-serif;  font-size: 17px;" href="/" role="button" rel="nofollow" target="_blank">Explore Now</a>
+                            <a class="btn btn-outline-light btn-lg m-2 mt-4" style="font-family: 'Roboto', sans-serif;  font-size: 17px;" href="/exhibitions" role="button" rel="nofollow" target="_blank">Explore Now</a>
                         </div>
                     </div>
                 </div>
@@ -94,7 +94,7 @@
                             <hr />
                             <h1 class="mb-4 mt-4" style="font-family: 'Expressway Rg', serif;  font-size: 60px;">The ILHAM Art Show 2022</h1>
                             <h4 class="mb-4 mt-4" style="font-family: 'Expressway Rg', serif;  font-size: 20px;">KUALA LUMPUR | MALAYSIA</h4>
-                            <a class="btn btn-outline-light btn-lg m-2 mt-4" style="font-family: 'Roboto', sans-serif;  font-size: 17px;" href="/" role="button" rel="nofollow" target="_blank">Explore Now</a>
+                            <a class="btn btn-outline-light btn-lg m-2 mt-4" style="font-family: 'Roboto', sans-serif;  font-size: 17px;" href="/exhibitions" role="button" rel="nofollow" target="_blank">Explore Now</a>
                         </div>
                     </div>
                 </div>
