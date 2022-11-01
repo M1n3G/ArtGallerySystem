@@ -6,7 +6,7 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>ArtCells</title>
-  <link rel="icon" href="{{ asset('Img/Logo/artcellslogo.png') }}" type="image/png">
+  <link rel="icon" href="{{ asset('Img/Logo/artcellslogo1.png') }}" type="image/png">
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -43,7 +43,7 @@
     <div class="container-fluid d-flex align-items-center justify-content-between">
 
       <a href="/" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
-        <img src="{{ asset('Img/Logo/artcellslogo.png') }}" alt="logo" style="width: 55px">
+        <img src="{{ asset('Img/Logo/artcellslogo1.png') }}" alt="logo" style="width: 55px">
 
       </a>
 

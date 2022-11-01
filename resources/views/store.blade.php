@@ -12,7 +12,7 @@
     <div class="container">
 
         <!-- TITLE -->
-        <h5 class="store-Title" style="font-family: 'Poppins', sans-serif;">Original Contemporary Artworks for Sale</h5>
+        <h5 class="store-Title" style="font-family: 'Poppins', sans-serif;">Original Contemporary Art in Malaysia</h5>
 
         <!-- FILTER -->
         <div class="row" data-aos="fade-left">
