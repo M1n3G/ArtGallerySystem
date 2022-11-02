@@ -36,7 +36,7 @@
                     </div>
                 </div>
 
-                <p class="text-uppercase" style="color:#9d9d9d; font-size:18px;">BY {{$data -> artist}}</p>
+                <p class="text-uppercase" style="color:#9d9d9d; font-size:18px;">BY {{$data -> artistName}}</p>
                 <div class="row">
                     <div class="col-md-6">
                         <p class="fw-bold" style="color:#910000; font-size:28px;">MYR {{$data -> artPrice}}</p>

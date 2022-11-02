@@ -60,7 +60,18 @@
         </ul>
       </nav><!-- .navbar -->
 
-      <a class="btn-getstarted scrollto" href="/login" style="text-decoration: none;">Login</a>
+      @if (\Session::has('username'))
+  
+                <button type="button" class="btn btn-outline-dark me-5 justify-content-end dropdown-toggle"
+                    data-bs-toggle="dropdown">{{ Session::get('username') }}</button>
+                <div class="dropdown-menu">
+             
+                    <a class="dropdown-item" href="{{ route('logout.logout') }}">Logout</a>
+                </div>
+      
+        @else
+          <a class="btn-getstarted scrollto" href="/login" style="text-decoration: none;">Login</a>
+        @endif
 
     </div>
   </header><!-- End Header -->

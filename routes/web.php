@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\ArtworkController;
+use App\Http\Controllers\ArtController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,12 +16,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Home
-Route::get('/', function () {
-    return view('home');
+Route::get('/', 'HomeController@home');
+Route::get('/home', 'HomeController@home');
+
+//User
+Route::group(['middleware' => ['authCheck']], function () {
+    Route::get('/profile', 'UserController@profile')->name('user.profile');
+    Route::get('/login', 'UserController@login')->name('user.login');
+    Route::get('/register', 'UserController@register')->name('user.register');
+    Route::get('/logout', 'UserController@userLogout')->name('user.logout');
+    
 });
-Route::get('/home', function () {
-    return view('home');
-});
+
 
 //Store
 Route::get('/store', 'ArtController@index') ->name('store.index');
@@ -32,14 +39,19 @@ Route::get('/cart', function () {
 });
 
 // Login
-Route::get('/login', function () {
+Route::get('login', function () {
     return view('login');
 });
 
-// Register
-Route::get('/register', function () {
+Route::get('register', function () {
     return view('register');
 });
+
+// Register
+Route::post('/register', 'UserController@store') ->name('register.register');
+Route::post('/login', 'UserController@login') ->name('login.login');
+
+Route::get('/logout', 'UserController@logout') ->name('logout.logout');
 
 // About
 Route::get('/about', function () {
@@ -50,7 +62,5 @@ Route::get('/about', function () {
 Route::get('/exhibitions', function () {
     return view('exhibitions');
 });
-
-
 
 
