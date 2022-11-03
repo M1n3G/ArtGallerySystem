@@ -126,9 +126,10 @@
             <hr />
         </div>
     </div>
+    
     <!-- Related items section-->
-    <div class="container px-4 px-lg-5 bg-light mt-4">
-        <h3 class="text-uppercase fw-bolder mt-4 mb-4">More works by {{$data -> artistName}}</h3>
+    <div class="container px-4 px-lg-5 mt-4">
+        <h3 class="text-uppercase text-center fw-bolder mt-4 mb-4">More works by {{$data -> artistName}}</h3>
 
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             @foreach($artistWork as $art)

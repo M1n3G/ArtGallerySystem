@@ -14,29 +14,29 @@
         <div class="card bg-white text-white" style="border-radius: 1rem;" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
           <div class="card-body p-5 text-center">
 
-            <div class="md-5 mt-md-4 pb-5">
-              <!-- @if (\Session::has('success'))
-              <div class="container">
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                  {{ \Session::get('success') }}
-                  {{ \Session::forget('success') }}
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+            <!-- Message -->
+            @if (\Session::has('success'))
+            <div class="alert alert-success alert-dismissible fade show form-control" role="alert">
+              <div class="text-center">
+                {{ \Session::get('success') }}
+                {{ \Session::forget('success') }}
               </div>
-              @endif -->
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
 
-              <form action="{{ route('login.login') }}" method="post">
+            <form action="{{ route('login.login') }}" method="post">
               @csrf
-                <!-- @if (\Session::has('fail'))
-                <div class="container">
-                  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <div class="md-5 mt-md-4 pb-5">
+                @if (\Session::has('fail'))
+                <div class="alert alert-success alert-danger fade show form-control" role="alert"> 
                     {{ \Session::get('fail') }}
                     {{ \Session::forget('fail') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                  </div>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-                @endif -->
+                @endif
 
+                <!-- Content -->
                 <h2 class="fw-bold mb-2 text-uppercase" style="color:black">Login</h2>
                 <p class="text-black-50 mb-5">Welcome Back !</p>
 
@@ -53,16 +53,16 @@
                 <p class="small mb-5 pb-lg-2"><a class="text-black-50" href="#">Forgot password?</a></p>
 
                 <button class="btn loginBtn btn-dark btn-lg" type="submit">Login</button>
-            </div>
+              </div>
 
-            <div>
-              <p class="mb-0 text-black">Don't have an account? <a href="register" class="text-black-50 fw-bold">Sign Up</a></p>
-            </div>
+              <div>
+                <p class="mb-0 text-black">Don't have an account? <a href="register" class="text-black-50 fw-bold">Sign Up</a></p>
+              </div>
             </form>
           </div>
         </div>
       </div>
-      
+
     </div>
   </div>
 </main>

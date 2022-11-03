@@ -61,17 +61,18 @@
       </nav><!-- .navbar -->
 
       @if (\Session::has('username'))
-  
-                <button type="button" class="btn btn-outline-dark me-5 justify-content-end dropdown-toggle"
-                    data-bs-toggle="dropdown">{{ Session::get('username') }}</button>
-                <div class="dropdown-menu">
-             
-                    <a class="dropdown-item" href="{{ route('logout.logout') }}">Logout</a>
-                </div>
-      
+      <div class="dropdown-center">
+        <button class="btn dropdown-toggle btn-getstarted scrollto" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          {{ Session::get('username') }}
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">Action</a></li>
+          <li><a class="dropdown-item" href="{{ route('logout.logout') }}">Logout</a></li>
+        </ul>
         @else
-          <a class="btn-getstarted scrollto" href="/login" style="text-decoration: none;">Login</a>
-        @endif
+        <a class="btn-getstarted scrollto" href="/login" style="text-decoration: none;">Login</a>
+      </div>
+      @endif
 
     </div>
   </header><!-- End Header -->

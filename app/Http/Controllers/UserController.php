@@ -62,12 +62,13 @@ class UserController extends Controller
     public function login(Request $request){
 
         $user = User::where(['username'=>$request->username])->first();
+
         if(!$user || !Hash::check($request->password, $user->password)) {
-            return "Username or password is not matched";
+            return redirect()->back()->with('fail', 'Incorrect credentials. Please try again.');
         }
         else {
             $request->session()->put('username',$user->username);
-            return redirect('/');
+            return redirect('/home')->with('success2', 'Login Successfully');
         } 
     }
 
