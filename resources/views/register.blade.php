@@ -27,39 +27,31 @@
               <p class="text-black-50 mb-5">Sign up to collect art by the world’s leading artists</p>
 
               <form method="post" action="{{ route('register.register') }}" class="bg-white">
-              @csrf
+                @csrf
                 <div class="mb-4">
                   <label for="username" class="form-label" style="float:left">Username</label>
-                  <input type="text" class="form-control" name="username" style="height:45px;" value="{{ old('username') }}">
+                  <input type="text" class="form-control" name="username" style="height:45px;" value="{{ old('username') }}" required>
                 </div>
 
                 <div class="mb-4">
                   <label for="name" class="form-label" style="float:left">Name</label>
-                  <input type="text" class="form-control" name="name" style="height:45px;" value="{{ old('name') }}">
+                  <input type="text" class="form-control" name="name" style="height:45px;" value="{{ old('name') }}" required>
                 </div>
 
                 <div class="mb-4">
                   <label for="email" class="form-label" style="float:left">Email address</label>
-                  <input type="email" class="form-control" name="email" style="height:45px;" value="{{ old('email') }}">
+                  <input type="email" class="form-control" name="email" style="height:45px;" value="{{ old('email') }}" required>
                 </div>
 
                 <div class="mb-4">
                   <label for="contactNum" class="form-label" style="float:left">Contact Number</label>
-                  <input type="text" class="form-control" name="contactNum" style="height:45px;" value="{{ old('contactNum') }}">
+                  <input type="text" class="form-control" name="contactNum" style="height:45px;" value="{{ old('contactNum') }}" required>
                 </div>
 
                 <div class="mb-4">
                   <label for="password" class="form-label" style="float:left">Password</label>
-                  <input type="password" class="form-control" name="password" style="height:45px;" value="{{ old('password') }}">
+                  <input type="password" class="form-control" name="password" style="height:45px;" value="{{ old('password') }}" required>
                 </div>
-   
-
-
-                <!-- <div class="form-outline" style="margin-bottom: 45px;">
-                  <input type="password" name="password_confirmation" class="form-control form-control-lg" value="{{ old('conPass') }}" style="height:50px;" required="required" />
-                  <label class="form-label">Confirm Password</label>
-                </div> -->
-
 
                 <button class="btn registerBtn btn-dark btn-lg" style="margin-top: 30px;" type="submit">Sign Up</button>
               </form>

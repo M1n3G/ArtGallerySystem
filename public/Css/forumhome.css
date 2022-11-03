@@ -1,0 +1,16 @@
+a.btn.newPostBtn {
+  font-size: 16px;
+  color: var(--color-black);
+  background: white;
+  border-radius: 4px;
+  transition: 0.3s;
+  font-family: var(--font-secondary);
+  width: 150px;
+  height:45px;
+  text-align: center;
+}
+
+a.btn.newPostBtn:hover {
+  color:black;
+  background: white;
+}

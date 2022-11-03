@@ -42,12 +42,12 @@
 
                 <div class="mb-4">
                   <label for="username" class="form-label" style="float:left">Username</label>
-                  <input type="text" class="form-control" name="username" style="height:45px;" value="{{ old('username') }}">
+                  <input type="text" class="form-control" name="username" style="height:45px;" value="{{ old('username') }}" required>
                 </div>
 
                 <div class="mb-4">
                   <label for="password" class="form-label" style="float:left">Password</label>
-                  <input type="password" class="form-control" name="password" style="height:45px;" value="{{ old('password') }}">
+                  <input type="password" class="form-control" name="password" style="height:45px;" value="{{ old('password') }}"required>
                 </div>
 
                 <p class="small mb-5 pb-lg-2"><a class="text-black-50" href="#">Forgot password?</a></p>
