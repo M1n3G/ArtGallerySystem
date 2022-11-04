@@ -13,33 +13,48 @@
           <div class="card-body p-5 text-center">
 
             <div class="md-5 mt-md-4 pb-5">
+              <!-- @if (\Session::has('fail'))
+              <div class="container">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  {{ \Session::get('fail') }}
+                  {{ \Session::forget('fail') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              </div>
+              @endif -->
 
               <h2 class="fw-bold mb-2 text-uppercase" style="color:black">Sign Up</h2>
               <p class="text-black-50 mb-5">Sign up to collect art by the world’s leading artists</p>
 
-              <div class="form-outline" style="margin-bottom: 45px;">
-                <input type="name" id="username" class="form-control form-control-lg" style="height:50px;" />
-                <label class="form-label">Username</label>
-              </div>
+              <form method="post" action="{{ route('register.register') }}" class="bg-white">
+                @csrf
+                <div class="mb-4">
+                  <label for="username" class="form-label" style="float:left">Username</label>
+                  <input type="text" class="form-control" name="username" style="height:45px;" value="{{ old('username') }}" required>
+                </div>
 
-              <div class="form-outline" style="margin-bottom: 45px;">
-                <input type="email" id="email" class="form-control form-control-lg" style="height:50px;" />
-                <label class="form-label">Email</label>
-              </div>
+                <div class="mb-4">
+                  <label for="name" class="form-label" style="float:left">Name</label>
+                  <input type="text" class="form-control" name="name" style="height:45px;" value="{{ old('name') }}" required>
+                </div>
 
-              <div class="form-outline" style="margin-bottom: 45px;">
-                <input type="password" id="password" class="form-control form-control-lg" style="height:50px;" />
-                <label class="form-label">Password</label>
-              </div>
+                <div class="mb-4">
+                  <label for="email" class="form-label" style="float:left">Email address</label>
+                  <input type="email" class="form-control" name="email" style="height:45px;" value="{{ old('email') }}" required>
+                </div>
 
-              <div class="form-outline" style="margin-bottom: 45px;">
-                <input type="password" id="conPassword" class="form-control form-control-lg" style="height:50px;" />
-                <label class="form-label">Confirm Password</label>
-              </div>
+                <div class="mb-4">
+                  <label for="contactNum" class="form-label" style="float:left">Contact Number</label>
+                  <input type="text" class="form-control" name="contactNum" style="height:45px;" value="{{ old('contactNum') }}" required>
+                </div>
 
+                <div class="mb-4">
+                  <label for="password" class="form-label" style="float:left">Password</label>
+                  <input type="password" class="form-control" name="password" style="height:45px;" value="{{ old('password') }}" required>
+                </div>
 
-              <button class="btn registerBtn btn-dark btn-lg" style="margin-top: 30px;" type="submit">Sign Up</button>
-
+                <button class="btn registerBtn btn-dark btn-lg" style="margin-top: 30px;" type="submit">Sign Up</button>
+              </form>
             </div>
 
             <div>

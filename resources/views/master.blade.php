@@ -54,13 +54,25 @@
           <li><a class="link" href="/exhibitions" style="text-decoration: none">Exhibitions</a></li>
           <li><a class="link" href="{{route('store.index')}}" style="text-decoration: none">Store</a></li>
           <li><a class="link" href="" style="text-decoration: none">Auction</a></li>
-          <li><a class="link" href="" style="text-decoration: none">Forum</a></li>
+          <li><a class="link" href="/forumhome" style="text-decoration: none">Forum</a></li>
           <li><a class="link" href="/about" style="text-decoration: none">About</a></li>
           <li><a class="link" href="/cart" style="text-decoration: none">Cart</a></li>
         </ul>
       </nav><!-- .navbar -->
 
-      <a class="btn-getstarted scrollto" href="/login" style="text-decoration: none;">Login</a>
+      @if (\Session::has('username'))
+      <div class="dropdown-center">
+        <button class="btn dropdown-toggle btn-getstarted scrollto" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          {{ Session::get('username') }}
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">Action</a></li>
+          <li><a class="dropdown-item" href="{{ route('logout.logout') }}">Logout</a></li>
+        </ul>
+        @else
+        <a class="btn-getstarted scrollto" href="/login" style="text-decoration: none;">Login</a>
+      </div>
+      @endif
 
     </div>
   </header><!-- End Header -->
