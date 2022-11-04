@@ -4,7 +4,7 @@
 </head>
 
 <nav class="navbar navbar-expand-lg mt-3" style="background-color: #910000;">
-    <div class="container-fluid">
+    <div class="container">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -22,7 +22,7 @@
                     <a class="nav-link text-white">About</a>
                 </li>
             </ul>
-            <a class="btn newPostBtn" href="{{ route('post.create') }}" style="text-decoration: none;"><i class="fa fa-plus" ></i> New Posts</a>
+            <a class="btn newPostBtn text-capitalize" href="/post/create" style="text-decoration: none;"><i class="fa fa-plus" ></i> New Posts</a>
         </div>
     </div>
 </nav>

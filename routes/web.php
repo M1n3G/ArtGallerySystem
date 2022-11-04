@@ -41,6 +41,11 @@ Route::get('/exhibitions', function () { return view('exhibitions'); });
 
 //Forum
 Route::get('/forumhome', 'ForumController@forumhome');
+Route::get('/createCategory', 'ForumController@category');
+Route::post('/add-category', 'ForumController@storeCategory')->name('forumhome.storecategory');
+
+
 Route::get('/post/create', 'PostController@create')->name('post.create');
 Route::post('/post/store', 'PostController@store')->name('post.store');
+
 
