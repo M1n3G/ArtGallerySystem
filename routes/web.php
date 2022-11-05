@@ -40,12 +40,19 @@ Route::get('/about', function () { return view('about'); });
 Route::get('/exhibitions', function () { return view('exhibitions'); });
 
 //Forum
-Route::get('/forumhome', 'ForumController@forumhome');
+// Route::get('/forumhome', 'ForumController@forumhome');
+Route::get('/manage', 'ForumController@manageHome');
 Route::get('/createCategory', 'ForumController@category');
-Route::post('/add-category', 'ForumController@storeCategory')->name('forumhome.storecategory');
+Route::post('/add-category', 'ForumController@storeCategory')->name('forum.storecategory');
 
 
-Route::get('/post/create', 'PostController@create')->name('post.create');
+Route::get('/forum', 'PostController@index')->name('postslist');
+Route::get('/forum/create', 'PostController@create')->name('post.create');
+
 Route::post('/post/store', 'PostController@store')->name('post.store');
+Route::get('/post/show/{id}', 'PostController@show')->name('post.show');
+
+Route::post('/comment/store', 'CommentController@store')->name('comment.add');
+Route::post('/reply/store', 'CommentController@replyStore')->name('reply.add');
 
 

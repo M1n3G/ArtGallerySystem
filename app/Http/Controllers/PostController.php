@@ -9,7 +9,7 @@ class PostController extends Controller
 {
     public function create()
     {
-        return view('forum/post');
+        return view('forum/createpost');
     }
 
     public function store(Request $request)
@@ -23,16 +23,16 @@ class PostController extends Controller
         return redirect('posts');
     }
 
-    // public function index()
-    // {
-    //     $posts = Post::select('id', 'title')->get();
-        
-    //     return view('index', compact('posts'));
-    // }
+    public function index()
+    {
+        $posts = Post::all();
+        return view('forum/forum', compact('posts'));
+        // $posts = Post::select('id', 'title')->get();
+    }
 
-    // public function show($id)
-    // {
-    //     $post = Post::find($id);
-    //     return view('show', compact('post'));
-    // }
+    public function show($id)
+    {
+        $post = Post::find($id);
+        return view('forum/showpost', compact('post'));
+    }
 }
