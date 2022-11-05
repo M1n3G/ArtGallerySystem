@@ -12,7 +12,7 @@
 
         <div class="card-body">
 
-            <form action="{{ route('forumhome.storecategory') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('forum.storecategory') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="mb-3">

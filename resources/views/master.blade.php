@@ -54,7 +54,7 @@
           <li><a class="link" href="/exhibitions" style="text-decoration: none">Exhibitions</a></li>
           <li><a class="link" href="{{route('store.index')}}" style="text-decoration: none">Store</a></li>
           <li><a class="link" href="" style="text-decoration: none">Auction</a></li>
-          <li><a class="link" href="/forumhome" style="text-decoration: none">Forum</a></li>
+          <li><a class="link" href="/forum" style="text-decoration: none">Forum</a></li>
           <li><a class="link" href="/about" style="text-decoration: none">About</a></li>
           <li><a class="link" href="/cart" style="text-decoration: none">Cart</a></li>
         </ul>

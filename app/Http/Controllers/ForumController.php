@@ -8,34 +8,44 @@ use App\Models\Forumcategories;
 
 class ForumController extends Controller
 {
-    public function forumhome()
+
+    public function forumHome()
     {
-        $category = Forumcategories::all();
-        return view('forum.forumhome', compact('category'));
+        return view('forum.forum');
+
+        // $category = Forumcategories::all();
+        // return view('forum.forumhome', compact('category'));
     }
 
-    public function category()
-    {
-        return view('forum.createCategory');
-    }
+    // public function manageHome()
+    // {
+    //     $category = Forumcategories::all();
+    //     return view('forum.manage', compact('category'));
+    // }
 
-    public function storeCategory(CategoryFormRequest $request){
-        $data = $request->validated();
+    // public function category()
+    // {
+    //     return view('forum.createCategory');
+    // }
 
-        $category = new Forumcategories();
-        $category->name = $data['name'];
-        $category->description = $data['description'];
-        
-        if($request->hasFile('image')){
-            $file = $request->file('image');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->move('storage/upload/', $filename);
-            $category->image = $filename;
-        }
+    // public function storeCategory(CategoryFormRequest $request)
+    // {
+    //     $data = $request->validated();
 
-        $category->keyword = $data['keyword'];
-        $category->save();
+    //     $category = new Forumcategories();
+    //     $category->name = $data['name'];
+    //     $category->description = $data['description'];
 
-        return redirect('forum/forumhome')->with('message', 'Category added successfully');
-    }
+    //     if ($request->hasFile('image')) {
+    //         $file = $request->file('image');
+    //         $filename = time() . '.' . $file->getClientOriginalExtension();
+    //         $file->move('storage/upload/', $filename);
+    //         $category->image = $filename;
+    //     }
+
+    //     $category->keyword = $data['keyword'];
+    //     $category->save();
+
+    //     return redirect('forum/forumhome')->with('message', 'Category added successfully');
+    // }
 }

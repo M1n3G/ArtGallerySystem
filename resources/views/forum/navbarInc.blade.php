@@ -12,7 +12,7 @@
         <div class="collapse navbar-collapse text-center" id="navbarTogglerDemo03">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item px-4">
-                    <a class="nav-link active text-white" aria-current="page" href="/forumhome">Forum Home</a>
+                    <a class="nav-link active text-white" aria-current="page" href="/forum">Forum</a>
                 </li>
 
                 <li class="nav-item px-4">
@@ -21,8 +21,13 @@
                 <li class="nav-item px-4">
                     <a class="nav-link text-white">About</a>
                 </li>
+
+                <li class="nav-item px-4">
+                    <a class="nav-link text-white" href="/manage">Manage</a>
+                </li>
             </ul>
-            <a class="btn newPostBtn text-capitalize" href="/post/create" style="text-decoration: none;"><i class="fa fa-plus" ></i> New Posts</a>
+
+            <a class="btn newPostBtn text-capitalize" href="{{ route('post.create') }}" style="text-decoration: none;"><i class="fa fa-plus" ></i> New Posts</a>
         </div>
     </div>
 </nav>
