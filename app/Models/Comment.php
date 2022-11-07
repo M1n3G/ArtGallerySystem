@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 
-class Comments extends Model
+class Comment extends Model
 { 
     public function user()
     {
@@ -15,6 +15,6 @@ class Comments extends Model
 
     public function replies()
     {
-        return $this->hasMany(Comments::class, 'parent_id');
+        return $this->hasMany(Comment::class, 'parent_id');
     }
 }

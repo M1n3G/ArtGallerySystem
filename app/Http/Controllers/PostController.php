@@ -26,9 +26,10 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Post::all();
+        // $posts = Post::all();
+        $posts = Post::select('id', 'title')->get();
         return view('forum/forum', compact('posts'));
-        // $posts = Post::select('id', 'title')->get();
+      
     }
 
     public function show($id)

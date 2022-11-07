@@ -14,6 +14,6 @@
             <input type="submit" class="btn btn-warning" value="Reply" />
         </div>
     </form>
-    @include('partials._comment_replies', ['comments' => $comment->replies])
+    @include('forum.comment_replies', ['comments' => $comment->replies])
 </div>
 @endforeach

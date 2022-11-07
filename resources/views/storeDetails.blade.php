@@ -43,7 +43,7 @@
                     </div>
                     <div class="col-md-6">
                         <button class="btn btn-outline-dark mt-2" style="width:150px; float:right;" type="button">
-                        <i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to cart
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to cart
                         </button>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
 
                         <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
                             <div class="card-body">
-                                <p class="fw-bolder">Year:<br /></p>{{$data -> artYear}}</p>
+                                <p class="fw-bolder">Ye ar:<br /></p>{{$data -> artYear}}</p>
                                 <p class="fw-bolder">Description:<br /></p>{{$data -> artDesc}}</p>
                                 <p class="fw-bolder">Dimension:<br /></p>
                                 {{$data -> artWidth}} cm (Width) x {{$data -> artHeight}} cm (Height)</p>
@@ -126,7 +126,7 @@
             <hr />
         </div>
     </div>
-    
+
     <!-- Related items section-->
     <div class="container px-4 px-lg-5 mt-4">
         <h3 class="text-uppercase text-center fw-bolder mt-4 mb-4">More works by {{$data -> artistName}}</h3>
@@ -138,7 +138,7 @@
                     <!-- Product image-->
                     <img class="card-img-top" src="{{asset($art['artImg'])}}" style="width:280px; max-width:280px; height:300px; max-height:300px;" alt="{{$art -> artName}}" />
                     <!-- Product details-->
-                    <div class="card-body p-4">
+                    <div class="card-body p-4" style="height:180px; max-height:180px;">
                         <div class="text-center">
                             <h5 class="fw-bolder">{{$art -> artName}}</h5>
                             <div class="text-center mt-4 fw-bolder" style="color:#910000; font-size:18px;">MYR {{$art -> artPrice}}</div>
@@ -156,6 +156,65 @@
 
         <hr />
     </div>
+
+    <div class="container py-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-12 col-lg-10 col-xl-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="coment-bottom bg-white p-2 px-4">
+                            <div class="d-flex flex-row add-comment-section mt-4 mb-4"><img class="img-fluid img-responsive rounded-circle mr-2" src="https://i.imgur.com/qdiP4DB.jpg" width="38"><input type="text" class="form-control mr-3" placeholder="Add comment"><button class="btn btn-primary" type="button">Comment</button></div>
+                        </div>
+
+                        <div class="d-flex flex-start align-items-center">
+                            <img class="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="60" height="60" />
+                            <div>
+                                <h6 class="fw-bold text-primary mb-1">Lily Coleman</h6>
+                                <p class="text-muted small mb-0">
+                                    Shared publicly - Jan 2020
+                                </p>
+                            </div>
+                        </div>
+
+                        <p class="mt-3 mb-4 pb-2">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                            quis nostrud exercitation ullamco laboris nisi ut aliquip consequat.
+                        </p>
+
+                        <div class="small d-flex justify-content-start">
+                            <a href="#!" class="d-flex align-items-center me-3">
+                                <i class="far fa-thumbs-up me-2"></i>
+                                <p class="mb-0">Like</p>
+                            </a>
+                            <a href="#!" class="d-flex align-items-center me-3">
+                                <i class="far fa-comment-dots me-2"></i>
+                                <p class="mb-0">Comment</p>
+                            </a>
+                            <a href="#!" class="d-flex align-items-center me-3">
+                                <i class="fas fa-share me-2"></i>
+                                <p class="mb-0">Share</p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
+                        <div class="d-flex flex-start w-100">
+                            <img class="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="40" height="40" />
+                            <div class="form-outline w-100">
+                                <textarea class="form-control" id="textAreaExample" rows="4" style="background: #fff;"></textarea>
+                                <label class="form-label" for="textAreaExample">Message</label>
+                            </div>
+                        </div>
+                        <div class="float-end mt-2 pt-1">
+                            <button type="button" class="btn btn-primary btn-sm">Post comment</button>
+                            <button type="button" class="btn btn-outline-primary btn-sm">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 </main>
 
