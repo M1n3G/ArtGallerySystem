@@ -20,7 +20,7 @@ class PostController extends Controller
 
         $post->save();
 
-        return redirect('posts');
+        return redirect('forum');
     }
 
     public function index()
