@@ -1,5 +1,6 @@
 @extends('master')
-@section('title', '| Create Post')
+@extends('forum/navbarInc')
+@section('title', '| Edit Category')
 @section('content')
 
 <!-- Breadcumb link -->
@@ -8,12 +9,14 @@
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb" style="font-family: 'Poppins', sans-serif;">
                 <li class="breadcrumb-item"><a href="/forum" class="text-decoration-none">Forum</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Create Post</li>
+                <li class="breadcrumb-item"><a href="/manage" class="text-decoration-none">Manage</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Edit Category</li>
             </ol>
         </nav>
     </div>
 </div>
 
+<!-- Category -->
 @if (count($errors) > 0)
 <div class="container">
     <div class="alert alert-danger alert-dismissible fade show form-control" role="alert">
@@ -29,22 +32,24 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Create Post</div>
+                <div class="card-header">Edit Category</div>
                 <div class="card-body">
-                    <form method="post" action="{{ route('post.store') }}">
+                    <form method="post" action="{{ route('category.update', $category->id) }}">
+                        @method('PUT')
+                        @csrf
                         <div class="form-group">
-                            @csrf
-                            <label class="label">Post Title: </label>
-                            <input type="text" name="title" class="form-control" required />
+                            <label class="label">Name </label>
+                            <input type="text" name="name" class="form-control" value="{{ $category->name }}" required />
                         </div>
                         <div class="form-group mt-4">
-                            <label class="label">Post Body: </label>
-                            <textarea name="body" rows="10" cols="30" id="mySummernote" class="form-control" required></textarea>
+                            <label class="label">Description</label>
+                            <textarea name="description" rows="10" cols="30" id="mySummernote" class="form-control" required>{{ $category->description }}
+                            </textarea>
                         </div>
 
                         <div class="d-grid gap-2 d-md-flex mt-4 justify-content-md-end">
-                            <a class="btn btn-outline-dark text-capitalize" href="/forum" style="width:125px;">Cancel</a>
-                            <button class="btn btn-primary text-capitalize" style="width:125px;" type="submit">Save</button>
+                            <a class="btn btn-outline-dark text-capitalize" href="/manage" style="width:125px;">Cancel</a>
+                            <button class="btn btn-primary text-capitalize" style="width:125px;" type="submit">Update</button>
                         </div>
 
                     </form>

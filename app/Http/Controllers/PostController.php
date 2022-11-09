@@ -15,20 +15,28 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-        $post =  new Post;
+        $request->validate([
+            'title' => 'required|unique:posts|max:255',
+            'body' => 'required|min:10',
+        ]);
+
+        $post =  new Post();
         $post->title = $request->get('title');
         $post->body = $request->get('body');
 
-        $post->save();
-
-        return redirect('forum');
+        if ($post->save() ) {
+            return redirect('forum')->with('success','Post created Successfully');
+        }
+        
+        return redirect()->back()->with('fail','Unable to create Post');
     }
 
     public function index()
     {
-        $posts = Post::all();
+        // $posts = Post::all();
+        $posts = Post::select('id', 'title')->paginate(10);
         return view('forum/forum', compact('posts'));
-        // $posts = Post::select('id', 'title')->get();
+      
     }
 
     public function show($id)

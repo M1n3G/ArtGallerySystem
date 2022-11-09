@@ -9,13 +9,8 @@ class Forumcategories extends Model
 {
     use HasFactory;
 
-    protected $table = 'forumcategories';
-
     protected $fillable = [
         'name',
-        'description',
-        'image',
-        'keyword',
-        'created_by'
+        'description'
     ];
 }
