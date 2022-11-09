@@ -2,7 +2,7 @@
 @section('content')
 
 <head>
-    <link rel="stylesheet" type="text/css" href="{{ asset('Css/sidebar.css') }}">   
+    <link rel="stylesheet" type="text/css" href="{{ asset('Css/sidebar.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('Css/card.css') }}">
 </head>
 
@@ -193,18 +193,20 @@
                         <h3 class="text-center">There are no art.</h3>
                     </div>
                     @endif
-                   
+
                 </div>
-                
+
                 <hr />
-     
+
+                Showing {{ $data->firstItem() }} to {{ $data->lastItem() }} of total {{$data->total()}} entries
+               
                 <!-- PAGINATION -->
                 <nav aria-label="pageNavigation">
                     <ul class="pagination justify-content-end">
-                    {!! $data->appends(Request::all())->links() !!}
+                        {!! $data->appends(Request::all())->links() !!}
                     </ul>
                 </nav>
-             
+
                 <!--end main artworks area-->
 
 

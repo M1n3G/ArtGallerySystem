@@ -157,7 +157,7 @@
         <hr />
     </div>
 
-    <div class="container py-5">
+    <!-- <div class="container py-5">
         <div class="row d-flex justify-content-center">
             <div class="col-md-12 col-lg-10 col-xl-8">
                 <div class="card">
@@ -213,9 +213,35 @@
                 </div>
             </div>
         </div>
+    </div> -->
+    <div class="container px-4">
+        <div class="comment-area mt-4">
+            <div class="card card-body">
+                <h6 class="card-title">Leave a comment</h6>
+                <form action="" method="POST">
+                    @csrf
+                    <textarea name="comment_body" class="form-control" rows="3" required></textarea>
+                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                </form>
+            </div>
+            <div class="card card-body shadow-sm mt-3">
+                <div class="detail-area">
+                    <h6 class="user-name mb-1">
+                        User 2105144
+                        <small class="ms-3 text-primary">Commented on: 7-11-2022</small>
+                    </h6>
+                    <p class="user-comment mb-1">
+                        Using Laravel insert into database.
+                    </p>
+                </div>
+                <div>
+                    <a href="" class="btn btn-primary btn-sm me-2">Edit</a>
+                    <a href="" class="btn btn-danger btn-sm me-2">Delete</a>
+                </div>
+            </div>
+
+        </div>
     </div>
-
-
 </main>
 
 @endsection

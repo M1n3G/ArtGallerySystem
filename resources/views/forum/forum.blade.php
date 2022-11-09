@@ -7,54 +7,69 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('Css/forumhome.css') }}">
 </head>
 
+<!-- Breadcumb link -->
 <div class="container px-4 mt-2">
-
     <div class="row mt-4">
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb" style="font-family: 'Poppins', sans-serif;">
-                <li class="breadcrumb-item"><a href="/forum" class="text-decoration-none">Home</a></li>
+                <li class="breadcrumb-item"><a href="/forum" class="text-decoration-none">Forum</a></li>
             </ol>
         </nav>
     </div>
 </div>
 
-<!-- <div class="col-6 mt-4">
-        
-    </div> -->
-
 <div class="container px-4 mt-2">
+    @if (\Session::has('success'))
+    <div class="alert alert-success alert-dismissible fade show form-control" role="alert">
+        <div class="text-left">
+            {{ \Session::get('success') }}
+            {{ \Session::forget('success') }}
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
 
     <div class="card mt-4 mb-4">
-        <div class="card-header">
+        <!-- <div class="card-header">
             <h4 class="mt-4">View <a class="btn btn-primary text-capitalize float-end" href="/createCategory">Create category</a></h4>
-        </div>
+        </div> -->
 
         <div class="card-body">
-            @if (session('message'))
-            <div class="alert alert-success"> {{ session('message') }}</div>
-            @endif
-
-            <table class="table table-striped">
+            <table class="table table-striped" style="font-family:'Poppins', sans-serif; font-size: 16px;">
                 <thead>
                     <th>ID</th>
                     <th>Title</th>
                     <th>Action</th>
                 </thead>
                 <tbody>
+                    @if (!empty($posts) && $posts->count())
                     @foreach($posts as $post)
                     <tr>
                         <td>{{ $post->id }}</td>
                         <td>{{ $post->title }}</td>
                         <td>
-                            <a href="{{ route('post.show', $post->id) }}" class="btn btn-primary">Show Post</a>
+                            <a href="{{ route('post.show', $post->id) }}" class="btn btn-xs btn-primary">Show Post</a>
                         </td>
                     </tr>
                     @endforeach
+                    @else
+                    <div class="row">
+                        <h3 class="text-center">There are no post.</h3>
+                    </div>
+                    @endif
                 </tbody>
-
             </table>
 
+            Showing {{ $posts->firstItem() }} to {{ $posts->lastItem() }} of total {{$posts->total()}} entries
+            
+            <!-- PAGINATION -->
+            <nav aria-label="pageNavigation">
+                <ul class="pagination justify-content-end">
+                    {!! $posts->appends(Request::all())->links() !!}
+                </ul>
+            </nav>
         </div>
+
 
     </div>
 </div>

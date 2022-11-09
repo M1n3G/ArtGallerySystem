@@ -41,18 +41,21 @@ Route::get('/exhibitions', function () { return view('exhibitions'); });
 
 //Forum
 // Route::get('/forumhome', 'ForumController@forumhome');
-Route::get('/manage', 'ForumController@manageHome');
-Route::get('/createCategory', 'ForumController@category');
-Route::post('/add-category', 'ForumController@storeCategory')->name('forum.storecategory');
-
+Route::get('/manage', 'CategoryController@index')->name('categorylist');
+Route::get('/forum/createCategory', 'CategoryController@create')->name('category.create');
+Route::post('/forum/storeCategory', 'CategoryController@store')->name('category.store');
+Route::get('/forum/editCategory/{id}', 'CategoryController@edit')->name('category.edit');
+Route::put('/forum/editCategory/{id}', 'CategoryController@update')->name('category.update');
+Route::delete('/forum/deletecategory/{id}', 'CategoryController@destroy')->name('category.delete');
 
 Route::get('/forum', 'PostController@index')->name('postslist');
-Route::get('/forum/create', 'PostController@create')->name('post.create');
-
-Route::post('/forum/store', 'PostController@store')->name('post.store');
 Route::get('/forum/show/{id}', 'PostController@show')->name('post.show');
+
+Route::get('/forum/create', 'PostController@create')->name('post.create');
+Route::post('/forum/store', 'PostController@store')->name('post.store');
 
 Route::post('/comment/store', 'CommentController@store')->name('comment.add');
 Route::post('/reply/store', 'CommentController@replyStore')->name('reply.add');
+
 
 
