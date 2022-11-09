@@ -53,6 +53,9 @@ Route::get('/forum/show/{id}', 'PostController@show')->name('post.show');
 
 Route::get('/forum/create', 'PostController@create')->name('post.create');
 Route::post('/forum/store', 'PostController@store')->name('post.store');
+Route::get('/forum/editPost/{id}', 'PostController@edit')->name('post.edit');
+Route::put('/forum/editPost/{id}', 'PostController@update')->name('post.update');
+Route::delete('/forum/deletepost/{id}', 'PostController@destroy')->name('post.delete');
 
 Route::post('/comment/store', 'CommentController@store')->name('comment.add');
 Route::post('/reply/store', 'CommentController@replyStore')->name('reply.add');

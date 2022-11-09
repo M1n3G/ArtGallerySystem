@@ -1,19 +1,19 @@
 @extends('master')
 @extends('forum/navbarInc')
+
+@section('css')
+<!-- Custom CSS -->
+<link rel="stylesheet" type="text/css" href="{{ asset('Css/forumhome.css') }}">
+<style>
+    th,
+    .td,
+    .card {
+        padding: 20px;
+    }
+</style>
+@endsection
+
 @section('content')
-
-<head>
-    <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('Css/forumhome.css') }}">
-    <style>
-        th,
-        .td,
-        .card {
-            padding: 20px;
-        }
-    </style>
-</head>
-
 <div class="container px-4 mt-2">
     <div class="row mt-4">
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
@@ -44,7 +44,7 @@
         </div>
 
         <div class="card-body px-4">
-            <table class="table table-responsive" style="font-family:'Poppins', sans-serif; font-size: 16px;">
+            <table id="myTable" class="table table-responsive" style="font-family:'Poppins', sans-serif; font-size: 16px;">
                 <thead class="table-light">
                     <tr>
                         <td scope="col">ID</td>
@@ -67,7 +67,7 @@
                             <form action="{{ route('category.delete',$cat->id) }}" method="POST" onsubmit="return confirm('Are you sure you wish to delete this category?');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
                         </td>
                     </tr>
@@ -93,18 +93,5 @@
 
     </div>
 </div>
-
-<!-- <div class="row d-flex mb-2"> -->
-<!-- @if (session('message'))
-            <div class="alert alert-success"> {{ session('message') }}</div>
-            @endif
-
-            <div class="col-6">
-                <h2 class="mt-4">Home</h2>
-            </div>
-            <div class="col-6 mt-4">
-                <a class="btn btn-primary text-capitalize" href="/createCategory" style="float: right;">Create category</a>
-            </div>
-        </div> -->
 
 @endsection

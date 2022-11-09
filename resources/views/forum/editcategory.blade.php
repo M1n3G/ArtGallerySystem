@@ -49,7 +49,7 @@
 
                         <div class="d-grid gap-2 d-md-flex mt-4 justify-content-md-end">
                             <a class="btn btn-outline-dark text-capitalize" href="/manage" style="width:125px;">Cancel</a>
-                            <button class="btn btn-primary text-capitalize" style="width:125px;" type="submit">Update</button>
+                            <button class="btn btn-primary text-capitalize" onsubmit="return confirm('Are you sure you wish to update this category?');"style="width:125px;" type="submit">Update</button>
                         </div>
 
                     </form>
