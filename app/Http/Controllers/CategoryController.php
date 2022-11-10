@@ -19,13 +19,14 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|string|unique:forumcategories|max:255',
-            'description' => 'required|min:10'
-            // 'category_id' => 'required|exists:App\Models\Forumcategories,id'
+            'description' => 'required|min:10',
         ]);
 
         $category =  new Forumcategories();
         $category->name = $request->get('name');
         $category->description = $request->get('description');
+        $category->navstatus = $request->get('navstatus');
+        $category->status = $request->get('status');
 
         if ($category->save()) {
             return redirect('/manage')->with('success', 'Category created Successfully');
@@ -59,8 +60,10 @@ class CategoryController extends Controller
         $category =  Forumcategories::find($id);
         $category->name = $request->get('name');
         $category->description = $request->get('description');
+        $category->navstatus = $request->get('navstatus');
+        $category->status = $request->get('status');
 
-        if ($category->save()) {
+        if ($category->update()) {
             return redirect('/manage')->with('success', 'Category updated Successfully');
         }
 

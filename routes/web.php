@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@home');
 Route::get('/home', 'HomeController@home');
 
+
 //User
 Route::get('login', function () { return view('login'); });
 Route::get('register', function () { return view('register'); });
@@ -49,6 +50,9 @@ Route::put('/forum/editCategory/{id}', 'CategoryController@update')->name('categ
 Route::delete('/forum/deletecategory/{id}', 'CategoryController@destroy')->name('category.delete');
 
 Route::get('/forum', 'PostController@index')->name('postslist');
+Route::get('category/{id}', 'PostController@viewCategoryPost')->name('category.post');
+
+
 Route::get('/forum/show/{id}', 'PostController@show')->name('post.show');
 
 Route::get('/forum/create', 'PostController@create')->name('post.create');

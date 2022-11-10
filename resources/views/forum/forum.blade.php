@@ -2,11 +2,6 @@
 @extends('forum/navbarInc')
 @section('content')
 
-<head>
-    <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('Css/forumhome.css') }}">
-</head>
-
 <!-- Breadcumb link -->
 <div class="container px-4 mt-2">
     <div class="row mt-4">
@@ -48,7 +43,7 @@
                     <tr>
                         <td>{{ $post->id }}</td>
                         <td>{{ $post->title }}</td>
-                        <td>{{ $post->category->name }}</td>
+
                         <td>
                             <a href="{{ route('post.show', $post->id) }}" class="btn btn-xs btn-primary">Show Post</a>
                         </td>

@@ -18,6 +18,11 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->text('body');
             $table->integer('category_id');
+            $table->string('status')->nullable();
+            $table->string('created_by')->nullable();
+            $table->integer('views')->nullable();
+            $table->integer('likes')->nullable();
+            $table->dateTime('datetime');
             $table->timestamps();
         });
     }

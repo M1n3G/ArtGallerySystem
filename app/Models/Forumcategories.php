@@ -12,5 +12,7 @@ class Forumcategories extends Model
     protected $fillable = [
         'name',
         'description',
+        'navstatus',
+        'status',
     ];
 }

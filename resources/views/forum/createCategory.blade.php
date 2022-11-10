@@ -34,15 +34,34 @@
             <div class="card">
                 <div class="card-header">Create Category</div>
                 <div class="card-body">
-                    <form method="post" action="{{ route('category.store') }}">
+                    <form method="post" action="{{ route('category.store') }}" enctype="multipart/form-data">
                         <div class="form-group">
                             @csrf
-                            <label class="label">Name </label>
+                            <label class="label fw-semibold fs-6 mb-2">Name </label>
                             <input type="text" name="name" class="form-control" required />
                         </div>
+
                         <div class="form-group mt-4">
-                            <label class="label">Description </label>
-                            <textarea name="description" rows="10" cols="30" id="mySummernote" class="form-control" required></textarea>
+                            <label class="label fw-semibold fs-6 mb-2">Description </label>
+                            <textarea name="description" id="task-textarea" rows="10" cols="30" class="form-control"></textarea>
+                        </div>
+
+                        <!-- Checked checkbox -->
+                        <div class="form-group mt-4">
+                            <label class="label mb-2 fw-semibold fs-6">Visibility:</label>
+
+                            </br>
+                            <label class="label mb-2 fw-normal fs-6">Navbar Status</label>
+                            <select class="form-select" name="navstatus" aria-label="Default select example">
+                                <option value="Visible">Visible</option>
+                                <option value="Hidden">Hidden</option>
+                            </select>
+
+                            <label class="label mt-4 mb-2 fw-normal fs-6">Status</label>
+                            <select class="form-select" name="status" aria-label="Default select example">
+                                <option value="Visible">Visible</option>
+                                <option value="Hidden">Hidden</option>
+                            </select>
                         </div>
 
                         <div class="d-grid gap-2 d-md-flex mt-4 justify-content-md-end">
@@ -56,4 +75,15 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#task-textarea' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
+
 @endsection

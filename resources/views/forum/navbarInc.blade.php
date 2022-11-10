@@ -1,6 +1,6 @@
 <head>
-    <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('Css/forumhome.css') }}">
+<!-- Custom CSS -->
+<link rel="stylesheet" type="text/css" href="{{ asset('Css/forumhome.css') }}">
 </head>
 
 <nav class="navbar navbar-expand-lg mt-3" style="background-color: #910000;">
@@ -18,11 +18,12 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/forum">Home</a></li>
                         @php
-                        $category = App\Models\Forumcategories::where('id', $id)->get();
+                        $category = App\Models\Forumcategories::where(['navstatus'=>'Visible','status'=>'Visible'])->get();
                         @endphp
+
                         @foreach($category as $catitem)
                         <li>
-                            <a class="dropdown-item" href="{{ $catitem->id}}">{{ $catitem->name}}</a>
+                            <a class="dropdown-item" href="{{ route('category.post', $catitem->id) }}">{{ $catitem->name}}</a>
                         </li>
                         @endforeach
                     </ul>

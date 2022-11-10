@@ -34,17 +34,17 @@
                     <form method="post" action="{{ route('post.store') }}">
                         @csrf
                         <div class="form-group">
-                            <label class="label">Post Title</label>
+                            <label class="label fw-semibold fs-6">Post Title</label>
                             <input type="text" name="title" class="form-control mt-2" required />
                         </div>
 
                         <div class="form-group mt-4">
-                            <label class="label">Post Body</label>
-                            <textarea name="body" rows="10" cols="30" id="mySummernote" class="form-control mt-2" required></textarea>
+                            <label class="label fw-semibold fs-6">Post Body</label>
+                            <textarea name="body" rows="10" cols="30" class="form-control mt-2" required></textarea>
                         </div>
 
                         <div class="form-group mt-4">
-                            <label class="label">Category</label>
+                            <label class="label fw-semibold fs-6">Category</label>
                             <select name="category_id" class="form-control mt-2">
                                 @foreach ($category as $catitem)
                                 <option value="{{ $catitem->id }}">{{ $catitem->name}}</option>

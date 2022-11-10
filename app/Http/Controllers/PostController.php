@@ -5,14 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Comments;
+use Carbon\Carbon;
 use App\Models\Forumcategories;
+use TeamTeaTime\Forum\Database\Seeders\ForumSeeder;
 
 class PostController extends Controller
 {
     public function create()
     {
         $category = Forumcategories::all();
-        return view('forum/createpost',compact('category'));
+        return view('forum/createpost', compact('category'));
     }
 
     public function store(Request $request)
@@ -27,22 +29,38 @@ class PostController extends Controller
         $post->title = $request->get('title');
         $post->body = $request->get('body');
         $post->category_id = $request->get('category_id');
-
-        if ($post->save() ) {
-            return redirect('forum')->with('success','Post created Successfully');
+        date_default_timezone_set("Asia/Kuala_Lumpur");           
+        $date =  Carbon::now()->format('Y-m-d H:i:s');
+        $post->datetime = $date;
+         
+        if ($post->save()) {
+            return redirect('forum')->with('success', 'Post created Successfully');
         }
-        
-        return redirect()->back()->with('fail','Unable to create Post');
+
+        return redirect()->back()->with('fail', 'Unable to create Post');
     }
+
+    public function viewCategoryPost($id)
+    {
+        $category = Forumcategories::where('id', $id)->where('status', 'Visible')->first();
+
+        if ($category) {
+            $post = Post::where(['category_id' => $category->id, 'status' => 'Visible'])->paginate(10);
+            return view('forum/showcatpost', compact('post', 'category'));
+        } else {
+            return redirect('/forum');
+        }
+    }
+
 
     public function index()
     {
         // $posts = Post::all();
         $posts = Post::select('id', 'title', 'category_id')->paginate(10);
         return view('forum/forum', compact('posts'));
-      
     }
 
+    
     public function show($id)
     {
         $post = Post::find($id);
@@ -69,8 +87,11 @@ class PostController extends Controller
         $post->title = $request->get('title');
         $post->body = $request->get('body');
         $post->category_id = $request->get('category_id');
+        date_default_timezone_set("Asia/Kuala_Lumpur");           
+        $date =  Carbon::now()->format('Y-m-d H:i:s');
+        $post->datetime = $date;
 
-        if ($post->save()) {
+        if ($post->update()) {
             return redirect('/forum')->with('success', 'Post updated Successfully');
         }
 

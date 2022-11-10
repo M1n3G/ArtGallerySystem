@@ -1,17 +1,18 @@
 @extends('master')
 @extends('forum/navbarInc')
 
-@section('css')
+
 <!-- Custom CSS -->
-<link rel="stylesheet" type="text/css" href="{{ asset('Css/forumhome.css') }}">
-<style>
-    th,
-    .td,
-    .card {
-        padding: 20px;
-    }
-</style>
-@endsection
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ asset('Css/forumhome.css') }}">
+    <style>
+        th,
+        .td,
+        .card {
+            padding: 20px;
+        }
+    </style>
+</head>
 
 @section('content')
 <div class="container px-4 mt-2">
@@ -50,6 +51,7 @@
                         <td scope="col">ID</td>
                         <td scope="col">Category Name</td>
                         <td scope="col">Description</td>
+                        <td scope="col">Status</td>
                         <td colspan="2">Actions</td>
                     </tr>
                 </thead>
@@ -59,7 +61,7 @@
                     <tr>
                         <th scope="row">{{ $cat->id}}</th>
                         <td>{{ $cat->name}}</td>
-                        <td>{{ $cat->description}}</td>
+                        <td>{!! $cat->description !!}</td>
                         <td>
                             <a href="{{ route('category.edit',$cat->id) }}" class="btn btn-xs btn-info">Edit</a>
                         </td>

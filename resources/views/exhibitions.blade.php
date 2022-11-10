@@ -146,3 +146,13 @@
     </div>
 </main>
 @endsection
+
+@section('scripts')
+<!-- Carousel Autoplay -->
+<script>
+    $('#carouselExampleIndicators').carousel({
+        interval: 5500,
+        cycle: true
+    });
+</script>
+@endsection
