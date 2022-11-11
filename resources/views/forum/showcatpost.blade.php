@@ -39,7 +39,7 @@
             <div class="col-md-9">
                 <div class="categoryheading">
                     <p class="fs-3 fw-semibold">{{ $category->name}}</p>
-                    <span class="fw-normal" style="color:#8c8c8c; font-size:13px;">{{ $category->description}}</span>
+                    <span class="fw-normal" style="color:#8c8c8c; font-size:13px;">{!! $category->description !!}</span>
                 </div>
 
                 @if (!empty($post) && $post->count())
@@ -49,7 +49,7 @@
                         Posted By: {{ Session::get('username') }}
                     </div>
                     <div class="card-body">
-                        <a href="{{ route('post.view', ['category_id' => $posts->category_id, 'id' => $posts->id]) }}" class="text-decoration-none">
+                        <a href="{{ route('post.view', ['category_id' => $posts->category_id, 'title' => $posts->title]) }}" class="text-decoration-none">
                             <p class="fs-4 fw-semibold" style="color:#910000;">{{ $posts->title}}</p>
                         </a>
 
