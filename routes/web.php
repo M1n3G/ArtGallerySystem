@@ -42,7 +42,7 @@ Route::get('/exhibitions', function () { return view('exhibitions'); });
 
 //Forum
 // Route::get('/forumhome', 'ForumController@forumhome');
-Route::get('/manage', 'CategoryController@index')->name('categorylist');
+Route::get('/forum/manage', 'CategoryController@index')->name('categorylist');
 Route::get('/forum/createCategory', 'CategoryController@create')->name('category.create');
 Route::post('/forum/storeCategory', 'CategoryController@store')->name('category.store');
 Route::get('/forum/editCategory/{id}', 'CategoryController@edit')->name('category.edit');
@@ -50,11 +50,10 @@ Route::put('/forum/editCategory/{id}', 'CategoryController@update')->name('categ
 Route::delete('/forum/deletecategory/{id}', 'CategoryController@destroy')->name('category.delete');
 
 Route::get('/forum', 'PostController@index')->name('postslist');
-Route::get('category/{id}', 'PostController@viewCategoryPost')->name('category.post');
-
+Route::get('/forum/category/{category_id}', 'PostController@viewCategoryPost')->name('category.post');
+Route::get('/forum/{category_id}/{id}', 'PostController@viewPost')->name('post.view');
 
 Route::get('/forum/show/{id}', 'PostController@show')->name('post.show');
-
 Route::get('/forum/create', 'PostController@create')->name('post.create');
 Route::post('/forum/store', 'PostController@store')->name('post.store');
 Route::get('/forum/editPost/{id}', 'PostController@edit')->name('post.edit');

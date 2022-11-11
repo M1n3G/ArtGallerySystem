@@ -58,7 +58,9 @@
           <li><a class="link" href="" style="text-decoration: none">Auction</a></li>
           <li><a class="link" href="/forum" style="text-decoration: none">Forum</a></li>
           <li><a class="link" href="/about" style="text-decoration: none">About</a></li>
+          @if (\Session::has('username'))
           <li><a class="link" href="/cart" style="text-decoration: none">Cart</a></li>
+          @endif
         </ul>
       </nav><!-- .navbar -->
 
@@ -67,8 +69,10 @@
         <button class="btn dropdown-toggle btn-getstarted scrollto" type="button" data-bs-toggle="dropdown" aria-expanded="false">
           {{ Session::get('username') }}
         </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Action</a></li>
+        <ul class="dropdown-menu" style="width:200px;">
+          <li><a class="dropdown-item" href="#">Manage Account</a></li>
+          <li><a class="dropdown-item" href="#">My Orders</a></li>
+          <li><a class="dropdown-item" href="#">My Wishlist</a></li>
           <li><a class="dropdown-item" href="{{ route('logout.logout') }}">Logout</a></li>
         </ul>
         @else
@@ -162,4 +166,5 @@
 
   @yield('scripts')
 </body>
+
 </html>

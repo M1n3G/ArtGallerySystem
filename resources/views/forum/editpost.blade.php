@@ -1,5 +1,6 @@
 @extends('master')
-@section('title', '| Create Post')
+@extends('forum/navbarInc')
+@section('title', '| Edit Post')
 @section('content')
 
 <!-- Breadcumb link -->
@@ -35,12 +36,12 @@
                         @method('PUT')
                         @csrf
                         <div class="form-group">
-                            <label class="label fw-semibold fs-6">Post Title</label>
+                            <label class="label fw-semibold fs-6 mb-2">Post Title</label>
                             <input type="text" name="title" value="{{ $post->title}}" class="form-control mt-2" required />
                         </div>
 
                         <div class="form-group mt-4">
-                            <label class="label fw-semibold fs-6">Post Body</label>
+                            <label class="label fw-semibold fs-6 mb-2">Post Body</label>
                             <textarea name="body" rows="10" cols="30" class="form-control mt-2" required>{{ $post->body }}</textarea>
                         </div>
 
@@ -58,7 +59,7 @@
 
                         <div class=" d-grid gap-2 d-md-flex mt-4 justify-content-md-end">
                             <a class="btn btn-outline-dark text-capitalize" href="/forum" style="width:125px;">Cancel</a>
-                            <button class="btn btn-primary text-capitalize" style="width:125px;" type="submit">Update</button>
+                            <button class="btn btn-primary text-capitalize" style="width:125px; background-color:#910000; color:white;" type="submit">Update</button>
                         </div>
 
                     </form>

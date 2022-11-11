@@ -18,4 +18,16 @@ class Post extends Model
         'status',
         'created_by',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Forumcategories::class, 'category_id', 'id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id', 'username');
+    }
 }
+
+

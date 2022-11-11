@@ -1,6 +1,8 @@
 <head>
 <!-- Custom CSS -->
 <link rel="stylesheet" type="text/css" href="{{ asset('Css/forumhome.css') }}">
+<title>ArtCells | Forum</title>
+<link rel="icon" href="{{ asset('Img/Logo/artcellslogo.png') }}" type="image/png">
 </head>
 
 <nav class="navbar navbar-expand-lg mt-3" style="background-color: #910000;">
@@ -38,7 +40,7 @@
                 </li>
 
                 <li class="nav-item px-4">
-                    <a class="nav-link text-white" href="/manage">Manage</a>
+                    <a class="nav-link text-white" href="/forum/manage">Manage</a>
                 </li>
             </ul>
 

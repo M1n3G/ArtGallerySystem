@@ -9,7 +9,7 @@
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb" style="font-family: 'Poppins', sans-serif;">
                 <li class="breadcrumb-item"><a href="/forum" class="text-decoration-none">Forum</a></li>
-                <li class="breadcrumb-item"><a href="/manage" class="text-decoration-none">Manage</a></li>
+                <li class="breadcrumb-item"><a href="/forum/manage" class="text-decoration-none">Manage</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Create Category</li>
             </ol>
         </nav>

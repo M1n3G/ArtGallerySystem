@@ -49,7 +49,7 @@
                         Posted By: {{ Session::get('username') }}
                     </div>
                     <div class="card-body">
-                        <a href="{{ route('category.post', $posts->id) }}" class="text-decoration-none">
+                        <a href="{{ route('post.view', ['category_id' => $posts->category_id, 'id' => $posts->id]) }}" class="text-decoration-none">
                             <p class="fs-4 fw-semibold" style="color:#910000;">{{ $posts->title}}</p>
                         </a>
 
