@@ -1,10 +1,10 @@
 @extends('master')
 @extends('forum/navbarInc')
-@section('content')
 
+<!-- Custom CSS -->
 <head>
-    <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('Css/forumhome.css') }}">
+    <title>ArtCells | Manage Forum</title>
     <style>
         th,
         .td,
@@ -14,6 +14,7 @@
     </style>
 </head>
 
+@section('content')
 <div class="container px-4 mt-2">
     <div class="row mt-4">
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
@@ -44,31 +45,56 @@
         </div>
 
         <div class="card-body px-4">
-            <table class="table table-responsive" style="font-family:'Poppins', sans-serif; font-size: 16px;">
+            <table id="myTable" class="table table-responsive" style="font-family:'Poppins', sans-serif; font-size: 16px;">
                 <thead class="table-light">
                     <tr>
-                        <td scope="col">ID</td>
-                        <td scope="col">Category Name</td>
-                        <td scope="col">Description</td>
-                        <td colspan="2">Actions</td>
+                        <th>ID</th>
+                        <th>Category Name</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @if (!empty($category) && $category->count())
                     @foreach ($category as $cat)
                     <tr>
-                        <th scope="row">{{ $cat->id}}</th>
-                        <td>{{ $cat->name}}</td>
-                        <td>{{ $cat->description}}</td>
                         <td>
-                            <a href="{{ route('category.edit',$cat->id) }}" class="btn btn-xs btn-info">Edit</a>
+                            <div class="p-2">
+                                <span class="d-block fw-bold">{{ $cat->id}}</span>
+                            </div>
                         </td>
                         <td>
-                            <form action="{{ route('category.delete',$cat->id) }}" method="POST" onsubmit="return confirm('Are you sure you wish to delete this category?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-outline-danger">Delete</button>
-                            </form>
+                            <div class="p-2">
+                                <span class="fw-normal">{{ $cat->name}}</span>
+                            </div>
+
+                        </td>
+                        <td>
+                            <div class="p-2 d-flex flex-column">
+                                <span class="fw-light">{!! $cat->description !!}</span>
+                            </div>
+
+                        </td>
+
+                        <td>
+                            <div class="p-2">
+                                <span class="fw-normal">{{ $cat->status }}</span>
+                            </div>
+                        </td>
+
+
+                        <td>
+                            <div class="p-2 icons d-flex" style="width: 100px;">
+                                <a href="{{ route('category.edit',$cat->id) }}" class="btn btn-success px-2" style="padding: 6px 8px; height:35px; max-height:35px;">
+                                    <i class="bi bi-pencil-square"></i></a>&nbsp&nbsp&nbsp
+                                <form action="{{ route('category.delete',$cat->id) }}" method="POST" onsubmit="return confirm('Are you sure you wish to delete this category?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger px-2" style="height:35px; max-height:35px;"><i class="bi bi-trash"></i></button>
+                                </form>
+                            </div>
+
                         </td>
                     </tr>
                     @endforeach
@@ -93,18 +119,5 @@
 
     </div>
 </div>
-
-<!-- <div class="row d-flex mb-2"> -->
-<!-- @if (session('message'))
-            <div class="alert alert-success"> {{ session('message') }}</div>
-            @endif
-
-            <div class="col-6">
-                <h2 class="mt-4">Home</h2>
-            </div>
-            <div class="col-6 mt-4">
-                <a class="btn btn-primary text-capitalize" href="/createCategory" style="float: right;">Create category</a>
-            </div>
-        </div> -->
 
 @endsection

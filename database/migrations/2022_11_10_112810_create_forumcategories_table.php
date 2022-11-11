@@ -16,7 +16,9 @@ class CreateForumcategoriesTable extends Migration
         Schema::create('forumcategories', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->string('description');
+            $table->text('description');
+            $table->string('navstatus');
+            $table->string('status');
             $table->timestamps();
         });
     }

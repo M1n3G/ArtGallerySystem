@@ -33,9 +33,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 </head>
 
 <body style="padding-top:85px">
@@ -58,7 +58,9 @@
           <li><a class="link" href="" style="text-decoration: none">Auction</a></li>
           <li><a class="link" href="/forum" style="text-decoration: none">Forum</a></li>
           <li><a class="link" href="/about" style="text-decoration: none">About</a></li>
+          @if (\Session::has('username'))
           <li><a class="link" href="/cart" style="text-decoration: none">Cart</a></li>
+          @endif
         </ul>
       </nav><!-- .navbar -->
 
@@ -67,8 +69,10 @@
         <button class="btn dropdown-toggle btn-getstarted scrollto" type="button" data-bs-toggle="dropdown" aria-expanded="false">
           {{ Session::get('username') }}
         </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Action</a></li>
+        <ul class="dropdown-menu" style="width:200px;">
+          <li><a class="dropdown-item" href="#">Manage Account</a></li>
+          <li><a class="dropdown-item" href="#">My Orders</a></li>
+          <li><a class="dropdown-item" href="#">My Wishlist</a></li>
           <li><a class="dropdown-item" href="{{ route('logout.logout') }}">Logout</a></li>
         </ul>
         @else
@@ -152,28 +156,15 @@
   <script src="{{ asset('assets/js/home.js') }}"></script>
   <script src="{{ asset('Js/carouselmin.js') }}"></script>
 
+  <!-- JQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.ckeditor.com/ckeditor5/35.3.0/classic/ckeditor.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="asset('jquery-3.6.0.min.js')"></script>
-  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
-  <!-- Carousel Autoplay -->
-  <script>
-     $(document).ready(function() {
-        $("#mySummernote").summernote({
-          height:150,
-        });
-        $('.dropdown-toggle').dropdown();
-    });
-
-    $('#carouselExampleIndicators').carousel({
-      interval: 5500,
-      cycle: true
-    });
-  </script>
-
+  @yield('scripts')
 </body>
+
 </html>

@@ -7,25 +7,27 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    // public function user()
-    // {
-    //     return $this->belongsTo(User::class);
-    // }
+    use HasFactory;
 
-    // public function comments()
-    // {
-    //     return $this->morphMany(Comment::class, 'commentable')->whereNull('parent_id');
-    // }
+    protected $table = 'posts';
 
     protected $fillable = [
         'title',
         'body',
         'category_id',
+        'status',
+        'created_by',
     ];
 
     public function category()
     {
-        return $this->belongsTo(Forumcategories::class);
+        return $this->belongsTo(Forumcategories::class, 'category_id', 'id');
     }
- 
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id', 'username');
+    }
 }
+
+

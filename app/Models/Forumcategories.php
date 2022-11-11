@@ -11,6 +11,13 @@ class Forumcategories extends Model
 
     protected $fillable = [
         'name',
-        'description'
+        'description',
+        'navstatus',
+        'status',
     ];
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'category_id', 'id');
+    }
 }

@@ -2,11 +2,6 @@
 @extends('forum/navbarInc')
 @section('content')
 
-<head>
-    <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('Css/forumhome.css') }}">
-</head>
-
 <!-- Breadcumb link -->
 <div class="container px-4 mt-2">
     <div class="row mt-4">
@@ -39,6 +34,7 @@
                 <thead>
                     <th>ID</th>
                     <th>Title</th>
+                    <th>Category</th>
                     <th>Action</th>
                 </thead>
                 <tbody>
@@ -47,8 +43,19 @@
                     <tr>
                         <td>{{ $post->id }}</td>
                         <td>{{ $post->title }}</td>
+
                         <td>
                             <a href="{{ route('post.show', $post->id) }}" class="btn btn-xs btn-primary">Show Post</a>
+                        </td>
+                        <td>
+                            <a href="{{ route('post.edit',$post->id) }}" class="btn btn-xs btn-info">Edit</a>
+                        </td>
+                        <td>
+                            <form action="{{ route('post.delete',$post->id) }}" method="POST" onsubmit="return confirm('Are you sure you wish to delete this post?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach
@@ -61,7 +68,7 @@
             </table>
 
             Showing {{ $posts->firstItem() }} to {{ $posts->lastItem() }} of total {{$posts->total()}} entries
-            
+
             <!-- PAGINATION -->
             <nav aria-label="pageNavigation">
                 <ul class="pagination justify-content-end">
