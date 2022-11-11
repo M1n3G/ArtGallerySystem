@@ -43,10 +43,6 @@
                     <tr>
                         <td>{{ $post->id }}</td>
                         <td>{{ $post->title }}</td>
-
-                        <td>
-                            <a href="{{ route('post.show', $post->id) }}" class="btn btn-xs btn-primary">Show Post</a>
-                        </td>
                         <td>
                             <a href="{{ route('post.edit',$post->id) }}" class="btn btn-xs btn-info">Edit</a>
                         </td>

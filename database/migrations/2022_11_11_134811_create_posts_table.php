@@ -23,7 +23,7 @@ class CreatePostsTable extends Migration
             $table->integer('views')->nullable();
             $table->integer('likes')->nullable();
             $table->dateTime('datetime');
-            $table->timestamps();
+            $table->timestamps(); 
         });
     }
 

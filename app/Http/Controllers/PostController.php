@@ -52,12 +52,12 @@ class PostController extends Controller
         }
     }
 
-    public function viewPost($category_id, $id)
+    public function viewPost($category_id, $title)
     {
         $category = Forumcategories::where('id', $category_id)->where('status', 'Visible')->first();
         
         if ($category) {
-            $posts = Post::where(['category_id' => $category_id, 'status' => 'Visible', 'id' => $id])->first();
+            $posts = Post::where(['category_id' => $category_id, 'status' => 'Visible', 'title' => $title])->first();
             return view('forum/showpost', compact('posts', 'category'));
         } else {
             return redirect('/forum');

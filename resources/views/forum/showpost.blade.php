@@ -23,8 +23,8 @@
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb" style="font-family: 'Poppins', sans-serif;">
                 <li class="breadcrumb-item"><a href="/forum" class="text-decoration-none">Forum</a></li>
-                <li class="breadcrumb-item"><a href="/category/{id}" class="text-decoration-none">{{ $category->name}}</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ $category->title }}</li>
+                <li class="breadcrumb-item"><a href="{{ route('category.post', ['category_id' => $posts->category_id]) }}" class="text-decoration-none">{{ $category->name}}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $posts->title }}</li>
             </ol>
         </nav>
     </div>

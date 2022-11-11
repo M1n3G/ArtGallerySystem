@@ -4,17 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
 
 class Comment extends Model
-{ 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+{
+    use HasFactory;
 
-    public function replies()
-    {
-        return $this->hasMany(Comment::class, 'parent_id');
-    }
+    protected $table = 'comments';
+    protected $fillable = [
+        'post_id',
+        'user_id',
+        'comment_body',
+        'datetime'
+    ];
 }

@@ -23,13 +23,15 @@ Route::get('/home', 'HomeController@home');
 //User
 Route::get('login', function () { return view('login'); });
 Route::get('register', function () { return view('register'); });
-Route::post('/register', 'UserController@store') ->name('register.register');
-Route::post('/login', 'UserController@login') ->name('login.login');
-Route::get('/logout', 'UserController@logout') ->name('logout.logout');
+Route::post('/register', 'UserController@store')->name('register.register');
+Route::post('/login', 'UserController@login')->name('login.login');
+Route::get('/logout', 'UserController@logout')->name('logout.logout');
 
 //Store
-Route::get('/store', 'ArtController@index') ->name('store.index');
-Route::get('/storeDetails/{artID}', 'ArtController@details') ->name('storeDetails.details');
+Route::get('/store', 'ArtController@index')->name('store.index');
+Route::get('/storeDetails/{artID}', 'ArtController@details')->name('storeDetails.details');
+Route::get('/comment/create', 'CommentController@store')->name('comment.create');
+Route::post('/comment/store', 'CommentController@store')->name('comment.store');
 
 // Cart
 Route::get('/cart', function () { return view('cart'); });
@@ -51,16 +53,16 @@ Route::delete('/forum/deletecategory/{id}', 'CategoryController@destroy')->name(
 
 Route::get('/forum', 'PostController@index')->name('postslist');
 Route::get('/forum/category/{category_id}', 'PostController@viewCategoryPost')->name('category.post');
-Route::get('/forum/{category_id}/{id}', 'PostController@viewPost')->name('post.view');
+Route::get('/forum/{category_id}/{title}', 'PostController@viewPost')->name('post.view');
 
-Route::get('/forum/show/{id}', 'PostController@show')->name('post.show');
+
 Route::get('/forum/create', 'PostController@create')->name('post.create');
 Route::post('/forum/store', 'PostController@store')->name('post.store');
 Route::get('/forum/editPost/{id}', 'PostController@edit')->name('post.edit');
 Route::put('/forum/editPost/{id}', 'PostController@update')->name('post.update');
 Route::delete('/forum/deletepost/{id}', 'PostController@destroy')->name('post.delete');
 
-Route::post('/comment/store', 'CommentController@store')->name('comment.add');
+// Route::post('/comment/tore', 'CommentController@store')->name('comment.add');
 Route::post('/reply/store', 'CommentController@replyStore')->name('reply.add');
 
 

@@ -74,8 +74,9 @@ class CategoryController extends Controller
         $category = Forumcategories::where('id', $id)->first();
 
         if ($category != null) {
+            $category->posts()->delete();
             $category->delete();
-            return redirect('/forum/manage')->with('success', 'Category Delete Successfully');
+            return redirect('/forum/manage')->with('success', 'Category Deleted with its post Successfully');
         }
 
         return redirect()->route('forum/manage')->with(['fail' => 'Wrong ID!!']);
