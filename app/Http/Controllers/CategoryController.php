@@ -12,7 +12,7 @@ class CategoryController extends Controller
     public function create()
     {
         // $categories = Forumcategories::all();
-        return view('forum/createCategory');
+        return view('/storeDetails', compact('comment'));
     }
 
     public function store(Request $request)

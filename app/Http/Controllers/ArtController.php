@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\Art;
+use App\Models\Comment;
+
 
 class ArtController extends Controller
 {
@@ -14,16 +16,20 @@ class ArtController extends Controller
         return view('store', compact('data'));
     }
 
-    function details($artID)
+    public function details($artID)
     {
         $data = Art::findOrFail($artID);
         if ($data->first()) {
             $artistWork = Art::where(['artistName'=>$data->artistName, ['artID', '!=', $artID]])->take(4)->get();
         }
-        return view('storeDetails', compact('data', 'artistWork'));
+
+        $comments = Comment::where('artID', $artID)->get();
+        return view('storeDetails', compact('data', 'artistWork', 'comments'));
     }
 
-    function search(){
-        return view('search');
+    public function count() {
+        $comments = Comment::all();
+        return view('/storeDetails', compact('comments'));
     }
+
 }

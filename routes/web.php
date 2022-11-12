@@ -30,8 +30,8 @@ Route::get('/logout', 'UserController@logout')->name('logout.logout');
 //Store
 Route::get('/store', 'ArtController@index')->name('store.index');
 Route::get('/storeDetails/{artID}', 'ArtController@details')->name('storeDetails.details');
-Route::get('/comment/create', 'CommentController@store')->name('comment.create');
-Route::post('/comment/store', 'CommentController@store')->name('comment.store');
+Route::get('/storeDetails/comment/create', 'CommentController@create')->name('comment.create');
+Route::post('/storeDetails/comment/store', 'CommentController@store')->name('comment.store');
 
 // Cart
 Route::get('/cart', function () { return view('cart'); });
