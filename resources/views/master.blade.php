@@ -73,7 +73,7 @@
         <ul class="dropdown-menu" style="width:200px;">
           <li><a class="dropdown-item" href="#">Manage Account</a></li>
           <li><a class="dropdown-item" href="#">My Orders</a></li>
-          <li><a class="dropdown-item" href="#">My Wishlist</a></li>
+          <li><a class="dropdown-item" href="{{ route('wishlist.show') }}">My Wishlist</a></li>
           <li><a class="dropdown-item" href="{{ route('logout.logout') }}">Logout</a></li>
         </ul>
         @else
@@ -156,9 +156,10 @@
   <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
   <script src="{{ asset('assets/js/home.js') }}"></script>
   <script src="{{ asset('Js/carouselmin.js') }}"></script>
+  <script src="{{ asset('Js/custom.js') }}"></script>
 
   <!-- JQuery -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdn.ckeditor.com/ckeditor5/35.3.0/classic/ckeditor.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>

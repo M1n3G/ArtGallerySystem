@@ -20,7 +20,7 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/forum">Home</a></li>
                         @php
-                        $category = App\Models\Forumcategories::where(['navstatus'=>'Visible','status'=>'Visible'])->get();
+                        $category = App\Models\Forumcategories::where(['status'=>'Visible'])->get();
                         @endphp
 
                         @foreach($category as $catitem)

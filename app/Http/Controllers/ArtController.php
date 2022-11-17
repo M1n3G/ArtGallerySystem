@@ -32,4 +32,9 @@ class ArtController extends Controller
         return view('/storeDetails', compact('comments'));
     }
 
+    public function filter() {
+        $categories = Art::all();
+        return view('store', compact('categories'));
+    }
+
 }

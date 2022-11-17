@@ -40,15 +40,13 @@
 
                     <form action="" method="GET">
                         <div class="input-group mb-3">
-                            <select class="form-select" name="cat" id="inputGroupSelect02">
-                                <option selected>Any Medium</option>
-                                <option value="drawing">Drawing</option>
-                                <option value="painting">Painting</option>
-                                <option value="threeDimensionalArt">Three-Dimensional Art</option>
-                                <option value="mixedMedia">Mixed-media</option>
-                                <option value="photography">Photography</option>
-                                <option value="graphicArt">Graphic Art</option>
-                                <option value="illustration">Illustration</option>
+                            <select class="form-select" name="category" id="category">
+                                <option value="">- Select a Medium -</option>
+                                @if(count($data) > 0)
+                                @foreach($data as $category)
+                                <option class="option" value="{{$category->id}}">{{$category->artMedium}}</option>
+                                @endforeach
+                                @endif
 
                             </select>
                             <button class="btn btn-outline-secondary searchBtn" type="submit">
@@ -199,7 +197,7 @@
                 <hr />
 
                 Showing {{ $data->firstItem() }} to {{ $data->lastItem() }} of total {{$data->total()}} entries
-               
+
                 <!-- PAGINATION -->
                 <nav aria-label="pageNavigation">
                     <ul class="pagination justify-content-end">

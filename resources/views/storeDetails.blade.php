@@ -30,9 +30,11 @@
                         <h1 class="text-uppercase fw-bold" style="font-size:45px;">{{$data -> artName}}</h1>
                     </div>
                     <div class="col-md-2">
-                        <button class="rounded-circle btn btn-outline-dark mt-2 wishlistBtn" style="float:right;" type="button">
-                            <i class="fa fa-heart" aria-hidden="true"></i>
-                        </button>
+                        <a href="{{ route('wishlist.add', $data->artID) }}">           
+                            <button class="rounded-circle btn btn-outline-dark mt-2 addToWishlist" style="float:right;" type="button">
+                                <i class="fa fa-heart" aria-hidden="true"></i>
+                            </button>
+                        </a>
                     </div>
                 </div>
 
@@ -192,12 +194,12 @@
         @endif
 
         <h5>Comments <span class="badge bg-secondary">
-            <span>
-                @foreach($comments as $c)
-                {{ $c->count() }}
-                @endforeach
-            </span>
-        
+                <span>
+                    @foreach($comments as $c)
+                    {{ $c->count() }}
+                    @endforeach
+                </span>
+
         </h5>
 
 

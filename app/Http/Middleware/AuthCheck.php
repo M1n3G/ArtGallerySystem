@@ -20,7 +20,6 @@ class AuthCheck
             return redirect('login');
         }
 
-       
         return $next($request);
     }
 }

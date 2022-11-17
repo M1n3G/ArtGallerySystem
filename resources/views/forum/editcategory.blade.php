@@ -50,15 +50,8 @@
                         <!-- Checked checkbox -->
                         <div class="form-group mt-4">
                             <label class="label mb-2 fw-semibold fs-6">Visibility:</label>
-
                             </br>
-                            <label class="label mb-2 fw-normal fs-6">Navbar Status</label>
-                            <select class="form-select" name="navstatus" aria-label="Default select example">
-                                <option value="Visible">Visible</option>
-                                <option value="Hidden">Hidden</option>
-                            </select>
-
-                            <label class="label mt-4 mb-2 fw-normal fs-6">Status</label>
+                            <label class="label mb-2 fw-normal fs-6">Status</label>
                             <select class="form-select" name="status" aria-label="Default select example">
                                 <option value="Visible">Visible</option>
                                 <option value="Hidden">Hidden</option>

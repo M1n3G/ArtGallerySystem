@@ -17,7 +17,6 @@ class CreateForumcategoriesTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->text('description');
-            $table->string('navstatus');
             $table->string('status');
             $table->timestamps();
         });
