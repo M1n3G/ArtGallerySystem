@@ -34,25 +34,21 @@
 
                     <div class="d-flex mt-2 mb-2">
                         <p class="widget-title" style="flex: 0 0 90%; margin-bottom: 0px;">Medium</p>
-                        <i class="fa fa-caret-down" aria-hidden="true"></i></button>
-
                     </div>
 
-                    <form action="" method="GET">
+                    <form action="{{ route('store.index') }}" method="GET">
                         <div class="input-group mb-3">
                             <select class="form-select" name="category" id="category">
                                 <option value="">- Select a Medium -</option>
-                                @if(count($data) > 0)
-                                @foreach($data as $category)
-                                <option class="option" value="{{$category->id}}">{{$category->artMedium}}</option>
+                                @foreach($cat as $category)
+                                <option class="option" value="{{$category->category_id}}">{{$category->name}}</option>
                                 @endforeach
-                                @endif
 
                             </select>
                             <button class="btn btn-outline-secondary searchBtn" type="submit">
                                 <i class="fa fa-search" aria-hidden="true"></i></button>
                         </div>
-                    </form>
+
                 </div>
 
                 <!-- STYLE -->
@@ -60,25 +56,23 @@
 
                     <div class="d-flex mt-2 mb-2">
                         <p class="widget-title" style="flex: 0 0 90%; margin-bottom: 0px;">Style</p>
-                        <i class="fa fa-caret-down" aria-hidden="true"></i></button>
-
                     </div>
 
-                    <form action="" method="GET">
-                        <div class="input-group mb-3">
-                            <select class="form-select" name="cat" id="inputGroupSelect02">
-                                <option selected>Any Style</option>
-                                <option value="abstract">Abstract</option>
-                                <option value="figurative">Figurative</option>
-                                <option value="geometric">Geometric</option>
-                                <option value="minimalist">Minimalist</option>
-                                <option value="nature">Nature</option>
-                                <option value="potrraiture">Potrraiture</option>
-                            </select>
-                            <button class="btn btn-outline-secondary searchBtn" type="submit">
-                                <i class="fa fa-search" aria-hidden="true"></i></button>
-                        </div>
-                    </form>
+                    <div class="input-group mb-3">
+                        <select class="form-select" name="style" id="inputGroupSelect02">
+                            <option value="" selected>Any Style</option>
+                            <option value="Abstract">Abstract</option>
+                            <option value="Figurative">Figurative</option>
+                            <option value="Geometric">Geometric</option>
+                            <option value="Minimalist">Minimalist</option>
+                            <option value="Sculpture">Sculpture</option>
+                            <option value="Nature">Nature</option>
+                            <option value="Potrraiture">Potrraiture</option>
+                        </select>
+                        <button class="btn btn-outline-secondary searchBtn" type="submit">
+                            <i class="fa fa-search" aria-hidden="true"></i></button>
+                    </div>
+
                 </div>
 
                 <!-- PRICE -->
@@ -86,46 +80,44 @@
 
                     <div class="d-flex mt-2 mb-2">
                         <p class="widget-title" style="flex: 0 0 90%; margin-bottom: 0px;">Price</p>
-                        <i class="fa fa-caret-down" aria-hidden="true"></i></button>
-
                     </div>
 
-                    <form action="" method="GET">
-                        <div class="input-group mb-3">
-                            <select class="form-select" name="cat" id="inputGroupSelect02">
-                                <option selected>Any Price</option>
-                                <option value="below">RM 5,000 & below</option>
-                                <option value="5">RM 5,000 - RM 10,000</option>
-                                <option value="10">RM 10,000 - RM 20,000</option>
-                                <option value="20">RM 20,000 - RM 30,000</option>
-                                <option value="above">RM 30,000 & above</option>
-                            </select>
 
-                            <button class="btn btn-outline-secondary searchBtn" type="submit">
-                                <i class="fa fa-search" aria-hidden="true"></i></button>
-                        </div>
-                    </form>
+                    <div class="input-group mb-3">
+                        <select class="form-select" name="price" id="inputGroupSelect02">
+                            <option value="" selected>Any Price</option>
+                            <option value="1">RM 5,000 & below</option>
+                            <option value="2">RM 5,000 - RM 10,000</option>
+                            <option value="3">RM 10,000 - RM 20,000</option>
+                            <option value="4">RM 20,000 - RM 30,000</option>
+                            <option value="5">RM 30,000 & above</option>
+                        </select>
+
+                        <button class="btn btn-outline-secondary searchBtn" type="submit">
+                            <i class="fa fa-search" aria-hidden="true"></i></button>
+                    </div>
+
                 </div>
 
                 <!-- SORT -->
                 <div class="d-none d-md-block mb-5">
                     <div class="d-flex mt-2 mb-2">
                         <p class="widget-title" style="flex: 0 0 90%; margin-bottom: 0px;">Sort</p>
-                        <i class="fa fa-caret-down" aria-hidden="true"></i></button>
                     </div>
 
-                    <form action="" method="GET">
-                        <div class="input-group mb-3">
-                            <select class="form-select" name="cat" id="inputGroupSelect02">
-                                <option selected>Default sorting</option>
-                                <option value="popularity">Sort by popularity</option>
-                                <option value="date">Sort by newness</option>
-                                <option value="price">Sort by price: low to high</option>
-                            </select>
 
-                            <button class="btn btn-outline-secondary searchBtn" type="submit">
-                                <i class="fa fa-search" aria-hidden="true"></i></button>
-                        </div>
+                    <div class="input-group mb-3">
+                        <select class="form-select" name="sort" id="sort-by">
+                            <option selected="" value="">Select</option>
+                            <option value="product_latest">Sort By: Latest</option>
+                            <option value="price_lowest">Sort By: Lowest Price</option>
+                            <option value="price_highest">Sort By: Highest Price</option>
+                            <option value="name_z_a">Sort By: A - Z</option>
+                            <option value="name_a_z">Sort By: Z - A</option>
+                        </select>
+                        <button class="btn btn-outline-secondary searchBtn" type="submit">
+                            <i class="fa fa-search" aria-hidden="true"></i></button>
+                    </div>
                     </form>
                 </div>
 
@@ -133,13 +125,11 @@
                 <div class="d-none d-md-block mb-5">
                     <div class="d-flex mt-2 mb-2">
                         <p class="widget-title" style="flex: 0 0 90%; margin-bottom: 0px;">Page</p>
-                        <i class="fa fa-caret-down" aria-hidden="true"></i></button>
-
                     </div>
 
                     <form action="" method="GET">
                         <div class="input-group mb-3">
-                            <select class="form-select" name="cat" id="inputGroupSelect02">
+                            <select class="form-select" name="page" id="inputGroupSelect02">
                                 <option value="12" selected="selected">12 per page</option>
                                 <option value="18">18 per page</option>
                                 <option value="24">24 per page</option>
@@ -164,7 +154,8 @@
                 <div class="row w-100 p-0 w-0">
 
                     <!-- Column for card-->
-                    @if (!empty($data) && $data->count())
+                    
+                    @if (!empty($data) && count($data))
                     @foreach($data as $key => $value)
                     <div class="col-lg-4 cardMb">
                         <div class="card mx-auto h-100" style="width: 18rem;">
@@ -174,8 +165,8 @@
                                 <h5 class="card-title text-center text-uppercase fw-bold">{{$value -> artName}}</h5>
                                 <hr />
                                 <div class="card-text lh-lg">
-                                    <div class="text-center text-uppercase">{{$value-> artist}}</div>
-                                    <div class="text-center" style="color:#9d9d9d; font-size:13px;">{{$value -> artMedium}}</div>
+                                    <div class="text-center text-uppercase">{{$value-> artistName}}</div>
+                                    <div class="text-center" style="color:#9d9d9d; font-size:13px;">{{$value -> name}}</div>
                                     <div class="text-center fw-bolder" style="color:#910000; font-size:18px;">MYR {{$value -> artPrice}}</div>
                                     <hr />
                                     <div class=" text-center">
@@ -196,17 +187,9 @@
 
                 <hr />
 
-                Showing {{ $data->firstItem() }} to {{ $data->lastItem() }} of total {{$data->total()}} entries
-
-                <!-- PAGINATION -->
-                <nav aria-label="pageNavigation">
-                    <ul class="pagination justify-content-end">
-                        {!! $data->appends(Request::all())->links() !!}
-                    </ul>
-                </nav>
+                
 
                 <!--end main artworks area-->
-
 
             </div>
             <!--end row-->

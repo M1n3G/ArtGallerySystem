@@ -226,9 +226,7 @@
                 <img class="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="60" height="60" />
                 <div>
                     <h6 class="fw-bold mb-1" style="color:#910000">
-                        @if ($comment->user)
-                        {{$comment->user->name}}
-                        @endif
+                        {{$comment->username}}           
                     </h6>
                     <p class="text-muted small mb-0">
                         Commented on: {{$comment -> datetime}}

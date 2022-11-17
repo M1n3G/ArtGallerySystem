@@ -14,5 +14,5 @@ class Art extends Model
 
     public function wishlist(){
         return $this->hasMany(Wishlist::class);
-     }
+    }
 }

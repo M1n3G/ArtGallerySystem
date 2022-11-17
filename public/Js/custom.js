@@ -1,19 +1,6 @@
-<script>
-$(document).ready(function()){
+$(document).ready(function() {
+    $("#sort").on("change", function() {
+        this.form.submit();
+    });
+});
 
-    //Get category ID
-    @foreach(App\Models\Art::all() as $catList)
-    $("#findBtn").click(function(){
-        var cat = $("#cat{{$catList->id}}").val();
-
-        $.ajax({
-            type:'get',
-            dataType:'html',
-            url:'{{url}}'
-        })
-
-
-    })
-}
-
-</script>

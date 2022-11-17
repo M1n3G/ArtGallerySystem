@@ -57,6 +57,10 @@
                             </select>
                         </div>
 
+                        <div class="form-group mt-4">
+                            <input type="hidden" value="Visible" class="Visible"/>
+                        </div>
+
                         <div class=" d-grid gap-2 d-md-flex mt-4 justify-content-md-end">
                             <a class="btn btn-outline-dark text-capitalize" href="/forum" style="width:125px;">Cancel</a>
                             <button class="btn btn-primary text-capitalize" style="width:125px; background-color:#910000; color:white;" type="submit">Update</button>

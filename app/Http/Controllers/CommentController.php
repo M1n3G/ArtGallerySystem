@@ -27,7 +27,7 @@ class CommentController extends Controller
 
         $comment =  new Comment();
         $comment->artID = $request->get('artID');
-        // $comment->username = Auth::user()->username;
+        $comment->username = Session::get('username');
         $comment->comment_body = $request->get('comment_body');
         date_default_timezone_set("Asia/Kuala_Lumpur");           
         $date =  Carbon::now()->format('Y-m-d H:i:s');

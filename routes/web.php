@@ -38,7 +38,6 @@ Route::get('/store', 'ArtController@index')->name('store.index');
 Route::get('/storeDetails/{artID}', 'ArtController@details')->name('storeDetails.details');
 Route::get('/storeDetails/comment/create', 'CommentController@create')->name('comment.create');
 Route::post('/storeDetails/comment/store', 'CommentController@store')->name('comment.store');
-Route::get('/store/filter', 'ArtController@filter')->name('store.filter');
 
 // Cart
 Route::get('/cart', function () {
@@ -64,7 +63,7 @@ Route::get('/forum/editCategory/{id}', 'CategoryController@edit')->name('categor
 Route::put('/forum/editCategory/{id}', 'CategoryController@update')->name('category.update');
 Route::delete('/forum/deletecategory/{id}', 'CategoryController@destroy')->name('category.delete');
 
-Route::get('/forum', 'PostController@index')->name('postslist');
+Route::get('/forum', 'PostController@index')->name('category.view');
 Route::get('/forum/category/{category_id}', 'PostController@viewCategoryPost')->name('category.post');
 Route::get('/forum/{category_id}/{title}', 'PostController@viewPost')->name('post.view');
 

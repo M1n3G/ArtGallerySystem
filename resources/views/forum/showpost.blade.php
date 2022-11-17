@@ -34,11 +34,10 @@
     <div class="container">
         <div class="row">
 
-            <div class="col-md-9">
+            <div class="col-md-8">
                 <div class="categoryheading">
                     <p class="fs-3 fw-semibold">{{ $category->name}}</p>
                 </div>
-
 
                 <div class="card card-shadow mt-4 mb-4">
                     <div class="card-header" style="font-family: 'Poppins', sans-serif; font-size:14px;">
@@ -54,6 +53,21 @@
 
                 <hr class="mt-4 mb-4" />
 
+            </div>
+
+            <div class="col-md-4">
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h5>Latest Posts</h5>
+                    </div>
+                    <div class="card-body">
+                        @foreach($latest_posts as $item)
+                            <a href="{{ route('post.view', ['category_id' => $item->category_id, 'title' => $posts->title]) }}" class="text-decoration-none">
+                                <h6>{{ $item->title }}</h6>
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -3,14 +3,8 @@
 @section('content')
 
 <!-- Breadcumb link -->
-<div class="container px-4 mt-2">
-    <div class="row mt-4">
-        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-            <ol class="breadcrumb" style="font-family: 'Poppins', sans-serif;">
-                <li class="breadcrumb-item"><a href="/forum" class="text-decoration-none">Forum</a></li>
-            </ol>
-        </nav>
-    </div>
+<div class="container px-4 mt-4">
+    <p class="fs-5 fw-normal" style="font-family:'Poppins';">Welcome to ArtCells Forum</p>
 </div>
 
 <div class="container px-4 mt-2">
@@ -25,33 +19,32 @@
     @endif
 
     <div class="card mt-4 mb-4">
-        <!-- <div class="card-header">
-            <h4 class="mt-4">View <a class="btn btn-primary text-capitalize float-end" href="/createCategory">Create category</a></h4>
-        </div> -->
-
         <div class="card-body">
             <table class="table table-striped" style="font-family:'Poppins', sans-serif; font-size: 16px;">
                 <thead>
-                    <th>ID</th>
-                    <th>Title</th>
-                    <th>Category</th>
-                    <th>Action</th>
+                    <th>Name</th>
                 </thead>
                 <tbody>
-                    @if (!empty($posts) && $posts->count())
-                    @foreach($posts as $post)
+                    @if (!empty($category) && $category->count())
+                    @foreach($category as $c)
                     <tr>
-                        <td>{{ $post->id }}</td>
-                        <td>{{ $post->title }}</td>
                         <td>
-                            <a href="{{ route('post.edit',$post->id) }}" class="btn btn-xs btn-info">Edit</a>
-                        </td>
-                        <td>
-                            <form action="{{ route('post.delete',$post->id) }}" method="POST" onsubmit="return confirm('Are you sure you wish to delete this post?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
+                            <div class="p-1">
+                                <span class="d-block fw-bold">{{ $c->name }}</span>
+                                </br>
+                            </div>
+                            <div class="row">
+                                <div class="col-2">
+                                    <p class="fw-normal mt-1">&nbsp Posts:
+                                        {{ $c->posts->count() }}
+                                    </p>
+                                </div>
+                                <div class="col-9">
+                                    <div class="p-1 icons d-flex justify-content-end">
+                                        <a href="{{ route('category.post',$c->id) }}" class="btn btn-primary px-2" style="height: 35px; width: 100px;">View</a>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                     @endforeach
@@ -63,12 +56,11 @@
                 </tbody>
             </table>
 
-            Showing {{ $posts->firstItem() }} to {{ $posts->lastItem() }} of total {{$posts->total()}} entries
 
             <!-- PAGINATION -->
             <nav aria-label="pageNavigation">
                 <ul class="pagination justify-content-end">
-                    {!! $posts->appends(Request::all())->links() !!}
+                    {!! $category->appends(Request::all())->links() !!}
                 </ul>
             </nav>
         </div>

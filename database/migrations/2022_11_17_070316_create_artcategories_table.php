@@ -13,8 +13,9 @@ class CreateArtCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('art_categories', function (Blueprint $table) {
+        Schema::create('artcategories', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->unique();
             $table->timestamps();
         });
     }
