@@ -12,7 +12,7 @@ class CategoryController extends Controller
     public function create()
     {
         // $categories = Forumcategories::all();
-        return view('forum/createCategory');
+        return view('/forum/createCategory');
     }
 
     public function store(Request $request)
@@ -25,7 +25,6 @@ class CategoryController extends Controller
         $category =  new Forumcategories();
         $category->name = $request->get('name');
         $category->description = $request->get('description');
-        $category->navstatus = $request->get('navstatus');
         $category->status = $request->get('status');
 
         if ($category->save()) {
@@ -59,7 +58,6 @@ class CategoryController extends Controller
         $category =  Forumcategories::find($id);
         $category->name = $request->get('name');
         $category->description = $request->get('description');
-        $category->navstatus = $request->get('navstatus');
         $category->status = $request->get('status');
 
         if ($category->update()) {

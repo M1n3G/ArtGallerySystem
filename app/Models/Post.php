@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Forumcategories;
 use App\Models\User;
+use App\Models\Comment;
 
 class Post extends Model
 {
@@ -35,4 +36,6 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class,'post_id', 'id');
     }
+
+    
 }

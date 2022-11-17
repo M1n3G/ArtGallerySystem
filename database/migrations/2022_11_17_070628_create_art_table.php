@@ -18,7 +18,7 @@ class CreateArtTable extends Migration
             $table->string('artistName');
             $table->string('artName');
             $table->string('artImg', 255);
-            $table->string('artMedium');
+            $table->integer('category_id');
             $table->string('artStyle');
             $table->float('artPrice');
             $table->text('artDesc', 1000);

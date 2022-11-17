@@ -29,6 +29,7 @@ class PostController extends Controller
         $post->title = $request->get('title');
         $post->body = $request->get('body');
         $post->category_id = $request->get('category_id');
+        $post->status = $request->status;
         date_default_timezone_set("Asia/Kuala_Lumpur");           
         $date =  Carbon::now()->format('Y-m-d H:i:s');
         $post->datetime = $date;
@@ -58,7 +59,8 @@ class PostController extends Controller
         
         if ($category) {
             $posts = Post::where(['category_id' => $category_id, 'status' => 'Visible', 'title' => $title])->first();
-            return view('forum/showpost', compact('posts', 'category'));
+            $latest_posts = Post::where(['category_id' => $category_id, 'status' => 'Visible'])->orderBy('datetime','DESC')->get()->take(15);
+            return view('forum/showpost', compact('posts', 'category','latest_posts'));
         } else {
             return redirect('/forum');
         }
@@ -66,9 +68,8 @@ class PostController extends Controller
 
     public function index()
     {
-        // $posts = Post::all();
-        $posts = Post::select('id', 'title', 'category_id')->paginate(10);
-        return view('forum/forum', compact('posts'));
+        $category = Forumcategories::with('posts')->paginate(10);
+        return view('forum/forum', compact('category'));
     }
 
     

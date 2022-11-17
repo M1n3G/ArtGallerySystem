@@ -30,9 +30,11 @@
                         <h1 class="text-uppercase fw-bold" style="font-size:45px;">{{$data -> artName}}</h1>
                     </div>
                     <div class="col-md-2">
-                        <button class="rounded-circle btn btn-outline-dark mt-2 wishlistBtn" style="float:right;" type="button">
-                            <i class="fa fa-heart" aria-hidden="true"></i>
-                        </button>
+                        <a href="{{ route('wishlist.add', $data->artID) }}">           
+                            <button class="rounded-circle btn btn-outline-dark mt-2 addToWishlist" style="float:right;" type="button">
+                                <i class="fa fa-heart" aria-hidden="true"></i>
+                            </button>
+                        </a>
                     </div>
                 </div>
 
@@ -79,7 +81,7 @@
     <!-- MODAL -->
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="width:600px; height:700px; margin-top:85px; margin-left:565px;">
+        <div class="modal-dialog modal-lg">
             <div style="margin-left: 700px;">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
@@ -181,16 +183,26 @@
 
     <div class="container px-4">
         <hr />
-        @if (session('message'))
-        <div class="alert alert-warning alert-dismissible fade show form-control" role="alert">
+        @if (\Session::has('message'))
+        <div class="alert alert-success alert-dismissible fade show form-control" role="alert">
             <div class="text-left">
-                (session('message'))
+                {{ \Session::get('message') }}
+                {{ \Session::forget('message') }}
             </div>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
 
-        <h5>Comments <span class="badge bg-secondary">4</span></h5>
+        <h5>Comments <span class="badge bg-secondary">
+                <span>
+                    @foreach($comments as $c)
+                    {{ $c->count() }}
+                    @endforeach
+                </span>
+
+        </h5>
+
+
         <div class="comment-area mt-4">
             <div class="card card-body">
                 <h6 class="card-title">Leave a comment</h6>
@@ -200,24 +212,30 @@
                     <div class="float-end mt-2 pt-1">
                         <button type="submit" class="btn btn-primary mt-3">Submit</button>
                     </div>
+                    <input type="hidden" value="{{$data->artID}}" name="artID" />
                 </form>
             </div>
 
             </form>
         </div>
+
+
+        @forelse($comments as $comment)
         <div class="card card-body shadow-sm mt-3">
             <div class="d-flex flex-start align-items-center">
                 <img class="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="60" height="60" />
                 <div>
-                    <h6 class="fw-bold mb-1" style="color:#910000">User 2105144</h6>
+                    <h6 class="fw-bold mb-1" style="color:#910000">
+                        {{$comment->username}}           
+                    </h6>
                     <p class="text-muted small mb-0">
-                        Commented on: 7-11-2022
+                        Commented on: {{$comment -> datetime}}
                     </p>
                 </div>
             </div>
 
             <p class="mt-3 mb-4 pb-2">
-                Using Laravel insert into database.
+                {!! $comment -> comment_body !!}
             </p>
 
             <div class="row">
@@ -236,12 +254,19 @@
                     </a>
                 </div>
 
+                @if(Auth::check())
                 <div class="d-flex justify-content-end">
                     <a href="#" class="btn btn-primary btn-sm me-2">Edit</a>
                     <a href="#" class="btn btn-danger btn-sm me-2">Delete</a>
                 </div>
+                @endif
             </div>
         </div>
+
+        @empty
+        <hr class="mt-4">
+        <p class="mt-4" style=" font-family: 'Poppins', serif;">No comment Yet.</p>
+        @endforelse
 
     </div>
     </div>

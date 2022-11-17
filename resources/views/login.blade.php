@@ -25,13 +25,22 @@
             </div>
             @endif
 
+            @if (Session('message'))
+            <div class="alert alert-warning alert-dismissible fade show form-control" role="alert">
+              <div class="text-center">
+                {{ (Session('message')) }}
+              </div>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
+
             <form action="{{ route('login.login') }}" method="post">
               @csrf
               <div class="md-5 mt-md-4 pb-5">
                 @if (\Session::has('fail'))
-                <div class="alert alert-success alert-danger fade show form-control" role="alert"> 
-                    {{ \Session::get('fail') }}
-                    {{ \Session::forget('fail') }}
+                <div class="alert alert-success alert-danger fade show form-control" role="alert">
+                  {{ \Session::get('fail') }}
+                  {{ \Session::forget('fail') }}
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 @endif
@@ -47,7 +56,7 @@
 
                 <div class="mb-4">
                   <label for="password" class="form-label" style="float:left">Password</label>
-                  <input type="password" class="form-control" name="password" style="height:45px;" value="{{ old('password') }}"required>
+                  <input type="password" class="form-control" name="password" style="height:45px;" value="{{ old('password') }}" required>
                 </div>
 
                 <p class="small mb-5 pb-lg-2"><a class="text-black-50" href="#">Forgot password?</a></p>
