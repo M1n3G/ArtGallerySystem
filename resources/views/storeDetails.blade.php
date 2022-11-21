@@ -16,7 +16,33 @@
                     <li class="text-uppercase breadcrumb-item active" aria-current="page">{{$data -> artName}}</a></li>
                 </ol>
             </nav>
+
+            @if (\Session::has('warning'))
+            <div class="container">
+                <div class="alert alert-danger alert-dismissible fade show form-control" role="alert">
+                    <div class="text-left">
+                        {{ \Session::get('warning') }}
+                        {{ \Session::forget('warning') }}
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+            @endif
+
+            @if (\Session::has('message'))
+            <div class="container">
+                <div class="alert alert-success alert-dismissible fade show form-control" role="alert">
+                    <div class="text-left">
+                        {{ \Session::get('message') }}
+                        {{ \Session::forget('message') }}
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+            @endif
+
         </div>
+
         <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-6 border text-center" style="height:700px; max-height:700px;">
                 <img class="card-img-top mb-md-0 artImg" src="{{asset($data['artImg'])}}" alt="{{$data -> artName}}" style="width:535px; height:525px; max-width:535px; max-height:525px; margin-top:75px;" />
@@ -30,11 +56,12 @@
                         <h1 class="text-uppercase fw-bold" style="font-size:45px;">{{$data -> artName}}</h1>
                     </div>
                     <div class="col-md-2">
-                        <a href="{{ route('wishlist.add', $data->artID) }}">           
-                            <button class="rounded-circle btn btn-outline-dark mt-2 addToWishlist" style="float:right;" type="button">
+                        <form action="{{ route('wishlist.add', $data->artID) }}" method="POST">
+                            @csrf
+                            <button class="rounded-circle btn btn-outline-dark mt-2" style="float:right;" type="submit">
                                 <i class="fa fa-heart" aria-hidden="true"></i>
                             </button>
-                        </a>
+                        </form>
                     </div>
                 </div>
 
@@ -43,11 +70,19 @@
                     <div class="col-md-6">
                         <p class="fw-bold" style="color:#910000; font-size:28px;">MYR {{$data -> artPrice}}</p>
                     </div>
+                    @if ($data -> artStatus == 'SOLD')
+                    <div class="col-md-6">
+                        <button class="btn btn-dark mt-2" style="width:150px; float:right;" disabled="disabled" type="button">
+                            SOLD
+                        </button>
+                    </div>
+                    @else
                     <div class="col-md-6">
                         <button class="btn btn-outline-dark mt-2" style="width:150px; float:right;" type="button">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to cart
                         </button>
                     </div>
+                    @endif
                 </div>
 
                 <div id="accordion" class="lh-base" role="tablist" aria-multiselectable="true">
@@ -57,14 +92,16 @@
                                 <i class="fa fa-chevron-down pull-right"></i> Overview
                             </a>
                         </h5>
-
+                        <!-- CATEGORY NAME PURPOSE -->
+                        @foreach($cat as $category)
+                        @endforeach
                         <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
                             <div class="card-body">
                                 <p class="fw-bolder">Year:<br /></p>{{$data -> artYear}}</p>
                                 <p class="fw-bolder">Description:<br /></p>{{$data -> artDesc}}</p>
                                 <p class="fw-bolder">Dimension:<br /></p>
                                 {{$data -> artWidth}} cm (Width) x {{$data -> artHeight}} cm (Height)</p>
-                                <p class="fw-bolder">Medium:<br /></p>{{$data -> artMedium}}</p>
+                                <p class="fw-bolder">Medium:<br /></p>{{$category -> name}}</p>
                                 <p class="fw-bolder">Style:<br /></p>{{$data -> artStyle}}</p>
                                 <span style="color:#9d9d9d; font-size:12px;">Note: Actual colours may vary due to photography & computer settings.</span>
                             </div>
@@ -195,18 +232,14 @@
 
         <h5>Comments <span class="badge bg-secondary">
                 <span>
-                    @foreach($comments as $c)
-                    {{ $c->count() }}
-                    @endforeach
+                    {{ $counts}}
                 </span>
-
         </h5>
-
 
         <div class="comment-area mt-4">
             <div class="card card-body">
                 <h6 class="card-title">Leave a comment</h6>
-                <form method="post" action="{{ route('comment.store') }}">
+                <form method="post" action="{{ route('comment.store', $data->artID) }}">
                     @csrf
                     <textarea name="comment_body" class="form-control" rows="3" required></textarea>
                     <div class="float-end mt-2 pt-1">
@@ -219,14 +252,14 @@
             </form>
         </div>
 
-
+        @if (!empty($comments) && $comments->count())
         @forelse($comments as $comment)
-        <div class="card card-body shadow-sm mt-3">
+        <div class="card card-body shadow-sm mt-3 mb-4">
             <div class="d-flex flex-start align-items-center">
-                <img class="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="60" height="60" />
+             
                 <div>
                     <h6 class="fw-bold mb-1" style="color:#910000">
-                        {{$comment->username}}           
+                        {{$comment->username}}
                     </h6>
                     <p class="text-muted small mb-0">
                         Commented on: {{$comment -> datetime}}
@@ -254,12 +287,19 @@
                     </a>
                 </div>
 
-                @if(Auth::check())
+                @foreach($com as $cc)
+                @if ($cc->username == Session::get('username'))
                 <div class="d-flex justify-content-end">
-                    <a href="#" class="btn btn-primary btn-sm me-2">Edit</a>
-                    <a href="#" class="btn btn-danger btn-sm me-2">Delete</a>
+                    <form action="{{ route('comment.remove',$comment->artID) }}" method="POST" onsubmit="return confirm('Are you sure you want to remove your comment?');">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger btn-sm me-2">Delete &nbsp<i class="bi bi-trash"></i></button>
+                    </form>
                 </div>
                 @endif
+                @break
+                @endforeach
+
             </div>
         </div>
 
@@ -267,8 +307,18 @@
         <hr class="mt-4">
         <p class="mt-4" style=" font-family: 'Poppins', serif;">No comment Yet.</p>
         @endforelse
+        @endif
 
+
+        <!-- PAGINATION -->
+        <nav aria-label="pageNavigation">
+            <ul class="pagination justify-content-end">
+                {!! $comments->appends(Request::all())->links() !!}
+            </ul>
+        </nav>
     </div>
+
+
     </div>
 </main>
 

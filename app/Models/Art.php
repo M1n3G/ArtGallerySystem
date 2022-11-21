@@ -15,4 +15,9 @@ class Art extends Model
     public function wishlist(){
         return $this->hasMany(Wishlist::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'userImg', 'username');
+    }
 }

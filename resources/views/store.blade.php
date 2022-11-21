@@ -14,6 +14,17 @@
         <!-- TITLE -->
         <h5 class="store-Title" style="font-family: 'Poppins', sans-serif;">Original Contemporary Art in Malaysia</h5>
 
+        @if (\Session::has('message'))
+        <div class="alert alert-success alert-dismissible fade show form-control" role="alert">
+            <div class="text-left">
+                {{ \Session::get('message') }}
+                {{ \Session::forget('message') }}
+                <a href="/wishlist">&nbsp Wishlist</a>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
         <!-- FILTER -->
         <div class="row" data-aos="fade-left">
             <div class="d-none d-md-block col-md-4 col-lg-3 sticky-top">
@@ -39,7 +50,7 @@
                     <form action="{{ route('store.index') }}" method="GET">
                         <div class="input-group mb-3">
                             <select class="form-select" name="category" id="category">
-                                <option value="">- Select a Medium -</option>
+                                <option value="">Any Medium</option>
                                 @foreach($cat as $category)
                                 <option class="option" value="{{$category->category_id}}">{{$category->name}}</option>
                                 @endforeach
@@ -108,12 +119,12 @@
 
                     <div class="input-group mb-3">
                         <select class="form-select" name="sort" id="sort-by">
-                            <option selected="" value="">Select</option>
-                            <option value="product_latest">Sort By: Latest</option>
-                            <option value="price_lowest">Sort By: Lowest Price</option>
-                            <option value="price_highest">Sort By: Highest Price</option>
-                            <option value="name_z_a">Sort By: A - Z</option>
-                            <option value="name_a_z">Sort By: Z - A</option>
+                            <option selected="" value="">Sort</option>
+                            <option value="1">Sort By: Latest</option>
+                            <option value="2">Sort By: Lowest Price</option>
+                            <option value="3">Sort By: Highest Price</option>
+                            <option value="4">Sort By: A - Z</option>
+                            <option value="5">Sort By: Z - A</option>
                         </select>
                         <button class="btn btn-outline-secondary searchBtn" type="submit">
                             <i class="fa fa-search" aria-hidden="true"></i></button>
@@ -154,7 +165,7 @@
                 <div class="row w-100 p-0 w-0">
 
                     <!-- Column for card-->
-                    
+
                     @if (!empty($data) && count($data))
                     @foreach($data as $key => $value)
                     <div class="col-lg-4 cardMb">
@@ -166,7 +177,7 @@
                                 <hr />
                                 <div class="card-text lh-lg">
                                     <div class="text-center text-uppercase">{{$value-> artistName}}</div>
-                                    <div class="text-center" style="color:#9d9d9d; font-size:13px;">{{$value -> name}}</div>
+                                    <div class="text-center" style="color:#9d9d9d; font-size:13px;">{{$category -> name}}</div>
                                     <div class="text-center fw-bolder" style="color:#910000; font-size:18px;">MYR {{$value -> artPrice}}</div>
                                     <hr />
                                     <div class=" text-center">
@@ -178,16 +189,22 @@
                     </div>
                     @endforeach
                     @else
+
+                   
                     <div class="row">
-                        <h3 class="text-center">There are no art.</h3>
-                    </div>
+                        <div class="alert alert-primary alert-dismissible fade show form-control" role="alert">
+                            <div class="text-left">
+                                No art found.
+                                <a href="/store">&nbsp Store</a>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+         
                     @endif
 
                 </div>
 
                 <hr />
-
-                
 
                 <!--end main artworks area-->
 

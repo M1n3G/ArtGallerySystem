@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
-use App\Models\Comments;
+use App\Models\Forumcomment;
 use Carbon\Carbon;
 use App\Models\Forumcategories;
-use TeamTeaTime\Forum\Database\Seeders\ForumSeeder;
+use App\Models\Artcategories;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use Illuminate\Support\Facades\Session;
 
 class PostController extends Controller
 {
@@ -22,18 +24,37 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|unique:posts|max:255',
             'body' => 'required|min:10',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'category_id' => 'required|integer'
         ]);
 
         $post =  new Post();
         $post->title = $request->get('title');
         $post->body = $request->get('body');
+
+        // error_log('Hello' . $request->image);
+        if ($request->hasFile('image')) {
+            // $des_path = 'public/Img/Post';
+            // $img = $request->file('image');
+            // $img_name = $img->getClientOriginalName();
+            // $posts = $request->file('image')->storeAs($des_path, $img_name);
+            $image = $request['image'];
+            $uploadedFileUrl = Cloudinary::upload($image->getRealPath())->getSecurePath();
+            $post->image = $uploadedFileUrl;
+        }
+
+
+
         $post->category_id = $request->get('category_id');
         $post->status = $request->status;
-        date_default_timezone_set("Asia/Kuala_Lumpur");           
+
+        $post->created_by = Session::get('username');
+        // $post->imageurl = $uploadedFileUrl
+
+        date_default_timezone_set("Asia/Kuala_Lumpur");
         $date =  Carbon::now()->format('Y-m-d H:i:s');
         $post->datetime = $date;
-         
+
         if ($post->save()) {
             return redirect('forum')->with('success', 'Post created Successfully');
         }
@@ -53,14 +74,19 @@ class PostController extends Controller
         }
     }
 
-    public function viewPost($category_id, $title)
+    public function viewPost($category_id, $title, $postID)
     {
         $category = Forumcategories::where('id', $category_id)->where('status', 'Visible')->first();
-        
+
         if ($category) {
             $posts = Post::where(['category_id' => $category_id, 'status' => 'Visible', 'title' => $title])->first();
-            $latest_posts = Post::where(['category_id' => $category_id, 'status' => 'Visible'])->orderBy('datetime','DESC')->get()->take(15);
-            return view('forum/showpost', compact('posts', 'category','latest_posts'));
+            $latest_posts = Post::where(['category_id' => $category_id, 'status' => 'Visible'])->orderBy('datetime', 'DESC')->get()->take(10);
+
+            $comments = Forumcomment::where('postID', $postID)->orderBy('datetime', 'DESC')->paginate(10);
+            $com = Forumcomment::where('postID', $postID)->where('username', Session::get('username'))->get();
+            $counts = Forumcomment::where('postID', $postID)->count();
+
+            return view('forum/showpost', compact('posts', 'category', 'latest_posts'));
         } else {
             return redirect('/forum');
         }
@@ -68,11 +94,14 @@ class PostController extends Controller
 
     public function index()
     {
+        $cat = Artcategories::join('art', 'category_id', '=', 'artcategories.id')->select('art.category_id', 'artcategories.name')->distinct()->get();
         $category = Forumcategories::with('posts')->paginate(10);
-        return view('forum/forum', compact('category'));
+
+        $post = Post::all();
+        return view('forum/forum', compact('category', 'cat', 'post'));
     }
 
-    
+
     public function show($id)
     {
         $post = Post::find($id);
@@ -92,14 +121,24 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|max:255',
             'body' => 'required|min:10',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'category_id' => 'required|integer'
         ]);
 
         $post =  Post::find($id);
         $post->title = $request->get('title');
         $post->body = $request->get('body');
+
+        if ($request->hasFile('image')) {
+            $des_path = 'public/Img/Post';
+            $img = $request->file('image');
+            $img_name = $img->getClientOriginalName();
+            $posts = $request->file('image')->storeAs($des_path, $img_name);
+            $post->image = $img_name;
+        }
+
         $post->category_id = $request->get('category_id');
-        date_default_timezone_set("Asia/Kuala_Lumpur");           
+        date_default_timezone_set("Asia/Kuala_Lumpur");
         $date =  Carbon::now()->format('Y-m-d H:i:s');
         $post->datetime = $date;
 
