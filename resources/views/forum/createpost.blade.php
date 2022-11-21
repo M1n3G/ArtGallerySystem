@@ -2,6 +2,13 @@
 @section('title', '| Create Post')
 @section('content')
 
+<style>
+    .ck.ck-editor__main>.ck-editor__editable {
+        height: 200px;
+        min-height: 200px;
+    }
+</style>
+
 <!-- Breadcumb link -->
 <div class="container px-4 mt-2">
     <div class="row mt-4">
@@ -31,7 +38,7 @@
             <div class="card">
                 <div class="card-header">Create Post</div>
                 <div class="card-body">
-                    <form method="post" action="{{ route('post.store') }}">
+                    <form method="post" action="{{ route('post.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label class="label fw-semibold fs-6">Post Title</label>
@@ -39,8 +46,13 @@
                         </div>
 
                         <div class="form-group mt-4">
-                            <label class="label fw-semibold fs-6">Post Body</label>
-                            <textarea name="body" rows="10" cols="30" class="form-control mt-2" required></textarea>
+                            <label class="label fw-semibold fs-6 mb-2">Post Body</label>
+                            <textarea name="body" id="task-textarea" rows="10" cols="30" class="form-control mt-2"></textarea>
+                        </div>
+
+                        <div class="form-group mt-4">
+                            <label class="label fw-semibold fs-6 mb-2">Image (Optional)</label>
+                            <input type="file" class="form-control" name="image">
                         </div>
 
                         <div class="form-group mt-4">
@@ -53,7 +65,7 @@
                         </div>
 
                         <div class="form-group mt-4">
-                            <input type="hidden" value="Visible" name="status"/>
+                            <input type="hidden" value="Visible" name="status" />
                         </div>
 
                         <div class="d-grid gap-2 d-md-flex mt-4 justify-content-md-end">
@@ -67,4 +79,19 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    ClassicEditor
+        .create(document.querySelector('#task-textarea'), {
+            removePlugins: ['indent', 'image'],
+            toolbar: ['Heading', 'Bold', 'Italic', 'Link', 'bulletedList', 'numberedList', 'blockQuote', 'insertTable', 'Undo', 'Redo']
+        })
+       
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+
 @endsection

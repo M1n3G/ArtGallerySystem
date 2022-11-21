@@ -1,0 +1,6 @@
+<!-- PAGINATION -->
+    <nav aria-label="pageNavigation">
+        <ul class="pagination justify-content-end">
+            {!! $data->appends(Request::all())->links() !!}
+        </ul>
+    </nav>

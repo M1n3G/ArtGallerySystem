@@ -29,15 +29,15 @@ Route::post('/register', 'UserController@store')->name('register.register');
 Route::post('/login', 'UserController@login')->name('login.login');
 Route::get('/logout', 'UserController@logout')->name('logout.logout');
 
-Route::get("/wishList", 'WishlistController@show')->name('wishlist.show');
-Route::post("/wishList/add", 'WishlistController@add')->name('wishlist.add');
-
-
 //Store
 Route::get('/store', 'ArtController@index')->name('store.index');
 Route::get('/storeDetails/{artID}', 'ArtController@details')->name('storeDetails.details');
-Route::get('/storeDetails/comment/create', 'CommentController@create')->name('comment.create');
 Route::post('/storeDetails/comment/store', 'CommentController@store')->name('comment.store');
+Route::delete('/storeDetails/remove/{artID}', 'ArtController@removeComment')->name('comment.remove');
+Route::get("/wishlist", 'WishlistController@index')->name('wishlist.show');
+Route::post("/wishlist/add/{artID}", 'WishlistController@add')->name('wishlist.add');
+Route::delete('/wishlist/remove/{artID}', 'WishlistController@remove')->name('wishlist.remove');
+
 
 // Cart
 Route::get('/cart', function () {
@@ -66,6 +66,8 @@ Route::delete('/forum/deletecategory/{id}', 'CategoryController@destroy')->name(
 Route::get('/forum', 'PostController@index')->name('category.view');
 Route::get('/forum/category/{category_id}', 'PostController@viewCategoryPost')->name('category.post');
 Route::get('/forum/{category_id}/{title}', 'PostController@viewPost')->name('post.view');
+Route::post('/forum/comment/store', 'CommentController@store')->name('comment.add');
+Route::post('/forum/reply', 'CommentController@replyStore')->name('reply.add');
 
 
 Route::get('/forum/create', 'PostController@create')->name('post.create');
@@ -74,5 +76,3 @@ Route::get('/forum/editPost/{id}', 'PostController@edit')->name('post.edit');
 Route::put('/forum/editPost/{id}', 'PostController@update')->name('post.update');
 Route::delete('/forum/deletepost/{id}', 'PostController@destroy')->name('post.delete');
 
-// Route::post('/comment/tore', 'CommentController@store')->name('comment.add');
-Route::post('/reply/store', 'CommentController@replyStore')->name('reply.add');

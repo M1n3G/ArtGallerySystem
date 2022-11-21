@@ -36,7 +36,7 @@
     <div class="container">
         <div class="row">
 
-            <div class="col-md-9">
+            <div class="col-md-8">
                 <div class="categoryheading">
                     <p class="fs-3 fw-semibold">{{ $category->name}}</p>
                     <span class="fw-normal" style="color:#8c8c8c; font-size:13px;">{!! $category->description !!}</span>
@@ -68,6 +68,7 @@
                 @endforelse
                 @endif
                 <hr class="mt-4 mb-4" />
+
                 <!-- PAGINATION -->
                 <nav aria-label="pageNavigation">
                     <div class="row">
@@ -79,13 +80,22 @@
                 </nav>
             </div>
 
-            <!-- <div class="col-md-3">
-                <div class="border p-2">
-                    <h4>More Posts</h4>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 style="font-family: 'Poppins', sans-serif;">Topic</h5>
+                    </div>
+                    <div class="card-body">
+                        @php
+                        $cate = App\Models\Forumcategories::where(['status'=>'Visible'])->get();
+                        @endphp
+
+                        @foreach($cate as $catitem)
+                        <a class="dropdown-item text-decoration-underline mb-2 fw-semibold" style="color:#909090;" href="{{ route('category.post', $catitem->id) }}">{{ $catitem->name}}</a>
+                        @endforeach
+                    </div>
                 </div>
-            </div> -->
-
-
+            </div>
         </div>
     </div>
 </div>

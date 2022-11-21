@@ -3,6 +3,13 @@
 @section('title', '| Edit Post')
 @section('content')
 
+<style>
+    .ck.ck-editor__main>.ck-editor__editable {
+        height: 200px;
+        min-height: 200px;
+    }
+</style>
+
 <!-- Breadcumb link -->
 <div class="container px-4 mt-2">
     <div class="row mt-4">
@@ -42,7 +49,12 @@
 
                         <div class="form-group mt-4">
                             <label class="label fw-semibold fs-6 mb-2">Post Body</label>
-                            <textarea name="body" rows="10" cols="30" class="form-control mt-2" required>{{ $post->body }}</textarea>
+                            <textarea name="body" id="task-textarea" rows="10" cols="30" class="form-control mt-2 ck-editoreditable">{{ $post->body }}</textarea>
+                        </div>
+
+                        <div class="form-group mt-4">
+                            <label class="label fw-semibold fs-6 mb-2">Image (Optional)</label>
+                            <input type="file" class="form-control" name="image">
                         </div>
 
                         <div class="form-group mt-4">
@@ -72,4 +84,19 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    ClassicEditor
+        .create(document.querySelector('#task-textarea'), {
+            removePlugins: ['indent', 'image'],
+            toolbar: ['Heading', 'Bold', 'Italic', 'Link', 'bulletedList', 'numberedList', 'blockQuote', 'insertTable', 'Undo', 'Redo']
+        })
+       
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+
 @endsection

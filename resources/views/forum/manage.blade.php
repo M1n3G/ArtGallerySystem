@@ -39,8 +39,8 @@
 
     <div class="card mt-4 mb-4">
         <div class="card-header bg-white">
-            <h5 class="mt-2" style="font-family:'Poppins', sans-serif;">View Category
-                <a class="btn btn-primary text-capitalize float-end px-3" href="{{ route('category.create') }}">Create category</a>
+            <h5 class="mt-2" style="font-family:'Poppins', sans-serif;">Topic Section
+                <a class="btn btn-primary text-capitalize float-end px-3" href="{{ route('category.create') }}">Create Topic</a>
             </h5>
         </div>
 
@@ -49,7 +49,7 @@
                 <thead class="table-light">
                     <tr>
                         <th>ID</th>
-                        <th>Category Name</th>
+                        <th>Topic Name</th>
                         <th>Description</th>
                         <th>Status</th>
                         <th>Action</th>
@@ -88,7 +88,7 @@
                             <div class="p-2 icons d-flex" style="width: 100px;">
                                 <a href="{{ route('category.edit',$cat->id) }}" class="btn btn-success px-2" style="padding: 6px 8px; height:35px; max-height:35px;">
                                     <i class="bi bi-pencil-square"></i></a>&nbsp&nbsp&nbsp
-                                <form action="{{ route('category.delete',$cat->id) }}" method="POST" onsubmit="return confirm('Are you sure you wish to delete this category?');">
+                                <form action="{{ route('category.delete',$cat->id) }}" method="POST" onsubmit="return confirm('Are you sure you wish to delete this category with its post?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger px-2" style="height:35px; max-height:35px;"><i class="bi bi-trash"></i></button>

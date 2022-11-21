@@ -3,6 +3,13 @@
 @section('title', '| Edit Category')
 @section('content')
 
+<style>
+    .ck.ck-editor__main>.ck-editor__editable {
+        height: 200px;
+        min-height: 200px;
+    }
+</style>
+
 <!-- Breadcumb link -->
 <div class="container px-4 mt-2">
     <div class="row mt-4">
@@ -10,7 +17,7 @@
             <ol class="breadcrumb" style="font-family: 'Poppins', sans-serif;">
                 <li class="breadcrumb-item"><a href="/forum" class="text-decoration-none">Forum</a></li>
                 <li class="breadcrumb-item"><a href="/forum/manage" class="text-decoration-none">Manage</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Edit Category</li>
+                <li class="breadcrumb-item active" aria-current="page">Edit Topic</li>
             </ol>
         </nav>
     </div>
@@ -32,7 +39,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Edit Category</div>
+                <div class="card-header">Edit Topic</div>
                 <div class="card-body">
                     <form method="post" action="{{ route('category.update', $category->id) }}">
                         @method('PUT')
@@ -43,7 +50,7 @@
                         </div>
                         <div class="form-group mt-4">
                             <label class="label fw-semibold fs-6 mb-2">Description</label>
-                            <textarea name="description" id="task-textarea" rows="10" cols="30" class="form-control">{{ $category->description }}
+                            <textarea name="description" id="task-textarea" rows="10" cols="30" class="form-control ck-editoreditable">{{ $category->description }}
                             </textarea>
                         </div>
 
@@ -59,7 +66,7 @@
                         </div>
 
                         <div class="d-grid gap-2 d-md-flex mt-4 justify-content-md-end">
-                            <a class="btn btn-outline-dark text-capitalize" href="/manage" style="width:125px;">Cancel</a>
+                            <a class="btn btn-outline-dark text-capitalize" href="/forum/manage" style="width:125px;">Cancel</a>
                             <button class="btn text-capitalize" onsubmit="return confirm('Are you sure you wish to update this category?');" style="width:125px; background-color:#910000; color:white;" type="submit">Update</button>
                         </div>
 
@@ -74,33 +81,14 @@
 @section('scripts')
 <script>
     ClassicEditor
-        .create(document.querySelector('#task-textarea'))
+        .create(document.querySelector('#task-textarea'), {
+            removePlugins: ['indent', 'image'],
+            toolbar: ['Heading', 'Bold', 'Italic', 'Link', 'bulletedList', 'numberedList', 'blockQuote', 'insertTable', 'Undo', 'Redo']
+        })
+       
         .catch(error => {
             console.error(error);
         });
-
-    ClassicEditor.defaultConfig = {
-        toolbar: {
-            items: [
-                'heading',
-                '|',
-                'bold',
-                'italic',
-                '|',
-                'bulletedList',
-                'numberedList',
-                '|',
-                'insertTable',
-                '|',
-                'imageUpload',
-                '|',
-                'undo',
-                'redo'
-            ]
-        },
-       
-        language: 'en'
-    };
 </script>
 
 @endsection

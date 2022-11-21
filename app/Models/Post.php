@@ -18,6 +18,8 @@ class Post extends Model
         'title',
         'body',
         'category_id',
+        'image',
+        'imageURL',
         'status',
         'created_by',
     ];
@@ -37,5 +39,5 @@ class Post extends Model
         return $this->hasMany(Comment::class,'post_id', 'id');
     }
 
-    
+
 }
