@@ -64,8 +64,16 @@
                         </form>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col">
+                        <p class="text-uppercase" style="color:#9d9d9d; font-size:18px;">BY {{$data -> artistName}}</p>
+                    </div>
 
-                <p class="text-uppercase" style="color:#9d9d9d; font-size:18px;">BY {{$data -> artistName}}</p>
+                    <div class="col text-end">
+                    <div class="fw-semibold" style="color:#910000">Viewed: {{$artcount}}</div>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-md-6">
                         <p class="fw-bold" style="color:#910000; font-size:28px;">MYR {{$data -> artPrice}}</p>
@@ -115,7 +123,6 @@
         </div>
     </div>
 
-    <!-- MODAL -->
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -195,29 +202,7 @@
 
 
     </div>
-    <!-- <div class="container py-5">
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-12 col-lg-10 col-xl-8">
-                <div class="card">
-                    <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
-                        <div class="d-flex flex-start w-100">
-                            <img class="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="40" height="40" />
-                            <div class="form-outline w-100">
-                                <textarea class="form-control" id="textAreaExample" rows="4" style="background: #fff;"></textarea>
-                                <label class="form-label" for="textAreaExample">Message</label>
-                            </div>
-                        </div>
-                        <div class="float-end mt-2 pt-1">
-                            <button type="button" class="btn btn-primary btn-sm">Post comment</button>
-                            <button type="button" class="btn btn-outline-primary btn-sm">Cancel</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
-
+    
     <div class="container px-4">
         <hr />
         @if (\Session::has('message'))
@@ -256,7 +241,7 @@
         @forelse($comments as $comment)
         <div class="card card-body shadow-sm mt-3 mb-4">
             <div class="d-flex flex-start align-items-center">
-             
+
                 <div>
                     <h6 class="fw-bold mb-1" style="color:#910000">
                         {{$comment->username}}

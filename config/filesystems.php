@@ -32,7 +32,7 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app'),
+            'root' => 'C:/xampp/htdocs/virtual_art_gallery/',
         ],
 
         'public' => [

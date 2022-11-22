@@ -49,14 +49,36 @@
                         Posted By: {{ Session::get('username') }}
                     </div>
                     <div class="card-body">
-                        <a href="{{ route('post.view', ['category_id' => $posts->category_id, 'title' => $posts->title]) }}" class="text-decoration-none">
-                            <p class="fs-4 fw-semibold" style="color:#910000;">{{ $posts->title}}</p>
-                        </a>
+                        <form action="{{ route('post.view') }}" method="POST">
+                            @csrf
+                            <a href="{{ route('post.view') }}">
+                                <button type="submit" class="text-decoration-none" style="border: none; background:white;">
+                                    <p class="fs-4 fw-semibold" style="color:#910000;">{{ $posts->title}}</p>
+                                    <input type="hidden" name="postID" value="{{$posts->id}}">
+                                    <input type="hidden" name="category_id" value="{{$posts->category_id}}">
+                                    <input type="hidden" name="title" value="{{$posts->title}}">
+                                </button>
+                            </a>
+
 
                     </div>
                     <div class="card-footer bg-white text-muted" style="font-family: 'Poppins', sans-serif; font-size:14px; color:#999">
-                        Posted On: {{ $posts->datetime}}
+                        <div class="row">
+                            <div class="col">
+                                Posted On: {{ $posts->datetime}}
+                            </div>
+                            <div class="col text-end">
+                                <a href="{{ route('post.view') }}">
+                                    <button type="submit" class="btn text-decoration-none" style="color:white; background-color: #910000;">View
+                                        <input type="hidden" name="postID" value="{{$posts->id}}">
+                                        <input type="hidden" name="category_id" value="{{$posts->category_id}}">
+                                        <input type="hidden" name="title" value="{{$posts->title}}">
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
                     </div>
+                    </form>
                 </div>
 
                 @empty
@@ -90,9 +112,10 @@
                         $cate = App\Models\Forumcategories::where(['status'=>'Visible'])->get();
                         @endphp
 
-                        @foreach($cate as $catitem)
+                        @forelse($cate as $catitem)
                         <a class="dropdown-item text-decoration-underline mb-2 fw-semibold" style="color:#909090;" href="{{ route('category.post', $catitem->id) }}">{{ $catitem->name}}</a>
-                        @endforeach
+                        @empty
+                        @endforelse
                     </div>
                 </div>
             </div>

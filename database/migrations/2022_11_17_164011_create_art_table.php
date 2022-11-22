@@ -26,7 +26,6 @@ class CreateArtTable extends Migration
             $table->integer('artYear');
             $table->decimal('artWidth');
             $table->decimal('artHeight');
-            $table->integer('views')->nullable();
             $table->dateTime('datetime');
             $table->timestamps();
         });

@@ -53,6 +53,8 @@ Route::get('/about', function () {
 Route::get('/exhibitions', function () {
     return view('exhibitions');
 });
+Route::get("/viewGallery", 'ExhibitionsController@');
+Route::get("/viewGallery", 'ExhibitionsController@index')->name('exhibitions.show');
 
 //Forum
 // Route::get('/forumhome', 'ForumController@forumhome');
@@ -65,14 +67,17 @@ Route::delete('/forum/deletecategory/{id}', 'CategoryController@destroy')->name(
 
 Route::get('/forum', 'PostController@index')->name('category.view');
 Route::get('/forum/category/{category_id}', 'PostController@viewCategoryPost')->name('category.post');
-Route::get('/forum/{category_id}/{title}', 'PostController@viewPost')->name('post.view');
-Route::post('/forum/comment/store', 'CommentController@store')->name('comment.add');
-Route::post('/forum/reply', 'CommentController@replyStore')->name('reply.add');
 
-
-Route::get('/forum/create', 'PostController@create')->name('post.create');
-Route::post('/forum/store', 'PostController@store')->name('post.store');
+Route::post('/forum/category/post', 'PostController@viewPost')->name('post.view');  
 Route::get('/forum/editPost/{id}', 'PostController@edit')->name('post.edit');
 Route::put('/forum/editPost/{id}', 'PostController@update')->name('post.update');
+
+Route::post('/forum/comment/store', 'CommentController@storeForumComment')->name('forumcomment.store');
+Route::delete('/forum/comment/remove/{postID}', 'ArtController@removeForumComment')->name('forumcomment.remove');
+
+Route::post('/forum/reply', 'CommentController@replyStore')->name('reply.add');
+Route::get('/forum/create', 'PostController@create')->name('post.create');
+Route::post('/forum/store', 'PostController@store')->name('post.store');
+
 Route::delete('/forum/deletepost/{id}', 'PostController@destroy')->name('post.delete');
 

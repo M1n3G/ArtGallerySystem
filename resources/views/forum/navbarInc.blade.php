@@ -2,7 +2,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('Css/forumhome.css') }}">
     <title>ArtCells | Forum</title>
-    <link rel="icon" href="{{ asset('Img/Logo/artcellslogo.png') }}" type="image/png">
+    <link rel="icon" href="{{ asset('Img/artcellslogo.png') }}" type="image/png">
 </head>
 
 <nav class="navbar navbar-expand-lg mt-3" style="background-color: #910000;">

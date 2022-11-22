@@ -9,6 +9,11 @@ use App\Models\Comment;
 class Forumcomment extends Model
 {
     use HasFactory;
+    
+    public function forumcomment()
+    {
+        return $this->belongsTo(Post::class, 'postID', 'id');
+    }
 
     public function replies()
     {

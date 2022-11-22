@@ -136,7 +136,7 @@
                 <h2 style="font-family: 'Poppins'; margin-bottom:30px;">Marnie Weber Jim Shaw </h2>
                 <p>Simon Lee Gallery and Zuecca Projects are pleased to present a joint exhibition of works by Jim Shaw and Marnie Weber at Squero Castello in Venice, Italy. The works of Shaw and Weber span a wide range of artistic media and visual imagery, from the detritus of American culture to the surreal worlds of fantasy and folklore, both drawing from the subconscious as their source of artistic creativity. In parallel with the theme of The Milk of Dreams, the 59th International Art Exhibition of La Biennale di Venezia, both Shaw and Weber transform the personal, the commonplac</p>
                 <div class="text-center">
-                    <button class="btn btn-outline-dark" style=" width:300px; height:50px; margin-top: 60px;" type="button">View Details</button>
+                    <a href="{{ route('exhibitions.show') }}" class="btn btn-outline-dark" style=" width:300px; height:50px; margin-top: 60px;" type="button">View Details<a>
                 </div>
             </div>
         </div>

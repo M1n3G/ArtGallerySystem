@@ -10,8 +10,8 @@ class ExhibitionsController extends Controller
 {
     public function index()
     {
-        $exhibition = Exhibitions::all();
-        return view('exhibitions', compact('exhibition'));
+        // $exhibition = Exhibitions::all();
+        return view('viewGallery');
     }
 
     public function details($exhibitionsID){
@@ -19,5 +19,6 @@ class ExhibitionsController extends Controller
         return view('exhibitions', compact('exhibition'));
     }
 
+    
 
 }

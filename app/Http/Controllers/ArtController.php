@@ -9,6 +9,7 @@ use App\Models\Art;
 use App\Models\Artcategories;
 use App\Models\Comment;
 use App\Models\User;
+use App\Models\View;
 use PDO;
 
 use function PHPUnit\Framework\isEmpty;
@@ -93,7 +94,7 @@ class ArtController extends Controller
             // error_log($query . '' . $qry);
 
         } else {
-            $data = Art::inRandomOrder()->paginate(12);
+            $data = Art::inRandomOrder()->paginate(30);
         }
 
         return view('store', compact('data', 'cat'));
@@ -101,8 +102,19 @@ class ArtController extends Controller
 
     public function details($artID)
     {
+        $username = Session::get('username');
         $data = Art::findOrFail($artID);
         $cat = Artcategories::join('art', 'category_id', '=', 'artcategories.id')->select('art.category_id', 'artcategories.name')->distinct()->get();
+        $artCountExist = View::where('artID', $artID)->where('username', Session::get('username'))->first();
+
+        if ($username != null) {
+            if (!$artCountExist) {
+                $views = new View();
+                $views->artID = $artID;
+                $views->username = $username;
+                $views->save();
+            }
+        }
 
         if ($data->first()) {
             $artistWork = Art::where(['artistName' => $data->artistName, ['artID', '!=', $artID]])->take(4)->get();
@@ -111,8 +123,11 @@ class ArtController extends Controller
         $comments = Comment::where('artID', $artID)->orderBy('datetime', 'DESC')->paginate(10);
         $com = Comment::where('artID', $artID)->where('username', Session::get('username'))->get();
         $counts = Comment::where('artID', $artID)->count();
-      
-        return view('storeDetails', compact('data', 'artistWork', 'comments', 'cat', 'counts','com'));
+
+        $artcount = View::where('artID', $artID)->count();
+
+
+        return view('storeDetails', compact('data', 'artistWork', 'comments', 'cat', 'counts', 'com', 'artcount'));
     }
 
     public function removeComment($artID)
