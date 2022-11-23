@@ -3,6 +3,49 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="{{ asset('Css/storedetails.css') }}">
+    <style>
+        .rate {
+            float: left;
+            height: 46px;
+            padding: 0 10px;
+        }
+
+        .rate:not(:checked)>input {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .rate:not(:checked)>label {
+            float: right;
+            width: 1em;
+            overflow: hidden;
+            white-space: nowrap;
+            cursor: pointer;
+            font-size: 30px;
+            color: #ccc;
+        }
+
+        .rate:not(:checked)>label:before {
+            content: '★ ';
+        }
+
+        .rate>input:checked~label {
+            color: #ffc700;
+        }
+
+        .rate:not(:checked)>label:hover,
+        .rate:not(:checked)>label:hover~label {
+            color: #deb217;
+        }
+
+        .rate>input:checked+label:hover,
+        .rate>input:checked+label:hover~label,
+        .rate>input:checked~label:hover,
+        .rate>input:checked~label:hover~label,
+        .rate>label:hover~input:checked~label {
+            color: #c59b08;
+        }
+    </style>
 </head>
 
 <!--Main area-->
@@ -70,7 +113,7 @@
                     </div>
 
                     <div class="col text-end">
-                    <div class="fw-semibold" style="color:#910000">Viewed: {{$artcount}}</div>
+                        <div class="fw-semibold" style="color:#910000">Viewed: {{$artcount}}</div>
                     </div>
                 </div>
 
@@ -202,7 +245,7 @@
 
 
     </div>
-    
+
     <div class="container px-4">
         <hr />
         @if (\Session::has('message'))
@@ -223,9 +266,27 @@
 
         <div class="comment-area mt-4">
             <div class="card card-body">
-                <h6 class="card-title">Leave a comment</h6>
+                <h6 class="card-title">&nbsp Leave a comment:</h6>
                 <form method="post" action="{{ route('comment.store', $data->artID) }}">
                     @csrf
+                    <div class="rate">
+                        <input type="radio" id="star5" name="rate" value="5" required/>
+                        <label for="star5" title="text">5 stars</label> 
+
+                        <input type="radio" id="star4" name="rate" value="4" />
+                        <label for="star4" title="text">4 stars</label>
+
+                        <input type="radio" id="star3" name="rate" value="3" />
+                        <label for="star3" title="text">3 stars</label>
+
+                        <input type="radio" id="star2" name="rate" value="2" />
+                        <label for="star2" title="text">2 stars</label>
+
+                        <input type="radio" id="star1" name="rate" value="1" />
+                        <label for="star1" title="text">1 star</label>
+                       
+                    </div> 
+
                     <textarea name="comment_body" class="form-control" rows="3" required></textarea>
                     <div class="float-end mt-2 pt-1">
                         <button type="submit" class="btn btn-primary mt-3">Submit</button>
@@ -241,16 +302,74 @@
         @forelse($comments as $comment)
         <div class="card card-body shadow-sm mt-3 mb-4">
             <div class="d-flex flex-start align-items-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h6 class="fw-bold mb-1" style="color:#910000;">
+                                {{$comment->username}}
+                            </h6>
+                        </div>
 
-                <div>
-                    <h6 class="fw-bold mb-1" style="color:#910000">
-                        {{$comment->username}}
-                    </h6>
-                    <p class="text-muted small mb-0">
-                        Commented on: {{$comment -> datetime}}
-                    </p>
+                        <div class="col-md-4 text-end">
+                            <p class="text-muted small mb-0">
+                                Commented on: {{$comment -> datetime}}
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <span class="mt-1">
+                @if ($comment->rate == '0')
+                <div style="color:#ffbf00;">
+                    <i class="fa-regular fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                </div>
+                @elseif ($comment->rate == '1')
+                <div style="color:#ffbf00;">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                </div>
+                @elseif ($comment->rate == '2')
+                <div style="color:#ffbf00;">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                </div>
+                @elseif ($comment->rate == '3')
+                <div style="color:#ffbf00;">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                </div>
+                @elseif ($comment->rate == '4')
+                <div style="color:#ffbf00;">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                </div>
+                @else
+                <div style="color:#ffbf00;">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                @endif
+            </span>
 
             <p class="mt-3 mb-4 pb-2">
                 {!! $comment -> comment_body !!}

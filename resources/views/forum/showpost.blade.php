@@ -74,14 +74,10 @@
                             <div class="col text-end">
                                 <div style="color:#6c757d">
 
-                                    @foreach($com as $cc)
-                                    @if ($cc->username == Session::get('username'))
+                                    @if ($posts->created_by == Session::get('username'))
                                     <a href="{{ route('post.edit',$posts->id) }}" class="btn btn-success px-2">
                                         <i class="bi bi-pencil-square"></i></a>
                                     @endif
-                                    @break
-                                    @endforeach
-
 
                                 </div>
                             </div>

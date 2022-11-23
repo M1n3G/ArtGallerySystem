@@ -3,13 +3,6 @@
 @section('title', '| Edit Category')
 @section('content')
 
-<style>
-    .ck.ck-editor__main>.ck-editor__editable {
-        height: 200px;
-        min-height: 200px;
-    }
-</style>
-
 <!-- Breadcumb link -->
 <div class="container px-4 mt-2">
     <div class="row mt-4">
@@ -50,7 +43,7 @@
                         </div>
                         <div class="form-group mt-4">
                             <label class="label fw-semibold fs-6 mb-2">Description</label>
-                            <textarea name="description" id="task-textarea" rows="10" cols="30" class="form-control ck-editoreditable">{{ $category->description }}
+                            <textarea name="description" id="description" rows="10" cols="30" class="form-control ck-editoreditable">{{ $category->description }}
                             </textarea>
                         </div>
 

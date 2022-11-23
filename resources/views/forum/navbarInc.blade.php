@@ -37,9 +37,11 @@
                     <a class="nav-link text-white">About</a>
                 </li>
 
+                @if (Session::get('userRole') == 'Moderator')
                 <li class="nav-item px-4">
                     <a class="nav-link text-white" href="/forum/manage">Manage</a>
                 </li>
+                @endif
             </ul>
 
             <a class="btn newPostBtn text-capitalize" href="{{ route('post.create') }}" style="text-decoration: none;"><i class="fa fa-plus"></i> New Posts</a>

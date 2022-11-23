@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Session;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('AuthCheck', ['except' => ['viewCategoryPost','viewPost','index','show']]);
+    }
+
     public function create()
     {
         $category = Forumcategories::all();
@@ -24,14 +29,14 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required|unique:posts|max:255',
-            'body' => 'required|min:10',
+            'task-textarea' => 'required|min:10',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'category_id' => 'required|integer'
         ]);
 
         $post =  new Post();
         $post->title = $request->get('title');
-        $post->body = $request->get('body');
+        $post->body = $request->get('task-textarea');
 
         // error_log('Hello' . $request->image);
         if ($request->hasFile('image')) {
@@ -43,7 +48,6 @@ class PostController extends Controller
             $uploadedFileUrl = Cloudinary::upload($image->getRealPath())->getSecurePath();
             $post->image = $uploadedFileUrl;
         }
-
 
         $post->category_id = $request->get('category_id');
         $post->status = $request->status;
@@ -112,7 +116,7 @@ class PostController extends Controller
     public function index()
     {
         $cat = Artcategories::join('art', 'category_id', '=', 'artcategories.id')->select('art.category_id', 'artcategories.name')->distinct()->get();
-        $category = Forumcategories::with('posts')->paginate(10);
+        $category = Forumcategories::with('posts')->where('status', 'Visible')->paginate(10);
 
         $post = Post::all();
         return view('forum/forum', compact('category', 'cat', 'post'));

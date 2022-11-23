@@ -16,6 +16,11 @@ use function PHPUnit\Framework\isEmpty;
 
 class ArtController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('AuthCheck', ['except' => ['index', 'details']]);
+    }
+
     public function index(Request $request)
     {
         $data = NULL;

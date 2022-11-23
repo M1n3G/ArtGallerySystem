@@ -11,6 +11,12 @@ use App\Models\Wishlist;
 
 class WishlistController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('AuthCheck');
+        // $this->middleware('AuthCheck', ['except' => ['index']]);
+    }
+
     public function index()
     {
         $cat = Artcategories::join('art', 'category_id', '=', 'artcategories.id')->select('art.category_id', 'artcategories.name')->distinct()->get();
