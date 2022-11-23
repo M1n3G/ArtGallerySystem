@@ -99,6 +99,7 @@
                             <div class="fw-semibold">
                                 {{ $post->count() }}
                             </div>
+                            
                         </div>
 
                     </div>

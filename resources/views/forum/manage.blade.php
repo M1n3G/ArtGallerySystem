@@ -79,14 +79,18 @@
 
                         <td>
                             <div class="p-2">
-                                <span class="fw-normal">{{ $cat->status }}</span>
+                                @if ($cat->status == 'Visible')
+                                <span class="badge text-bg-success">{{ $cat->status }}</span>
+                                @else 
+                                <span class="badge text-bg-warning">{{ $cat->status }}</span>
+                                @endif
                             </div>
                         </td>
 
 
                         <td>
                             <div class="p-2 icons d-flex" style="width: 100px;">
-                                <a href="{{ route('category.edit',$cat->id) }}" class="btn btn-success px-2" style="padding: 6px 8px; height:35px; max-height:35px;">
+                                <a href="{{ route('category.edit',$cat->id) }}" class="btn btn-dark  px-2" style="padding: 6px 8px; height:35px; max-height:35px;">
                                     <i class="bi bi-pencil-square"></i></a>&nbsp&nbsp&nbsp
                                 <form action="{{ route('category.delete',$cat->id) }}" method="POST" onsubmit="return confirm('Are you sure you wish to delete this category with its post?');">
                                     @csrf

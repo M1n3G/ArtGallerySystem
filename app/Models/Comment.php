@@ -16,6 +16,7 @@ class Comment extends Model
         'post_id',
         'art_id',
         'username',
+        'rate',
         'comment_body',
         'datetime'    
     ];

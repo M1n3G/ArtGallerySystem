@@ -17,6 +17,7 @@ class CreateCommentsTable extends Migration
             $table->id();
             $table->integer('artID');
             $table->string('username');
+            $table->integer('rate');
             $table->text('comment_body');
             $table->dateTime('datetime');
             $table->timestamps();

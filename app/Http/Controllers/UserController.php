@@ -38,6 +38,7 @@ class UserController extends Controller
         $user->name = $request->get('name');
         $user->email = $request->get('email');
         $user->contactNum = $request->get('contactNum');
+        $user->userRole = "User";
         $user->password = Hash::make($request->get('password'));    
 
         if ($user->save() ) {
@@ -70,6 +71,7 @@ class UserController extends Controller
             return redirect()->back()->with('fail', 'Incorrect credentials. Please try again.');
         } else {
             $request->session()->put('username', $user->username);
+            $request->session()->put('userRole', $user->userRole);
             return redirect('/home')->with('success2', 'Login Successfully');
         }
     }
@@ -79,6 +81,7 @@ class UserController extends Controller
         if (session()->has('username')) {
             session()->forget('username');
             session()->forget('userID');
+            session()->forget('userRole');
             return redirect('/');
         }
     }

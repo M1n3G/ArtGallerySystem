@@ -17,6 +17,7 @@ class CreateArtTable extends Migration
             $table->increments('artID');
             $table->string('artistName');
             $table->string('artName');
+            $table->integer('rate');
             $table->string('artImg', 255);
             $table->integer('category_id');
             $table->string('artStyle');
@@ -26,11 +27,9 @@ class CreateArtTable extends Migration
             $table->integer('artYear');
             $table->decimal('artWidth');
             $table->decimal('artHeight');
-            $table->integer('views')->nullable();
             $table->dateTime('datetime');
             $table->timestamps();
         });
-
     }
 
     /**

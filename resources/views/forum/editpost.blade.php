@@ -58,18 +58,6 @@
                         </div>
 
                         <div class="form-group mt-4">
-                            <label class="label fw-semibold fs-6">Category</label>
-                            <select name="category_id" class="form-control mt-2">
-                                <option value="">-- Select Category --</option>
-                                @foreach ($category as $catitem)
-                                <option value="{{ $catitem->id }}" {{ $post->category_id == $catitem->id ? 'selected':'' }}>
-                                    {{ $catitem->name }}
-                                </option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="form-group mt-4">
                             <input type="hidden" value="Visible" class="Visible"/>
                         </div>
 

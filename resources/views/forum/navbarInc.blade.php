@@ -2,7 +2,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('Css/forumhome.css') }}">
     <title>ArtCells | Forum</title>
-    <link rel="icon" href="{{ asset('Img/Logo/artcellslogo.png') }}" type="image/png">
+    <link rel="icon" href="{{ asset('Img/artcellslogo.png') }}" type="image/png">
 </head>
 
 <nav class="navbar navbar-expand-lg mt-3" style="background-color: #910000;">
@@ -37,9 +37,11 @@
                     <a class="nav-link text-white">About</a>
                 </li>
 
+                @if (Session::get('userRole') == 'Moderator')
                 <li class="nav-item px-4">
                     <a class="nav-link text-white" href="/forum/manage">Manage</a>
                 </li>
+                @endif
             </ul>
 
             <a class="btn newPostBtn text-capitalize" href="{{ route('post.create') }}" style="text-decoration: none;"><i class="fa fa-plus"></i> New Posts</a>

@@ -28,7 +28,7 @@ class CategoryController extends Controller
         $category->status = $request->get('status');
 
         if ($category->save()) {
-            return redirect('/forum/manage')->with('success', 'Category created successfully');
+            return redirect('/forum/manage')->with('success', 'Topic created successfully');
         }
 
         return redirect()->back()->with('fail', 'Unable to create category');
@@ -61,7 +61,7 @@ class CategoryController extends Controller
         $category->status = $request->get('status');
 
         if ($category->update()) {
-            return redirect('/forum/manage')->with('success', 'Category updated successfully');
+            return redirect('/forum/manage')->with('success', 'Topic updated successfully');
         }
 
         return redirect()->back()->with('fail', 'Unable to update category');
@@ -74,7 +74,7 @@ class CategoryController extends Controller
         if ($category != null) {
             $category->posts()->delete();
             $category->delete();
-            return redirect('/forum/manage')->with('success', 'Category Deleted with its post successfully');
+            return redirect('/forum/manage')->with('success', 'Topic Deleted with its post successfully');
         }
 
         return redirect()->route('forum/manage')->with(['fail' => 'Wrong ID!!']);
