@@ -19,7 +19,10 @@ class User extends Model
         'name',
         'email',
         'password',
+        'gender',
         'contactNum',
+        'userImg',
+        'about',
     ];
 
     public function wishlist()

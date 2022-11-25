@@ -50,8 +50,8 @@
                 <p class="text-black-50 mb-5">Welcome Back !</p>
 
                 <div class="mb-4">
-                  <label for="username" class="form-label" style="float:left">Username</label>
-                  <input type="text" class="form-control" name="username" style="height:45px;" value="{{ old('username') }}" required>
+                  <label for="email" class="form-label" style="float:left">Email</label>
+                  <input type="text" class="form-control" name="email" style="height:45px;" value="{{ old('email') }}" required>
                 </div>
 
                 <div class="mb-4">
@@ -59,7 +59,7 @@
                   <input type="password" class="form-control" name="password" style="height:45px;" value="{{ old('password') }}" required>
                 </div>
 
-                <p class="small mb-5 pb-lg-2"><a class="text-black-50" href="#">Forgot password?</a></p>
+                <p class="small mb-5 pb-lg-2"><a class="text-black-50" href="{{ route('forget.password.get') }}">Forgot password?</a></p>
 
                 <button class="btn loginBtn btn-dark btn-lg" type="submit">Login</button>
               </div>

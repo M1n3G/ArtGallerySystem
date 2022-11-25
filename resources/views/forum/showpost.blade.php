@@ -255,11 +255,6 @@
                             </button>
                         </form>
 
-                        <a href="{{ route('category.post', ['category_id' => $item->category_id]) }}" class="text-decoration-none">
-                            <div class="mb-3" style="color:#9d9d9d; font-size:13px;">
-                                &nbsp&nbsp{{ $category->name }}
-                            </div>
-                        </a>
                         @endforeach
                     </div>
                 </div>

@@ -53,7 +53,7 @@
 
                             <div class="form-group mt-4">
                                 <label class="label fw-semibold fs-6 mb-2">Image (Optional)</label>
-                                <input type="file" class="form-control" name="image">
+                                <input type="file" class="form-control" name="image" accept="image/*" required>
                             </div>
 
                             <div class="form-group mt-4">

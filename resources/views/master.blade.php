@@ -66,19 +66,23 @@
       </nav><!-- .navbar -->
 
       @if (Session::has('username'))
+
       <div class="dropdown-center">
         <button class="btn dropdown-toggle btn-getstarted scrollto" type="button" data-bs-toggle="dropdown" aria-expanded="false">
           {{ Session::get('username') }}
         </button>
+        
         <ul class="dropdown-menu" style="width:200px;">
-          <li><a class="dropdown-item" href="#">Manage Account</a></li>
-          <li><a class="dropdown-item" href="#">My Orders</a></li>
+          <li><a class="dropdown-item" href="{{ route('profile.show') }}">Manage Account</a></li>
+          <li><a class="dropdown-item" href="{{ route('purchase.show') }}">My Purchase</a></li>
           <li><a class="dropdown-item" href="{{ route('wishlist.show') }}">My Wishlist</a></li>
+          <li><a class="dropdown-item" href="#">Upgrade as Artist</a></li>
           <li><a class="dropdown-item" href="{{ route('logout.logout') }}">Logout</a></li>
         </ul>
-        @else
-        <a class="btn-getstarted scrollto" href="/login" style="text-decoration: none;">Login</a>
       </div>
+      @else
+      <a class="btn-getstarted scrollto" href="/login" style="text-decoration: none;">Login</a>
+
       @endif
 
     </div>
@@ -160,7 +164,7 @@
   <script language="JavaScript" type="text/javascript" src="{{ asset('Js/custom.js') }}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.min.js" integrity="sha512-n8IpKWzDnBOcBhRlHirMZOUvEq2bLRMuJGjuVqbzUJwtTsgwOgK5aS0c1JA647XWYfqvXve8k3PtZdzpipFjgg==" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
-  
+
   <!-- JQuery -->
   <script src="https://cdn.ckeditor.com/ckeditor5/35.3.1/classic/ckeditor.js"></script>
   <script src="https://cdn.ckeditor.com/ckeditor5/35.3.1/super-build/ckeditor.js"></script>
