@@ -30,7 +30,6 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|unique:posts|max:255',
             'task-textarea' => 'required|min:10',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'category_id' => 'required|integer'
         ]);
 
@@ -71,7 +70,7 @@ class PostController extends Controller
         $category = Forumcategories::where('id', $id)->where('status', 'Visible')->first();
 
         if ($category) {
-            $post = Post::where(['category_id' => $category->id, 'status' => 'Visible'])->paginate(10);
+            $post = Post::where(['category_id' => $category->id, 'status' => 'Visible'])->orderBy('datetime', 'DESC')->paginate(10);
             return view('forum/showcatpost', compact('post', 'category'));
         } else {
             return redirect('/forum');
@@ -142,7 +141,6 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|max:255',
             'body' => 'required|min:10',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
         $post =  Post::find($id);

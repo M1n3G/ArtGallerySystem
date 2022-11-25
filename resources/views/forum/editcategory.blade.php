@@ -39,7 +39,7 @@
                         @csrf
                         <div class="form-group">
                             <label class="label fw-semibold fs-6 mb-2">Name </label>
-                            <input type="text" name="name" class="form-control" value="{{ $category->name }}" required />
+                            <input type="text" name="name" class="form-control" value="{{ $category->name }}"/>
                         </div>
                         <div class="form-group mt-4">
                             <label class="label fw-semibold fs-6 mb-2">Description</label>

@@ -19,14 +19,14 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email','75')->unique();
             $table->string('password');
+            $table->string('gender')->nullable();
             $table->string('contactNum', 255);
             $table->string('userImg', 255)->nullable();
             $table->text('about', 255)->nullable();
-            $table->string('userAddress', 255)->nullable();
-            $table->string('city', 255)->nullable();
-            $table->string('state', 255)->nullable();
-            $table->string('postcode', 255)->nullable();
             $table->string('userRole')->nullable();
+            $table->text('forumabout', 255)->nullable();
+            $table->string('privacystatus')->nullable();
+            $table->dateTime('datetime');
             $table->rememberToken();
             $table->timestamps();
         });

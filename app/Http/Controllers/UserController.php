@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 use App\Models\User;
 
 
@@ -25,7 +26,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "username" => 'required|unique:users|min:5',
+            "username" => 'required|unique:users|min:5|max:30',
             "name" => 'required|regex:/^[\pL\s\-]+$/u',
             "email" => 'required|unique:users|max:255|email',
             "contactNum" => 'required|regex:/^[0-9]{3}[-]{1}[0-9]{7,8}$/',
@@ -40,6 +41,9 @@ class UserController extends Controller
         $user->contactNum = $request->get('contactNum');
         $user->userRole = "User";
         $user->password = Hash::make($request->get('password'));    
+        date_default_timezone_set("Asia/Kuala_Lumpur");
+        $date =  Carbon::now()->format('Y-m-d H:i:s');
+        $user->datetime = $date;
 
         if ($user->save() ) {
             return redirect('login')->with('success','Register Successfully');
@@ -65,7 +69,7 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-        $user = User::where(['username' => $request->username])->first();
+        $user = User::where(['email' => $request->email])->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             return redirect()->back()->with('fail', 'Incorrect credentials. Please try again.');

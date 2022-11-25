@@ -28,10 +28,27 @@ Route::get('register', function () {
 Route::post('/register', 'UserController@store')->name('register.register');
 Route::post('/login', 'UserController@login')->name('login.login');
 
+
 //Store
 Route::get('/store', 'ArtController@index')->name('store.index');
 Route::get('/storeDetails/{artID}', 'ArtController@details')->name('storeDetails.details');
 
+Route::get('/profile', 'ProfileController@profile')->name('profile.show');
+
+Route::get('/profile/address', 'ProfileController@address')->name('address.show');
+Route::post('/profile/addaddress', 'ProfileController@storeAddress')->name('address.add');
+Route::get('/profile/editaddress/{userID}', 'ProfileController@editAddress')->name('address.edit');
+Route::post('/profile/editaddress/{userID}', 'ProfileController@updateAddress')->name('address.update');
+
+Route::get('/profile/editprofile/{userID}', 'ProfileController@editprofile')->name('profile.edit');
+Route::post('/profile/editprofile/{userID}', 'ProfileController@updateprofile')->name('profile.update');
+
+Route::get('/profile/changepassword', 'ProfileController@password')->name('password.show');
+Route::post('/profile/changepassword', 'ProfileController@changeUserPassword')->name('password.update');
+
+Route::get('/profile/mypurchase', 'ProfileController@purchase')->name('purchase.show');
+
+Route::get('/forumprofile', 'ForumProfileController@forumProfile')->name('forumprofile.show');
 
 Route::middleware(['AuthCheck'])->group(function () {
     Route::post('/storeDetails/comment/store', 'CommentController@store')->name('comment.store');
@@ -42,7 +59,11 @@ Route::middleware(['AuthCheck'])->group(function () {
     Route::delete('/wishlist/remove/{artID}', 'WishlistController@remove')->name('wishlist.remove');
 });
 
-
+// Reset Password
+Route::get('/forget-password', 'ForgotPasswordController@showForgetPasswordForm')->name('forget.password.get');
+Route::post('/forget-password', 'ForgotPasswordController@submitForgetPasswordForm')->name('forget.password.post');
+Route::get('/reset-password/{token}', 'ForgotPasswordController@showResetPasswordForm')->name('reset.password.get');
+Route::post('/reset-password', 'ForgotPasswordController@submitResetPasswordForm')->name('reset.password.post');
 
 // Cart
 Route::get('/cart', function () {

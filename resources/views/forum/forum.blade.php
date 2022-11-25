@@ -65,8 +65,17 @@
 
             </div>
         </div>
-        
+
         <div class="col-md-4">
+            <div class="card mt-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search ...">
+                    <span class="input-group-text">
+                        <i class="fas fa-search text-grey" aria-hidden="true"></i>
+                    </span>
+                </div>
+            </div>
+
             <div class="card mt-4">
                 <div class="card-header">
                     <h5 style="font-family: 'Poppins', sans-serif;">Topic</h5>
@@ -99,7 +108,7 @@
                             <div class="fw-semibold">
                                 {{ $post->count() }}
                             </div>
-                            
+
                         </div>
 
                     </div>
