@@ -33,7 +33,7 @@
 </div>
 @endif
 
-<div class="container" style="margin-top:5px; margin-bottom:50px;">
+<div class="container" style="margin-top:5px; margin-bottom:30px;">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -58,12 +58,15 @@
                         </div>
 
                         <div class="form-group mt-4">
-                            <input type="hidden" value="Visible" class="Visible"/>
+                            <input type="hidden" value="Visible" class="Visible" />
                         </div>
 
                         <div class=" d-grid gap-2 d-md-flex mt-4 justify-content-md-end">
                             <a class="btn btn-outline-dark text-capitalize" href="/forum" style="width:125px;">Cancel</a>
                             <button class="btn btn-primary text-capitalize" style="width:125px; background-color:#910000; color:white;" type="submit">Update</button>
+                            <input type="hidden" name="postID" value="{{$post->id}}">
+                            <input type="hidden" name="category_id" value="{{$post->category_id}}">
+                            <input type="hidden" name="title" value="{{$post->title}}">
                         </div>
 
                     </form>
@@ -72,6 +75,7 @@
         </div>
     </div>
 </div>
+
 @endsection
 
 @section('scripts')
@@ -81,7 +85,7 @@
             removePlugins: ['indent', 'image'],
             toolbar: ['Heading', 'Bold', 'Italic', 'Link', 'bulletedList', 'numberedList', 'blockQuote', 'insertTable', 'Undo', 'Redo']
         })
-       
+
         .catch(error => {
             console.error(error);
         });

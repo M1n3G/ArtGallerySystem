@@ -47,7 +47,6 @@ class CategoryController extends Controller
         return view('forum.editcategory', compact('category'));
     }
 
-
     public function update(Request $request, $id)
     {
         $request->validate([

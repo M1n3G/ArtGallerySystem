@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use App\Models\Forumcategories;
 use App\Models\Artcategories;
 use App\Models\View;
+use App\Models\Report;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Support\Facades\Session;
 
@@ -16,7 +17,7 @@ class PostController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('AuthCheck', ['except' => ['viewCategoryPost','viewPost','index','show']]);
+        $this->middleware('AuthCheck', ['except' => ['viewCategoryPost', 'viewPost', 'index', 'show']]);
     }
 
     public function create()
@@ -39,13 +40,13 @@ class PostController extends Controller
 
         // error_log('Hello' . $request->image);
         if ($request->hasFile('image')) {
-            // $des_path = 'images/';
-            // $img = $request->file('image');
-            // $img_name = $img->getClientOriginalName();
-            // $posts = $request->file('image')->storeAs($des_path, $img_name);
-            $image = $request['image'];
-            $uploadedFileUrl = Cloudinary::upload($image->getRealPath())->getSecurePath();
-            $post->image = $uploadedFileUrl;
+            $des_path = 'images/';
+            $img = $request->file('image');
+            $img_name = "" . $request['title'] . " " . Session::get('username') . ".jpg";
+            $posts = $request->file('image')->storeAs($des_path, $img_name);
+            // $image = $request['image'];
+            // $uploadedFileUrl = Cloudinary::upload($image->getRealPath())->getSecurePath();
+            // $post->image = $uploadedFileUrl;
         }
 
         $post->category_id = $request->get('category_id');
@@ -84,6 +85,7 @@ class PostController extends Controller
         $category_id = $request->input('category_id');
         $title = $request->input('title');
         $category = Forumcategories::where('id', $category_id)->where('status', 'Visible')->first();
+        $message = '';
 
         $postCountExist = View::where('postID', $postID)->where('username', Session::get('username'))->first();
 
@@ -105,12 +107,75 @@ class PostController extends Controller
             $commentcount = Forumcomment::where('postID', $posts->id)->count();
             $postcount = View::where('postID', $postID)->count();
 
-            return view('forum/showpost', compact('posts', 'category', 'latest_posts', 'showCom','postcount','commentcount','com'));
+            return view('forum/showpost', compact('posts', 'category', 'latest_posts', 'showCom', 'postcount', 'commentcount', 'com', 'message'));
         } else {
             return redirect('/forum');
         }
     }
 
+    public function viewPost1($postID, $category_id, $title, $action)
+    {
+        $username = Session::get('username');
+        $category = Forumcategories::where('id', $category_id)->where('status', 'Visible')->first();
+        $message = '';
+        $postCountExist = View::where('postID', $postID)->where('username', Session::get('username'))->first();
+        if ($action == "report") {
+            $message = "Reported successfully";
+        }else if($action == "edit"){
+            $message = "Edited successfully";
+        }
+        if ($username != null) {
+            if (!$postCountExist) {
+                $views = new View();
+                $views->postID = $postID;
+                $views->username = $username;
+                $views->save();
+            }
+        }
+
+        if ($category) {
+            // $posts1 = Post::find($id);
+            $posts = Post::where(['category_id' => $category_id, 'status' => 'Visible', 'title' => $title])->first();
+            $latest_posts = Post::where(['category_id' => $category_id, 'status' => 'Visible'])->orderBy('datetime', 'DESC')->get()->take(10);
+            $showCom = Forumcomment::where('postID', $posts->id)->orderBy('datetime', 'DESC')->paginate(10);
+            $com = Forumcomment::where('postID', $postID)->where('username', Session::get('username'))->get();
+            $commentcount = Forumcomment::where('postID', $posts->id)->count();
+            $postcount = View::where('postID', $postID)->count();
+            return view('forum/showpost', compact('posts', 'category', 'latest_posts', 'showCom', 'postcount', 'commentcount', 'com', 'message'));
+        } else {
+            return redirect('/forum');
+        }
+    }
+
+    public function storeReport(Request $request)
+    {
+        $report = new Report;
+        $reportID = "RID-" . random_int(10000001, 99999999);
+        $getReportID = Report::where('reportID', $reportID)->get();
+        while (count($getReportID) != 0) {
+            $reportID = "RID-" . random_int(10000001, 99999999);
+            $getReportID = Report::where('reportID', $reportID)->get();
+        }
+
+        $report->reportID = $reportID;
+        $report->postID = $request->input('postID');
+        $report->username = Session::get('username');
+        $report->reportType = $request->input('report');
+        $report->reportBody = $request->get('reportBody');
+        date_default_timezone_set("Asia/Kuala_Lumpur");
+        $date =  Carbon::now()->format('Y-m-d H:i:s');
+        $report->datetime = $date;
+
+        if ($report->save()) {
+            $postID = $request->input('postID');
+            $category_id = $request->input('category_id');
+            $title = $request->input('title');
+            return $this->viewPost1($postID, $category_id, $title, "report");
+            // return redirect()->back()->with('success', 'Report post');
+        }
+
+        return redirect()->back()->with('fail', 'Unable to report post');
+    }
 
     public function index()
     {
@@ -158,7 +223,11 @@ class PostController extends Controller
         $post->datetime = $date;
 
         if ($post->update()) {
-            return redirect('/forum/category/post')->with('success', 'Post edited Successfully');
+            $postID = $request->input('postID');
+            $category_id = $request->input('category_id');
+            $title = $request->input('title');
+            return $this->viewPost1($postID, $category_id, $title, "edit");
+            // return redirect('/forum/category/post')->with('success', 'Post edited Successfully');
         }
 
         return redirect()->back()->with('fail', 'Unable to update post');

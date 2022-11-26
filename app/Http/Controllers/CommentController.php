@@ -9,6 +9,8 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Art;
 use Carbon\Carbon;
+use App\Models\Forumcategories;
+use App\Models\View;
 use App\Models\Forumcomment;
 use App\Models\Comment;
 
@@ -18,7 +20,6 @@ class CommentController extends Controller
     {
         $commentss = Comment::all();
         $artID = Comment::where('artID')->get();
-       
     }
 
     public function store(Request $request)
@@ -57,7 +58,38 @@ class CommentController extends Controller
             error_log('test2');
             return redirect()->back()->with('message', 'Unable to create comment');
         }
+    }
 
+    public function viewPost($postID, $category_id, $title)
+    {
+        $username = Session::get('username');
+        $category = Forumcategories::where('id', $category_id)->where('status', 'Visible')->first();
+
+        $postCountExist = View::where('postID', $postID)->where('username', Session::get('username'))->first();
+
+        if ($username != null) {
+            if (!$postCountExist) {
+                $views = new View();
+                $views->postID = $postID;
+                $views->username = $username;
+                $views->save();
+            }
+        }
+
+        if ($category) {
+            // $posts1 = Post::find($id);
+            $posts = Post::where(['category_id' => $category_id, 'status' => 'Visible', 'title' => $title])->first();
+            $latest_posts = Post::where(['category_id' => $category_id, 'status' => 'Visible'])->orderBy('datetime', 'DESC')->get()->take(10);
+            $showCom = Forumcomment::where('postID', $posts->id)->orderBy('datetime', 'DESC')->paginate(10);
+            $com = Forumcomment::where('postID', $postID)->where('username', Session::get('username'))->get();
+            $commentcount = Forumcomment::where('postID', $posts->id)->count();
+            $postcount = View::where('postID', $postID)->count();
+            $message = 'Comment Posted';
+
+            return view('forum/showpost', compact('posts', 'category', 'latest_posts', 'showCom', 'postcount', 'commentcount', 'com', 'message'));
+        } else {
+            return redirect('/forum');
+        }
     }
 
     public function storeForumComment(Request $request)
@@ -76,14 +108,17 @@ class CommentController extends Controller
         $comment1->datetime = $date;
 
         if ($comment1->save()) {
-            return redirect()->back()->with('message', 'Comment posted');
+            $postID = $request->input('postID');
+            $category_id = $request->input('category_id');
+            $title = $request->input('title');
+            return $this->viewPost($postID, $category_id, $title);
+            // return redirect()->back()->with('message', 'Comment posted');
         } else {
             return redirect()->back()->with('message', 'Unable to create comment');
         }
-
     }
 
-    public function removeForumComment($postID)
+    public function removeForumComment($postID, $category_id, $title)
     {
         $removecmt = Forumcomment::where('username', Session::get("username"))->where('postID', $postID)->first();
 
@@ -106,6 +141,5 @@ class CommentController extends Controller
         $post->comments()->save($reply);
 
         return back();
-
     }
 }
