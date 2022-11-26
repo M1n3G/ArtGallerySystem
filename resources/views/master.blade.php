@@ -73,7 +73,7 @@
         </button>
         
         <ul class="dropdown-menu" style="width:200px;">
-          <li><a class="dropdown-item" href="{{ route('profile.show') }}">Manage Account</a></li>
+          <li><a class="dropdown-item" href="{{ route('profile.show') }}">Profile</a></li>
           <li><a class="dropdown-item" href="{{ route('purchase.show') }}">My Purchase</a></li>
           <li><a class="dropdown-item" href="{{ route('wishlist.show') }}">My Wishlist</a></li>
           <li><a class="dropdown-item" href="#">Upgrade as Artist</a></li>
@@ -134,15 +134,6 @@
             &copy; Copyright <strong><span>ArtCells</span></strong>. All Rights Reserved
           </div>
         </div>
-
-        <div class="social-links order-first order-lg-last mb-3 mb-lg-0">
-          <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-          <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-          <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-          <a href="#" class="google-plus"><i class="bi bi-skype"></i></a>
-          <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-        </div>
-
       </div>
     </div>
 
@@ -158,7 +149,7 @@
   <script src="{{ asset('assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script language="JavaScript" type="text/javascript" src="{{ asset('assets/js/home.js') }}"></script>
   <script language="JavaScript" type="text/javascript" src="{{ asset('Js/carouselmin.js') }}"></script>
   <script language="JavaScript" type="text/javascript" src="{{ asset('Js/custom.js') }}"></script>

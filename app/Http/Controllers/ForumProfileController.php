@@ -16,4 +16,5 @@ class ForumProfileController extends Controller
         $users = User::where('username', $username)->first();
         return view('forum/forumprofile', compact('users'));
     }
+
 }

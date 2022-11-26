@@ -18,11 +18,11 @@
     @endif
 
     <div class="container mt-4">
-        @if (\Session::has('success'))
+        @if (Session::has('success'))
         <div class="alert alert-success alert-dismissible fade show form-control" role="alert">
             <div class="text-left">
-                {{ \Session::get('success') }}
-                {{ \Session::forget('success') }}
+                {{ Session::get('success') }}
+                {{ Session::forget('success') }}
             </div>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
@@ -31,8 +31,8 @@
         @if (\Session::has('fail'))
         <div class="alert alert-danger alert-dismissible fade show form-control" role="alert">
             <div class="text-left">
-                {{ \Session::get('fail') }}
-                {{ \Session::forget('fail') }}
+                {{ Session::get('fail') }}
+                {{ Session::forget('fail') }}
             </div>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
@@ -70,18 +70,19 @@
                                 </div>
 
                                 <p class="titlespan2">Manage your forum profile</p>
-                                
+
                             </div>
                             <nav>
                                 <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Profile</button>
-                                    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Subscriptions</button>
-                                    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Bookmarks</button>
-                                    <button class="nav-link" id="nav-disabled-tab" data-bs-toggle="tab" data-bs-target="#nav-disabled" type="button" role="tab" aria-controls="nav-disabled" aria-selected="false">Manage Your Post</button>
+                                    <button class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="true">Profile</button>
+                                    <button class="nav-link" id="nav-subscriptions-tab" data-bs-toggle="tab" data-bs-target="#nav-subscriptions" type="button" role="tab" aria-controls="nav-subscriptions" aria-selected="false">Subscriptions</button>
+                                    <button class="nav-link" id="nav-bookmarks-tab" data-bs-toggle="tab" data-bs-target="#nav-bookmarks" type="button" role="tab" aria-controls="nav-bookmarks" aria-selected="false">Bookmarks</button>
+                                    <button class="nav-link" id="nav-post-tab" data-bs-toggle="tab" data-bs-target="#nav-post" type="button" role="tab" aria-controls="nav-post" aria-selected="false">Manage Your Post</button>
+                                    <button class="nav-link" id="nav-privacy-tab" data-bs-toggle="tab" data-bs-target="#nav-privacy" type="button" role="tab" aria-controls="nav-privacy" aria-selected="false">Privacy</button>
                                 </div>
                             </nav>
                             <div class="tab-content" id="nav-tabContent">
-                                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                                <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
                                     <!-- Username -->
                                     <div class="mb-3 row">
                                         <label for="username" class="col-sm-2 col-form-label mt-3">Username</label>
@@ -124,7 +125,7 @@
                                     <div class="mb-3 row">
                                         <label for="contact" class="col-sm-2 col-form-label"> Joined</label>
                                         <div class="col-sm-10">
-                                            <div readonly class="form-control-plaintext"> {{ $users->datetime }}</div>
+                                            <div readonly class="form-control-plaintext">{{ date('l, d-m-Y h:i:s a',strtotime($users['datetime'])) }}</div>
                                         </div>
                                     </div>
 
@@ -138,13 +139,15 @@
 
                                     <hr class="mt-4 mb-4" />
 
-                                    <div class="d-grid gap-2 d-md-flex mt-4 justify-content-md-end">
+                                    <div class="col d-grid gap-2 d-md-flex justify-content-md-end">
                                         <a class="btn btn-dark text-capitalize" href="{{route('profile.edit',$users->userID) }}" style="width:125px;">Edit</a>
                                     </div>
+
                                 </div>
-                                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">...</div>
-                                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">...</div>
-                                <div class="tab-pane fade" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">...</div>
+                                <div class="tab-pane fade" id="nav-subscriptions" role="tabpanel" aria-labelledby="nav-subscriptions-tab" tabindex="0">.0.</div>
+                                <div class="tab-pane fade" id="nav-bookmarks" role="tabpanel" aria-labelledby="nav-bookmarks-tab" tabindex="0">.1..</div>
+                                <div class="tab-pane fade" id="nav-post" role="tabpanel" aria-labelledby="nav-post-tab" tabindex="0">..2.</div>
+                                <div class="tab-pane fade" id="nav-privacy" role="tabpanel" aria-labelledby="nav-privacy-tab" tabindex="0">..3.</div>
                             </div>
 
 

@@ -35,7 +35,6 @@
 <div class="py-4">
     <div class="container">
         <div class="row">
-
             <div class="col-md-8">
                 <div class="categoryheading">
                     <p class="fs-3 fw-semibold">{{ $category->name}}</p>
@@ -51,9 +50,9 @@
                     <div class="card-body">
                         <form action="{{ route('post.view') }}" method="POST">
                             @csrf
-                            <a href="{{ route('post.view') }}">
+                            <a href="">
                                 <button type="submit" class="text-decoration-none" style="border: none; background:white;">
-                                    <p class="fs-4 fw-semibold" style="color:#910000;">{{ $posts->title}}</p>
+                                    <p class="fs-4 fw-semibold" style="float:left; color:#910000;">{{ $posts->title}}</p>
                                     <input type="hidden" name="postID" value="{{$posts->id}}">
                                     <input type="hidden" name="category_id" value="{{$posts->category_id}}">
                                     <input type="hidden" name="title" value="{{$posts->title}}">
@@ -65,10 +64,10 @@
                     <div class="card-footer bg-white text-muted" style="font-family: 'Poppins', sans-serif; font-size:14px; color:#999">
                         <div class="row">
                             <div class="col">
-                                Posted On: {{ $posts->datetime}}
+                                Posted On: {{ date('l, d-m-Y',strtotime($posts['datetime'])) }}
                             </div>
                             <div class="col text-end">
-                                <a href="{{ route('post.view') }}">
+                                <a href="">
                                     <button type="submit" class="btn text-decoration-none" style="color:white; background-color: #910000;">View
                                         <input type="hidden" name="postID" value="{{$posts->id}}">
                                         <input type="hidden" name="category_id" value="{{$posts->category_id}}">
@@ -103,6 +102,14 @@
             </div>
 
             <div class="col-md-4">
+                <!-- <div class="card mb-4">
+                    <div class="input-group">
+                        <input type="search" id="search" name="search" class="form-control" placeholder="Search ...">
+                        <span class="input-group-text">
+                            <i class="fas fa-search text-grey" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                </div> -->
                 <div class="card">
                     <div class="card-header">
                         <h5 style="font-family: 'Poppins', sans-serif;">Topic</h5>

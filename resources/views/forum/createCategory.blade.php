@@ -30,7 +30,7 @@
     </div>
     @endif
 
-    <div class="container" style="margin-top:50px; margin-bottom:50px;">
+    <div class="container" style="margin-top:15px; margin-bottom:35px;">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -91,6 +91,19 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+      <!-- Breadcumb link -->
+      <div class="container px-4 mb-2">
+        <div class="row">
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb" style="font-family: 'Poppins', sans-serif;">
+                    <li class="breadcrumb-item"><a href="/forum/" class="text-decoration-none">Forum</a></li>
+                    <li class="breadcrumb-item"><a href="/forum/manage" class="text-decoration-none">Manage</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Create Topic</li>
+                </ol>
+            </nav>
         </div>
     </div>
 </body>

@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// ERR0R 404
+Route::fallback(function () {
+    return view('error404');
+});
+
+
 // Home
 Route::get('/', 'HomeController@home');
 Route::get('/home', 'HomeController@home');
@@ -94,17 +100,20 @@ Route::delete('/forum/deletecategory/{id}', 'CategoryController@destroy')->name(
 Route::get('/forum', 'PostController@index')->name('category.view');
 Route::get('/forum/category/{category_id}', 'PostController@viewCategoryPost')->name('category.post');
 
-Route::post('/forum/category/post', 'PostController@viewPost')->name('post.view');
+Route::get('/searchpost', 'CategoryController@search')->name('post.search');
+Route::post('/post', 'PostController@viewPost')->name('post.view');
+Route::post('/report/store', 'PostController@storeReport')->name('report.store');
 
 Route::middleware(['AuthCheck'])->group(function () {
     Route::get('/forum/create', 'PostController@create')->name('post.create');
     Route::get('/forum/editPost/{id}', 'PostController@edit')->name('post.edit');
     Route::put('/forum/editPost/{id}', 'PostController@update')->name('post.update');
-    Route::post('/commentstore', 'CommentController@storeForumComment')->name('forumcomment.store');
+    Route::post('/forum/comment', 'CommentController@storeForumComment')->name('forumcomment.store');
     Route::delete('/forum/comment/remove/{postID}', 'ArtController@removeForumComment')->name('forumcomment.remove');
 });
 
 
+Route::get('/forum/contentpolicy', 'ForumController@index')->name('forum.policy');
 
 
 Route::post('/forum/reply', 'CommentController@replyStore')->name('reply.add');

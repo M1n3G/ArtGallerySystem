@@ -2,12 +2,14 @@
 @section('title', '| Create Post')
 @section('content')
 
-<style>
-    .ck.ck-editor__main>.ck-editor__editable {
-        height: 200px;
-        min-height: 200px;
-    }
-</style>
+<head>
+    <style>
+        .ck.ck-editor__main>.ck-editor__editable {
+            height: 200px;
+            min-height: 200px;
+        }
+    </style>
+</head>
 
 <body onload="draft1()">
     <!-- Breadcumb link -->
@@ -33,8 +35,8 @@
     </div>
     @endif
 
-    <div class="container" style="margin-top:5px; margin-bottom:50px;">
-        <div class="row justify-content-center">
+    <div class="container" style="margin-top:5px; margin-bottom:30px;">
+        <div class="row">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">Create Post</div>
@@ -100,6 +102,41 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-2"> <img src="{{ asset('Img/artcellslogo.png') }}" class="img-responsive" width=60 height=50></div>
+                            <div class="col-md-10">
+                                <h5 class="mt-3" style="margin-left:15px; font-family: 'Poppins', sans-serif;">Posting to ArtCells</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <ol class="list-group list-group-numbered">
+                        <li class="list-group-item">Remember the human</li>
+                        <li class="list-group-item">Behave like you would in real life</li>
+                        <li class="list-group-item">Look for the original source of content</li>
+                        <li class="list-group-item">Search for duplicates before posting</li>
+                        <li class="list-group-item">Read the community’s rules</li>
+                    </ol>
+                    <div class="card-footer">
+                        Please be mindful of ArtCells's <a href="{{ route('forum.policy') }}" class="text-decoration-none">content policy</a> and follow the rules.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breadcumb link -->
+    <div class="container px-4 mb-2">
+        <div class="row">
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb" style="font-family: 'Poppins', sans-serif;">
+                    <li class="breadcrumb-item"><a href="/forum" class="text-decoration-none">Forum</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Create Post</li>
+                </ol>
+            </nav>
         </div>
     </div>
     @endsection

@@ -6,5 +6,7 @@ use Illuminate\Http\Request;
 
 class ForumController extends Controller
 {
-    //
+    public function index() {
+        return view('forum/contentpolicy');
+    }
 }
