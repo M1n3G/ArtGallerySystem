@@ -4,11 +4,11 @@
 
 <!-- Breadcumb link -->
 <div class="container px-4 mt-2">
-    @if (\Session::has('success'))
+    @if (Session::has('success'))
     <div class="alert alert-success alert-dismissible fade show form-control" role="alert">
         <div class="text-left">
-            {{ \Session::get('success') }}
-            {{ \Session::forget('success') }}
+            {{ Session::get('success') }}
+            {{ Session::forget('success') }}
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
@@ -18,9 +18,7 @@
             <div class="card mt-4 mb-4">
                 <div class="card-body">
                     <table class="table table-striped" style="font-family:'Poppins', sans-serif; font-size: 16px;">
-                        <thead>
-                            <th>Name</th>
-                        </thead>
+
                         <tbody>
                             @if (!empty($category) && $category->count())
                             @foreach($category as $c)
@@ -46,8 +44,11 @@
                             </tr>
                             @endforeach
                             @else
-                            <div class="row">
-                                <h3 class="text-center">There are no post.</h3>
+                            <div class="alert alert-primary alert-dismissible fade show form-control" role="alert">
+                                <div class="text-left">
+                                    There are no topic available.
+                                </div>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                             @endif
                         </tbody>
@@ -99,9 +100,13 @@
                             <div class="fw-semibold">
                                 {{ $post->count() }}
                             </div>
-
                         </div>
-
+                        <div class="col mt-2">Comments:</div>
+                        <div class="col mt-2 mb-2">
+                            <div class="fw-semibold">
+                                {{ $comment->count() }}
+                            </div>
+                        </div>
                     </div>
                 </div>
 

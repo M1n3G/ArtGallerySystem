@@ -37,12 +37,38 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="categoryheading">
-                    <p class="fs-3 fw-semibold">{{ $category->name}}</p>
+
+                    <div class="row">
+                        <div class="col">
+                            <p class="fs-3 fw-semibold">{{ $category->name}}</p>
+                        </div>
+                        @if(!$subscribe)
+                        <div class="col">
+                            <form action="{{ route('subscribe.store', $category->id ) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-outline-secondary text-capitalize float-end px-3">
+                                    Subscribe this Topic
+                                </button>
+                            </form>
+                        </div>
+                        @else
+                        <div class="col">
+                            <form action="{{ route('subscribe.remove', $category->id ) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-secondary text-capitalize float-end px-3">
+                                    Unsubscribe
+                                </button>
+                            </form>
+                        </div>
+                        @endif
+                    </div>
+
                     <span class="fw-normal" style="color:#8c8c8c; font-size:13px;">{!! $category->description !!}</span>
                 </div>
 
                 @if (!empty($post) && $post->count())
-                @forelse ($post as $posts)
+                @foreach ($post as $posts)
                 <div class="card card-shadow mt-4 mb-4">
                     <div class="card-header" style="font-family: 'Poppins', sans-serif; font-size:14px;">
                         Posted By: {{ Session::get('username') }}
@@ -79,14 +105,15 @@
                     </div>
                     </form>
                 </div>
-
-                @empty
-                <div class="card card-shadow mt-4">
-                    <div class="card-body">
-                        <h4 style="font-family: 'Poppins', sans-serif; font-size:17px;">No Post Available</h4>
+               
+                @endforeach
+                @else
+                <div class="mt-4 alert alert-primary alert-dismissible fade show form-control" role="alert">
+                    <div class="text-left">
+                        There are no post available.
                     </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-                @endforelse
                 @endif
                 <hr class="mt-4 mb-4" />
 

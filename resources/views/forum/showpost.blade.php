@@ -44,6 +44,31 @@
     <div class="alert alert-success alert-dismissible fade show form-control" role="alert">
         <div class="text-left">
             {{ $message }}
+            <a href="{{route('forumprofile.show')}}">&nbspBookmarks</a>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+@endif
+
+@if ($messagedanger != null)
+<div class="container">
+    <div class="alert alert-danger alert-dismissible fade show form-control" role="alert">
+        <div class="text-left">
+            {{ $messagedanger }}
+            <a href="{{route('forumprofile.show')}}">&nbspBookmarks</a>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+@endif
+
+@if ($messagedanger1 != null)
+<div class="container">
+    <div class="alert alert-danger alert-dismissible fade show form-control" role="alert">
+        <div class="text-left">
+            {{ $messagedanger1 }}
+            <a href="{{route('forumprofile.show')}}">&nbspView my Report</a>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
@@ -88,6 +113,12 @@
                                 @if ($posts->created_by == Session::get('username'))
                                 <a href="{{ route('post.edit',$posts->id) }}" class="btn btn-success px-2">
                                     <i class="bi bi-pencil-square"></i></a>
+
+                                <form action="{{ route('post.delete',$posts->id) }}" method="POST" onsubmit="return confirm('Are you sure you wish to delete this post?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger mt-2 px-2" style="height:35px; max-height:35px;"><i class="bi bi-trash"></i></button>
+                                </form>
                                 @endif
 
                             </div>
@@ -124,20 +155,28 @@
                     <div class="row">
                         <div class="col-md">
                             <div class="small d-flex justify-content-start">
-                                <a href="#" class="d-flex align-items-center me-3 text-decoration-none">
+                                <a href="" class="d-flex align-items-center me-3 text-decoration-none">
                                     <i class="bi bi-hand-thumbs-up" style="color:#910000"></i>&nbsp
                                     <p class="mb-0" style="color:#910000">Like</p>
                                 </a>
-                                <a href="#" class="d-flex align-items-center me-3 text-decoration-none">
+                                <a class="d-flex align-items-center me-3 text-decoration-none">
                                     <i class="fa-regular fa-comment" style="color:#910000"></i>&nbsp
                                     <p class="mb-0" style="color:#910000">{{$commentcount}} Comments</p>
                                 </a>
-                                <a href="#" class="d-flex align-items-center me-3 text-decoration-none">
-                                    <i class="bi bi-bookmarks" style="color:#910000"></i>&nbsp
-                                    <p class="mb-0" style="color:#910000">Save</p>
+                                <form id="myform" action="{{ route('bookmarks.store') }}" method="post">
+                                    <a class="d-flex align-items-center me-3 text-decoration-none" onclick="document.getElementById('myform').submit()">
+                                        @csrf
+                                        <i class="bi bi-bookmarks" style="color:#910000"></i>&nbsp
+                                        <p class="mb-0" style="color:#910000"> Save
+                                            <input type="hidden" value="{{$posts->id}}" name="postID" />
+                                            <input type="hidden" value="{{$posts->category_id}}" name="category_id" />
+                                            <input type="hidden" value="{{$posts->title}}" name="title" />
+                                        </p>
+                                </form>
+                                </p>
                                 </a>
 
-                                <a href="#" class="d-flex align-items-center me-3 text-decoration-none" data-bs-toggle="modal" data-bs-target="#reportModal">
+                                <a class="d-flex align-items-center me-3 text-decoration-none" data-bs-toggle="modal" data-bs-target="#reportModal">
                                     <i class="bi bi-flag" style="color:#910000"></i>&nbsp
                                     <p class="mb-0" style="color:#910000">Report</p>
                                 </a>
@@ -207,7 +246,7 @@
                                                                 </div>
                                                             </div>
                                                             <p class="fs-6 mt-2">Provide more report info (Optional)</p>
-                                                            <textarea name="reportBody" rows="2" cols="30" class="form-control mt-2"></textarea>
+                                                            <textarea name="reportBody" rows="2" cols="30" class="form-control mt-2" maxlength="200"></textarea>
                                                         </div>
 
 
@@ -309,7 +348,6 @@
             @forelse($showCom as $comment)
             <div class="card card-body shadow-sm mt-3 mb-4">
                 <div class="d-flex flex-start align-items-center">
-
                     <div>
                         <h6 class="fw-bold mb-1" style="color:#910000">
                             {{$comment->username}}

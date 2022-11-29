@@ -82,15 +82,17 @@ Route::get('/about', function () {
 });
 
 //Exhibitions
-Route::get('/exhibitions', function () {
-    return view('exhibitions');
-});
-Route::get("/viewGallery", 'ExhibitionsController@');
-Route::get("/viewGallery", 'ExhibitionsController@index')->name('exhibitions.show');
+Route::get("/exhibitions", 'ExhibitionsController@index');
 
 //Forum
 // Route::get('/forumhome', 'ForumController@forumhome');
 Route::get('/forum/manage', 'CategoryController@index')->name('categorylist');
+Route::get('/forum/manage/report', 'ForumController@showReport')->name('report.list');
+Route::get('/forum/manage/reporthistory', 'ForumController@showReportHistory')->name('reporthistory.list');
+Route::get('/forum/manage/editreport/{id}', 'ForumController@edit')->name('report.edit');
+Route::delete('/forum/manage/removereport/{id}', 'ForumController@removeRecord')->name('report.delete');
+Route::delete('/forum/manage/removepost/{id}/{reportID}', 'ForumController@removePost')->name('reportpost.delete');
+
 Route::get('/forum/createCategory', 'CategoryController@create')->name('category.create');
 Route::post('/forum/storeCategory', 'CategoryController@store')->name('category.store');
 Route::get('/forum/editCategory/{id}', 'CategoryController@edit')->name('category.edit');
@@ -99,15 +101,19 @@ Route::delete('/forum/deletecategory/{id}', 'CategoryController@destroy')->name(
 
 Route::get('/forum', 'PostController@index')->name('category.view');
 Route::get('/forum/category/{category_id}', 'PostController@viewCategoryPost')->name('category.post');
+Route::post('/forum/category/{category_id}/subscribe', 'PostController@subscribe')->name('subscribe.store');
+Route::delete('/forum/category/{category_id}/unsubscribe', 'PostController@unsubscribe')->name('subscribe.remove');
 
-Route::get('/searchpost', 'CategoryController@search')->name('post.search');
+
 Route::post('/post', 'PostController@viewPost')->name('post.view');
 Route::post('/report/store', 'PostController@storeReport')->name('report.store');
+Route::post('/bookmark/store', 'PostController@storeBookmarks')->name('bookmarks.store');
 
 Route::middleware(['AuthCheck'])->group(function () {
     Route::get('/forum/create', 'PostController@create')->name('post.create');
     Route::get('/forum/editPost/{id}', 'PostController@edit')->name('post.edit');
     Route::put('/forum/editPost/{id}', 'PostController@update')->name('post.update');
+    Route::delete('/forum/deletepost/{id}', 'PostController@destroy')->name('post.delete');
     Route::post('/forum/comment', 'CommentController@storeForumComment')->name('forumcomment.store');
     Route::delete('/forum/comment/remove/{postID}', 'ArtController@removeForumComment')->name('forumcomment.remove');
 });
@@ -120,4 +126,4 @@ Route::post('/forum/reply', 'CommentController@replyStore')->name('reply.add');
 
 Route::post('/forum/store', 'PostController@store')->name('post.store');
 
-Route::delete('/forum/deletepost/{id}', 'PostController@destroy')->name('post.delete');
+

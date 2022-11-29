@@ -132,28 +132,6 @@
                     </form>
                 </div>
 
-                <!-- PAGE DISPLAY -->
-                <div class="d-none d-md-block mb-5">
-                    <div class="d-flex mt-2 mb-2">
-                        <p class="widget-title" style="flex: 0 0 90%; margin-bottom: 0px;">Page</p>
-                    </div>
-
-                    <form action="" method="GET">
-                        <div class="input-group mb-3">
-                            <select class="form-select" name="page" id="inputGroupSelect02">
-                                <option value="12" selected="selected">12 per page</option>
-                                <option value="18">18 per page</option>
-                                <option value="24">24 per page</option>
-                                <option value="32">32 per page</option>
-                                <option value="40">40 per page</option>
-                            </select>
-
-                            <button class="btn btn-outline-secondary searchBtn" type="submit">
-                                <i class="fa fa-search" aria-hidden="true"></i></button>
-                        </div>
-                    </form>
-                </div>
-
             </div>
 
             <!-- ARTWORKS -->
@@ -170,14 +148,14 @@
                     @foreach($data as $key => $value)
                     <div class="col-lg-4 cardMb">
                         <div class="card mx-auto h-100" style="width: 18rem;">
-                            <img src="{{$value -> artImg}}" class="card-img-top" alt="">
+                            <img src="{{$value -> artImg}}" class="card-img-top" alt="" style="height:300px; max-height:300px">
 
                             <div class="card-body">
                                 <h5 class="card-title text-center text-uppercase fw-bold">{{$value -> artName}}</h5>
                                 <hr />
                                 <div class="card-text lh-lg">
                                     <div class="text-center text-uppercase">{{$value-> artistName}}</div>
-                                    <div class="text-center" style="color:#9d9d9d; font-size:13px;">{{$category -> name}}</div>
+                                    <!-- <div class="text-center" style="color:#9d9d9d; font-size:13px;"></div> -->
                                     <div class="text-center fw-bolder" style="color:#910000; font-size:18px;">MYR {{$value -> artPrice}}</div>
                                     <hr />
                                     <div class=" text-center">
@@ -189,8 +167,6 @@
                     </div>
                     @endforeach
                     @else
-
-                   
                     <div class="row">
                         <div class="alert alert-primary alert-dismissible fade show form-control" role="alert">
                             <div class="text-left">

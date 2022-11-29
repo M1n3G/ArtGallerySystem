@@ -9,6 +9,7 @@ class Report extends Model
 {
     use HasFactory;
 
+    public $incrementing = false;
     protected $table = "reports";
     protected $primaryKey = "reportID";
     

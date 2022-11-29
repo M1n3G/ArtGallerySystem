@@ -1,158 +1,157 @@
 @extends('master')
 @section('content')
-<style>
-    /* Carousel styling */
-    #introCarousel,
-    .carousel-inner,
-    .carousel-item,
-    .carousel-item.active {
-        height: 500px;
-    }
 
-    .carousel-item:nth-child(1) {
-        background-image: url("../Img/Exhibitions/weilinggallery.jpg");
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center center;
-    }
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Abhaya+Libre:400,500,600,700,800&display=swap" rel="stylesheet">
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css'>
+    <link rel="stylesheet" type="text/css" href="{{ asset('Css/exhibitions.css') }}">
 
-    .carousel-item:nth-child(2) {
-        background-image: url("../Img/Exhibitions/pinkguygallery.jpeg");
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center center;
-    }
-
-    .carousel-item:nth-child(3) {
-        background-image: url("../Img/Exhibitions/ilhamartshow2022.jpg");
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center center;
-    }
-
-    /* Height for devices larger than 576px */
-    @media (min-width: 992px) {
-        #introCarousel {
-            margin-top: -58.59px;
+    <style>
+        .navbar .nav-link {
+            color: #fff !important;
         }
-    }
 
-    .navbar .nav-link {
-        color: #fff !important;
-    }
-</style>
+        .navbar {
+            padding: 0;
+            position: absolute;
+            background-color: white;
+        }
 
-<!--- HOME CONTENT --->
-<!--Main area-->
-<main id="main" class="main-site" style="margin-top: 25px;">
-    <div class="container-fluid px-4 px-lg-5 my-5" data-aos="zoom-in">
+        .navbar ul {
+            display: flex;
+            position: absolute;
+            margin-left: 590px;
+        }
 
-        <div class="row">
-            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-                <ol class="breadcrumb" style="font-family: 'Poppins', sans-serif;">
-                    <li class="breadcrumb-item"><a href="/home" class="text-decoration-none">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Exhibitions</a></li>
-                </ol>
-            </nav>
+        ul .navli {
+            position: relative;
+            justify-content: center;
+            height: 10%;
+            margin: 0px;
+            padding: 0px;
+            white-space: nowrap;
+        }
+
+        ul .menuli {
+            position: relative;
+            justify-content: center;
+            height: 10%;
+            margin: 0px;
+            padding: 0px;
+            white-space: nowrap;
+        }
+    </style>
+
+</head>
+<main class="main-site" data-aos="zoom-in">
+
+    <div class="showartcontainer" id="up">
+        <div class="title">
+            <h2>Presented by ArtCells</h2>
+            <h5 class="mt-2" style="font-family: Abhaya Libre; color:grey">View Exhibitions below</h5>
         </div>
+        <div class="gallerycontainer">
+            <ul id="gallery">
 
-        <hr />
-        <div id="introCarousel" class="carousel slide carousel-fade shadow-2-strong" data-mdb-ride="carousel" style="margin-top: 20px; margin-bottom: 20px;">
-            <!-- Indicators -->
-            <ol class="carousel-indicators">
-                <li data-mdb-target="#introCarousel" data-mdb-slide-to="0" class="active"></li>
-                <li data-mdb-target="#introCarousel" data-mdb-slide-to="1"></li>
-                <li data-mdb-target="#introCarousel" data-mdb-slide-to="2"></li>
-            </ol>
-
-            <!-- Inner -->
-            <div class="carousel-inner">
-                <!-- Single item -->
-                <div class="carousel-item active" data-interval="1500">
-                    <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
-                        <div class="d-flex justify-content-center align-items-center h-100">
-                            <div class="text-white text-center">
-                                <h5 class="mb-4" style="font-family: 'Expressway Rg', serif;  font-size: 17px;">January 2022 - December 2022</h5>
-                                <hr />
-                                <h1 class="mb-4 mt-4" style="font-family: 'Expressway Rg', serif;  font-size: 35px;">Wei-Ling Contemporary</h1>
-                                <h4 class="mb-4 mt-4" style="font-family: 'Expressway Rg', serif;  font-size: 17px;">KUALA LUMPUR | MALAYSIA</h4>
-                            </div>
+                @foreach($art as $arts)
+                <li id="galleryli">
+                    <div class="item">
+                        <div class="img">
+                            <img src="{{ $arts->artImg }}" />
+                            <h2>{{ $arts->artName }}</h2>
                         </div>
                     </div>
-                </div>
-
-                <!-- Single item -->
-                <div class="carousel-item" data-interval="1500">
-                    <div class="mask" style="background-color: rgba(0, 0, 0, 0.3);">
-                        <div class="d-flex justify-content-center align-items-center h-100">
-                            <div class="text-white text-center">
-                                <h5 class="mb-4" style="font-family: 'Expressway Rg', serif;  font-size: 17px;">10 - 29 October 2022</h5>
-                                <hr />
-                                <h1 class="mb-4 mt-4" style="font-family: 'Expressway Rg', serif;  font-size: 35px;">Twinkle Twinkle Little Star: Celebrating a journey of 39 years in Framing</h1>
-                                <h4 class="mb-4 mt-4" style="font-family: 'Expressway Rg', serif;  font-size: 17px;">KUALA LUMPUR | MALAYSIA</h4>
-                            </div>
-                        </div>
+                </li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+    <div class="showcontainer bg-light" style="width: 100%; padding: 3rem;" id="down">
+        <div class="extitle text-center">
+            <h2>Exhibitions</h2>
+        </div>
+        <div class="row mx-auto my-5">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                        <img src="{{asset('Img/Exhibitions/gallery1.jpg') }}" class="img-fluid" style="width:900px; max-width:900px; height:500px; max-height:500px" />
+                        <a href="#!">
+                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                        </a>
                     </div>
-                </div>
-
-                <!-- Single item -->
-                <div class="carousel-item" data-interval="1500">
-                    <div class="mask">
-                        <div class="d-flex justify-content-center align-items-center h-100">
-                            <div class="text-white text-center">
-                                <h5 class="mb-4" style="font-family: 'Expressway Rg', serif;  font-size: 17px;">17 May - 23 October 2022</h5>
-                                <hr />
-                                <h1 class="mb-4 mt-4" style="font-family: 'Expressway Rg', serif;  font-size: 35px;">The ILHAM Art Show 2022</h1>
-                                <h4 class="mb-4 mt-4" style="font-family: 'Expressway Rg', serif;  font-size: 17px;">KUALA LUMPUR | MALAYSIA</h4>
-                            </div>
+                    <div class="card-body" style="height:250px; max-height:250px">
+                        <span class="exhibitiondate mt-2 mb-4">MALAYSIA 12 OCTOBER - 31 DECEMEBER 2022</span>
+                        <h3 class="mt-3 card-title fw-semibold">Ming Lee: 3D Gallery</h3>
+                        <p class="card-text mt-4" style="color:#444">
+                            Ming Lee Gallery is delighted to announce a solo exhibition of new paintings by Lee Lik Ming (2022, Malaysia). On view from 12 October - 31 November 2022, It will be held online using virtual tour method.
+                        </p>
+                    </div>
+                    <div class="card-footer bg-white" style="height:60px">
+                        <div class="text-center">
+                            <a href="http://192.168.0.25:9966/" target="_blank" class="btn btn btn-outline-dark rounded-pill" style="width:200px; font-size: 17px">View Details</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Inner -->
 
-            <!-- Controls -->
-            <a class="carousel-control-prev" href="#introCarousel" role="button" data-mdb-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#introCarousel" role="button" data-mdb-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
-        <!-- Carousel wrapper -->
-
-        <hr class="mt-4" />
-
-        <!-- Exhibitions -->
-        <div class="row gx-4 gx-lg-5 align-items-center">
-            <div class="col-md-6 text-center">
-                <img class="card-img-top mb-md-0 artImg" src="{{asset('Img/Exhibitions/ilhamartshow2022.jpg')}}" alt="" style="width:800px; height:500px; max-width:800px; max-height:500Px; margin-top:75px;" />
-            </div>
-            <div class="col-md-6 lh-lg">
-                <h3 class="text-uppercase fw-light" style="color:#9d9d9d; font-family: 'Poppins'; font-size:17px;">28 - 29 January 2022</h3>
-                <hr class="mt-4 mb-4" />
-                <h2 style="font-family: 'Poppins'; margin-bottom:30px;">Marnie Weber Jim Shaw </h2>
-                <p>Simon Lee Gallery and Zuecca Projects are pleased to present a joint exhibition of works by Jim Shaw and Marnie Weber at Squero Castello in Venice, Italy. The works of Shaw and Weber span a wide range of artistic media and visual imagery, from the detritus of American culture to the surreal worlds of fantasy and folklore, both drawing from the subconscious as their source of artistic creativity. In parallel with the theme of The Milk of Dreams, the 59th International Art Exhibition of La Biennale di Venezia, both Shaw and Weber transform the personal, the commonplac</p>
-                <div class="text-center">
-                    <a href="http://192.168.0.43:9966/" target="_blank" class="btn btn-outline-dark" style=" width:300px; height:50px; margin-top: 60px;" type="button">View Details<a>
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                        <img src="{{asset('Img/Exhibitions/gallery2.jpg') }}" class="img-fluid" style="height:300px; max-height:300px" />
+                        <a href="#!">
+                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                        </a>
+                    </div>
+                    <div class="card-body" style="height:450px; max-height:450px">
+                        <span class="exhibitiondate mt-2 mb-4">MALAYSIA 03 DECEMBER - 17 DECEMEBER 2022</span>
+                        <h3 class="mt-3 card-title fw-semibold">Eric Quah: Love: 2020 – 2022</h3>
+                        <p class="card-text mt-4" style="color:#444">
+                            G13 Gallery is delighted to present the solo exhibition LOVE: 2020 – 2022 by our local artist, Eric Quah. Eric’s oil paintings artworks impress and invoke joy in viewers with his free and expressive brushstrokes along with the vivid bright hue colour. His artwork also touches the viewer with the selection of his subject matter that conjured up his life journey of sojourning over three decades between Melbourne and his hometown Malaysia.
+                        </p>
+                    </div>
+                    <div class="card-footer bg-white" style="height:60px">
+                        <div class="text-center">
+                            <a class="btn btn btn-outline-dark rounded-pill" style="width:200px; font-size: 17px; background-color:#910000; color:white;">COMING SOON</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <hr class="mt-4" />
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                        <img src="{{asset('Img/Exhibitions/gallery3.jpg') }}" class="img-fluid" style="height:300px; max-height:300px" />
+                        <a href="#!">
+                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                        </a>
+                    </div>
+                    <div class="card-body" style="height:450px; max-height:450px">
+                        <span class="exhibitiondate mt-2 mb-4">MALAYSIA 29 NOVEMBER 2022 - 14 MAY 2023</span>
+                        <h3 class="mt-3 card-title fw-semibold">Dream Of The Day</h3>
+                        <p class="card-text mt-4" style="color:#444">
+                            The exhibition title, Dream of the Day, draws from the 1965 manifesto of the Philippine-born artist David Medalla, well regarded for his long-lasting influence in the British and global contemporary art scene since the sixties. His work, as well as those of 38 other artists from the Philippines, Indonesia, Thailand, Sri Lanka, Singapore, Vietnam, Myanmar, Egypt, and Malaysia are included in this exhibition which explores a range of media, genres, and sensibilities— from surrealism, slow cinema and trans-performance, to queer photography and feminist painting.
+                        </p>
+                    </div>
+
+                    <div class="card-footer bg-white" style="height:60px">
+                        <div class="text-center">
+                            <a class="btn btn btn-outline-dark rounded-pill" style="width:200px; font-size: 17px; background-color:#910000; color:white;">COMING SOON</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
 
     </div>
-</main>
-@endsection
 
-@section('scripts')
-<!-- Carousel Autoplay -->
-<script>
-    $('#carouselExampleIndicators').carousel({
-        interval: 5500,
-        cycle: true
-    });
-</script>
+    <!-- JQuery -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js'></script>
+    <script src="{{asset('Js/exhibition.js')}}"></script>
+
+</main>
+
 @endsection
