@@ -77,8 +77,8 @@
                                     <button class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="true">Profile</button>
                                     <button class="nav-link" id="nav-subscriptions-tab" data-bs-toggle="tab" data-bs-target="#nav-subscriptions" type="button" role="tab" aria-controls="nav-subscriptions" aria-selected="false">Subscriptions</button>
                                     <button class="nav-link" id="nav-bookmarks-tab" data-bs-toggle="tab" data-bs-target="#nav-bookmarks" type="button" role="tab" aria-controls="nav-bookmarks" aria-selected="false">Bookmarks</button>
-                                    <button class="nav-link" id="nav-post-tab" data-bs-toggle="tab" data-bs-target="#nav-post" type="button" role="tab" aria-controls="nav-post" aria-selected="false">Manage Your Post</button>
-                                    <button class="nav-link" id="nav-privacy-tab" data-bs-toggle="tab" data-bs-target="#nav-privacy" type="button" role="tab" aria-controls="nav-privacy" aria-selected="false">Privacy</button>
+                                    <button class="nav-link" id="nav-post-tab" data-bs-toggle="tab" data-bs-target="#nav-post" type="button" role="tab" aria-controls="nav-post" aria-selected="false">Posts</button>
+                                    <!-- <button class="nav-link" id="nav-privacy-tab" data-bs-toggle="tab" data-bs-target="#nav-privacy" type="button" role="tab" aria-controls="nav-privacy" aria-selected="false">Privacy</button> -->
                                 </div>
                             </nav>
                             <div class="tab-content" id="nav-tabContent">
@@ -144,26 +144,75 @@
                                     </div>
 
                                 </div>
-                                <div class="tab-pane fade" id="nav-subscriptions" role="tabpanel" aria-labelledby="nav-subscriptions-tab" tabindex="0">.0.</div>
-                                <div class="tab-pane fade" id="nav-bookmarks" role="tabpanel" aria-labelledby="nav-bookmarks-tab" tabindex="0">.1..</div>
-                                <div class="tab-pane fade" id="nav-post" role="tabpanel" aria-labelledby="nav-post-tab" tabindex="0">..2.</div>
-                                <div class="tab-pane fade" id="nav-privacy" role="tabpanel" aria-labelledby="nav-privacy-tab" tabindex="0">..3.</div>
-                            </div>
-
-
-
-                            <!-- Image -->
-                            <!-- <div class="mb-3 row">
-                                <label for="userImg" class="col-sm-2 col-form-label">Image</label>
-                                <div class="col-sm-10">
-                                    @if(empty($users->userImg))
-                                    <img src="{{ asset('/storage/Img/user-default.png')}}" width="150" height="150" class="img-responsive" alt="">
-                                    @else   
-                                    <img src="{{ $users->userImg }}" width="150" height="150" class="img-responsive" alt="">
-                                    @endif
+                                <div class="tab-pane fade" id="nav-subscriptions" role="tabpanel" aria-labelledby="nav-subscriptions-tab" tabindex="0">
+                                    <ol class="list-group list-group-numbered">
+                                        @if (!empty($subscribecat) && count($subscribecat))
+                                        @foreach($subscribecat as $s)
+                                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                                            <div class="ms-2 me-auto">
+                                                <div class="fw-bold">{{ $s->name }}</div>
+                                                {!! $s->description !!}
+                                            </div>
+                                        </li>
+                                        @endforeach
+                                        @else
+                                        <div class="alert alert-primary alert-dismissible fade show form-control" role="alert">
+                                            <div class="text-left">
+                                                You does not subscribe any topic.
+                                                <a href="{{route('category.view')}}">&nbsp Forum</a>
+                                            </div>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                        @endif
+                                    </ol>
                                 </div>
-                            </div> -->
+                                <div class="tab-pane fade" id="nav-bookmarks" role="tabpanel" aria-labelledby="nav-bookmarks-tab" tabindex="0">
+                                    <ol class="list-group list-group-numbered">
+                                        @if (!empty($bookpost) && count($bookpost))
+                                        @foreach($bookpost as $b)
+                                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                                            <div class="ms-2 me-auto">
+                                                <div class="fw-bold">{{ $b->title }}</div>
+                                                {!! $b->body !!}
+                                            </div>
+                                        </li>
+                                        @endforeach
+                                        @else
+                                        <div class="alert alert-primary alert-dismissible fade show form-control" role="alert">
+                                            <div class="text-left">
+                                                You does not have any post in your bookmark.
+                                                <a href="{{route('category.view')}}">&nbsp Forum</a>
+                                            </div>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                        @endif
+                                    </ol>
 
+                                </div>
+                                <div class="tab-pane fade" id="nav-post" role="tabpanel" aria-labelledby="nav-post-tab" tabindex="0">
+                                    <ol class="list-group list-group-numbered">
+                                        @if (!empty($posts) && count($posts))
+                                        @foreach($posts as $p)
+                                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                                            <div class="ms-2 me-auto">
+                                                <div class="fw-bold">{{ $p->title }}</div>
+                                                {!! $p->body !!}
+                                            </div>
+                                        </li>
+                                        @endforeach
+                                        @else
+                                        <div class="alert alert-primary alert-dismissible fade show form-control" role="alert">
+                                            <div class="text-left">
+                                                You does not have post.
+                                                <a href="{{route('category.view')}}">&nbsp Forum</a>
+                                            </div>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                        @endif
+                                    </ol>
+                                </div>
+                                <!-- <div class="tab-pane fade" id="nav-privacy" role="tabpanel" aria-labelledby="nav-privacy-tab" tabindex="0">..3.</div> -->
+                            </div>
 
                         </div>
 

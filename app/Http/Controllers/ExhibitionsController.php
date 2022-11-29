@@ -4,21 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use App\Models\Exhibitions;
+use App\Models\Art;
 
 class ExhibitionsController extends Controller
 {
     public function index()
     {
-        // $exhibition = Exhibitions::all();
-        return view('viewGallery');
+        $art = Art::all();
+        return view('exhibitions', compact('art'));
     }
-
-    public function details($exhibitionsID){
-        $exhibition= Exhibitions::findOrFail($exhibitionsID);
-        return view('exhibitions', compact('exhibition'));
-    }
-
-    
 
 }

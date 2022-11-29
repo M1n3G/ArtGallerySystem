@@ -60,24 +60,24 @@
                 </ol>
             </nav>
 
-            @if (\Session::has('warning'))
+            @if (Session::has('warning'))
             <div class="container">
                 <div class="alert alert-danger alert-dismissible fade show form-control" role="alert">
                     <div class="text-left">
-                        {{ \Session::get('warning') }}
-                        {{ \Session::forget('warning') }}
+                        {{ Session::get('warning') }}
+                        {{ Session::forget('warning') }}
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             </div>
             @endif
 
-            @if (\Session::has('message'))
+            @if (Session::has('message'))
             <div class="container">
                 <div class="alert alert-success alert-dismissible fade show form-control" role="alert">
                     <div class="text-left">
-                        {{ \Session::get('message') }}
-                        {{ \Session::forget('message') }}
+                        {{ Session::get('message') }}
+                        {{ Session::forget('message') }}
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
@@ -248,11 +248,11 @@
 
     <div class="container px-4">
         <hr />
-        @if (\Session::has('message'))
+        @if (Session::has('message'))
         <div class="alert alert-success alert-dismissible fade show form-control" role="alert">
             <div class="text-left">
-                {{ \Session::get('message') }}
-                {{ \Session::forget('message') }}
+                {{ Session::get('message') }}
+                {{ Session::forget('message') }}
             </div>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
@@ -270,8 +270,8 @@
                 <form method="post" action="{{ route('comment.store', $data->artID) }}">
                     @csrf
                     <div class="rate">
-                        <input type="radio" id="star5" name="rate" value="5" required/>
-                        <label for="star5" title="text">5 stars</label> 
+                        <input type="radio" id="star5" name="rate" value="5" required />
+                        <label for="star5" title="text">5 stars</label>
 
                         <input type="radio" id="star4" name="rate" value="4" />
                         <label for="star4" title="text">4 stars</label>
@@ -284,12 +284,12 @@
 
                         <input type="radio" id="star1" name="rate" value="1" />
                         <label for="star1" title="text">1 star</label>
-                       
-                    </div> 
+
+                    </div>
 
                     <textarea name="comment_body" class="form-control" rows="3" required></textarea>
                     <div class="float-end mt-2 pt-1">
-                        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                            <button type="submit" class="btn btn-primary mt-3">Submit</button>        
                     </div>
                     <input type="hidden" value="{{$data->artID}}" name="artID" />
                 </form>
@@ -312,7 +312,7 @@
 
                         <div class="col-md-4 text-end">
                             <p class="text-muted small mb-0">
-                                Commented on: {{$comment -> datetime}}
+                                Commented on: {{ date('l, d-m-Y',strtotime($comment['datetime'])) }}
                             </p>
                         </div>
                     </div>
@@ -381,14 +381,14 @@
                         <i class="bi bi-hand-thumbs-up" style="color:#910000"></i>&nbsp
                         <p class="mb-0" style="color:#910000">Like</p>
                     </a>
-                    <a href="#" class="d-flex align-items-center me-3 text-decoration-none">
+                    <!-- <a href="#" class="d-flex align-items-center me-3 text-decoration-none">
                         <i class="fa-regular fa-comment" style="color:#910000"></i>&nbsp
                         <p class="mb-0" style="color:#910000">Comment</p>
                     </a>
                     <a href="#" class="d-flex align-items-center me-3 text-decoration-none">
                         <i class="fa-solid fa-share" style="color:#910000"></i>&nbsp
                         <p class="mb-0" style="color:#910000">Share</p>
-                    </a>
+                    </a> -->
                 </div>
 
                 @foreach($com as $cc)

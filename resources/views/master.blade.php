@@ -37,6 +37,11 @@
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
   <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+
+  <style>
+ 
+  </style>
+
 </head>
 
 <body style="padding-top:85px">
@@ -52,15 +57,15 @@
 
       <!-- Navbar -->
       <nav id="navbar" class="navbar bg-white">
-        <ul>
-          <li><a class="link" href="" style="text-decoration: none">Artists</a></li>
-          <li><a class="link" href="/exhibitions" style="text-decoration: none">Exhibitions</a></li>
-          <li><a class="link" href="{{route('store.index')}}" style="text-decoration: none">Store</a></li>
-          <li><a class="link" href="" style="text-decoration: none">Auction</a></li>
-          <li><a class="link" href="/forum" style="text-decoration: none">Forum</a></li>
-          <li><a class="link" href="/about" style="text-decoration: none">About</a></li>
+        <ul class="navul" id="navul">
+          <li class="navli" id="navli"><a class="link" href="" style="text-decoration: none">Artists</a></li>
+          <li class="navli" id="navli"><a class="link" href="/exhibitions" style="text-decoration: none">Exhibitions</a></li>
+          <li class="navli" id="navli"><a class="link" href="{{route('store.index')}}" style="text-decoration: none">Store</a></li>
+          <li class="navli" id="navli"><a class="link" href="" style="text-decoration: none">Auction</a></li>
+          <li class="navli" id="navli"><a class="link" href="/forum" style="text-decoration: none">Forum</a></li>
+          <li class="navli" id="navli"><a class="link" href="/about" style="text-decoration: none">About</a></li>
           @if (\Session::has('username'))
-          <li><a class="link" href="/cart" style="text-decoration: none">Cart</a></li>
+          <li class="navli" id="navli"><a class="link" href="/cart" style="text-decoration: none">Cart</a></li>
           @endif
         </ul>
       </nav><!-- .navbar -->
@@ -71,13 +76,13 @@
         <button class="btn dropdown-toggle btn-getstarted scrollto" type="button" data-bs-toggle="dropdown" aria-expanded="false">
           {{ Session::get('username') }}
         </button>
-        
-        <ul class="dropdown-menu" style="width:200px;">
-          <li><a class="dropdown-item" href="{{ route('profile.show') }}">Profile</a></li>
-          <li><a class="dropdown-item" href="{{ route('purchase.show') }}">My Purchase</a></li>
-          <li><a class="dropdown-item" href="{{ route('wishlist.show') }}">My Wishlist</a></li>
-          <li><a class="dropdown-item" href="#">Upgrade as Artist</a></li>
-          <li><a class="dropdown-item" href="{{ route('logout.logout') }}">Logout</a></li>
+
+        <ul class="dropdown-menu" id="dropdown-menu" style="width:200px;">
+          <li class="menuli" id="menuli"><a class="dropdown-item" href="{{ route('profile.show') }}">Profile</a></li>
+          <li class="menuli" id="menuli"><a class="dropdown-item" href="{{ route('purchase.show') }}">My Purchase</a></li>
+          <li class="menuli" id="menuli"><a class="dropdown-item" href="{{ route('wishlist.show') }}">My Wishlist</a></li>
+          <li class="menuli" id="menuli"><a class="dropdown-item" href="#">Upgrade as Artist</a></li>
+          <li class="menuli" id="menuli"><a class="dropdown-item" href="{{ route('logout.logout') }}">Logout</a></li>
         </ul>
       </div>
       @else

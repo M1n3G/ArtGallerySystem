@@ -33,10 +33,6 @@
                     </ul>
                 </li>
 
-                <li class="nav-item px-4">
-                    <a class="nav-link text-white">About</a>
-                </li>
-
                 @if (Session::get('userRole') == 'Moderator')
                 <li class="nav-item px-4">
                     <a class="nav-link text-white" href="/forum/manage">Manage</a>

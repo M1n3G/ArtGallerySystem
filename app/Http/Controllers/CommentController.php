@@ -29,34 +29,25 @@ class CommentController extends Controller
             'comment_body' => 'required|string',
         ]);
 
-        $comment =  new Comment();
-        $comment->artID = $request->get('artID');
-        $comment->username = Session::get('username');
+        $artID = $request->input('artID');
+        $username = Session::get('username');
+        $commentCountExist = Comment::where('artID', $artID)->where('username', Session::get('username'))->first();
 
-        // $rate = 0;
-        // if($request->get('rate') != null) {
-        //     $rate = $request->get('rate');
-        // }
-        // $comment->rate = $rate;
-
-        $comment->rate = $request->get('rate');
-
-        $comment->comment_body = $request->get('comment_body');
-        date_default_timezone_set("Asia/Kuala_Lumpur");
-        $date =  Carbon::now()->format('Y-m-d H:i:s');
-        $comment->datetime = $date;
-
-        // if (Auth::check()) {
-        //     return redirect('login')->with('message', 'Please login to comment');
-        // }
-
-        $save = $comment->save();
-        if ($save) {
-            error_log('test1');
-            return redirect()->back()->with('message', 'Comment posted');
-        } else {
-            error_log('test2');
-            return redirect()->back()->with('message', 'Unable to create comment');
+        if ($username != null) {
+            if (!$commentCountExist) {
+                $comment =  new Comment();
+                $comment->artID = $request->get('artID');
+                $comment->username = Session::get('username');
+                $comment->rate = $request->get('rate');
+                $comment->comment_body = $request->get('comment_body');
+                date_default_timezone_set("Asia/Kuala_Lumpur");
+                $date =  Carbon::now()->format('Y-m-d H:i:s');
+                $comment->datetime = $date;
+                $comment->save();
+                return redirect()->back()->with('message', 'Comment posted');
+            }   else {
+                return redirect()->back()->with('warning', 'You already comment this art');
+            }
         }
     }
 

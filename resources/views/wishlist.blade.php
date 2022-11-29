@@ -50,6 +50,7 @@
         <div class="alert alert-primary alert-dismissible fade show form-control" role="alert">
             <div class="text-left">
                 There are no art in your wishlist.
+                <a href="/store">&nbsp Store</a>
             </div>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>

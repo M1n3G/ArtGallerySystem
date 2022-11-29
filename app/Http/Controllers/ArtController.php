@@ -26,7 +26,6 @@ class ArtController extends Controller
         $data = NULL;
         $cat = Artcategories::join('art', 'category_id', '=', 'artcategories.id')->select('art.category_id', 'artcategories.name')->distinct()->get();
 
-        //Sort checking
         $query = "select * from art INNER JOIN artcategories on art.category_id = artcategories.id where ";
         $subQry = [];
         $category = $request->get('category');
@@ -99,7 +98,7 @@ class ArtController extends Controller
             // error_log($query . '' . $qry);
 
         } else {
-            $data = Art::inRandomOrder()->paginate(30);
+            $data = Art::inRandomOrder()->get();
         }
 
         return view('store', compact('data', 'cat'));
@@ -109,7 +108,7 @@ class ArtController extends Controller
     {
         $username = Session::get('username');
         $data = Art::findOrFail($artID);
-        $cat = Artcategories::join('art', 'category_id', '=', 'artcategories.id')->select('art.category_id', 'artcategories.name')->distinct()->get();
+        $cat = Artcategories::join('art', 'category_id', '=', 'artcategories.id')->where('artID',$artID)->select('art.*', 'artcategories.name')->distinct()->get();
         $artCountExist = View::where('artID', $artID)->where('username', Session::get('username'))->first();
 
         if ($username != null) {

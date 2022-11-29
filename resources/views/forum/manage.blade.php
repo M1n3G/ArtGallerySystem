@@ -2,6 +2,7 @@
 @extends('forum/navbarInc')
 
 <!-- Custom CSS -->
+
 <head>
     <link rel="stylesheet" type="text/css" href="{{ asset('Css/forumhome.css') }}">
     <title>ArtCells | Manage Forum</title>
@@ -23,7 +24,13 @@
                 <li class="breadcrumb-item active" aria-current="page">Manage</li>
             </ol>
         </nav>
+        <div class="col-sm-6"></div>
+        <div class="col-sm-6">
+            <a href="{{route('report.list')}}" class="btn btn-secondary float-end mb-2">Manage Report Violations</a>
+        </div>
     </div>
+
+</div>
 </div>
 
 <div class="container px-4 mt-2">
@@ -37,7 +44,7 @@
     </div>
     @endif
 
-    <div class="card mt-4 mb-4">
+    <div class="card mb-4">
         <div class="card-header bg-white">
             <h5 class="mt-2" style="font-family:'Poppins', sans-serif;">Topic Section
                 <a class="btn btn-primary text-capitalize float-end px-3" href="{{ route('category.create') }}">Create Topic</a>
@@ -81,7 +88,7 @@
                             <div class="p-2">
                                 @if ($cat->status == 'Visible')
                                 <span class="badge text-bg-success">{{ $cat->status }}</span>
-                                @else 
+                                @else
                                 <span class="badge text-bg-warning">{{ $cat->status }}</span>
                                 @endif
                             </div>
@@ -122,6 +129,7 @@
         </div>
 
     </div>
+
 </div>
 
 @endsection

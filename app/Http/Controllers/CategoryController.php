@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Forumcategories;
 use App\Models\Post;
 
-
 class CategoryController extends Controller
 {
     public function create()
