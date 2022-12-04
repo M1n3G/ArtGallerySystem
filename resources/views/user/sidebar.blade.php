@@ -71,13 +71,13 @@
 
             @if (Session::get('userRole') == 'Artist')
             <button class="nav-link" id="v-pills-purchase-tab">
-                <a class="text-decoration-none" href="#">Artwork Management</a>
+                <a class="text-decoration-none" href="{{ route('artworklist') }}">Artwork Management</a>
             </button>
             @endif
 
             @if (Session::get('userRole') != 'Artist')
             <button class="nav-link" id="v-pills-purchase-tab">
-                <a class="text-decoration-none" href="#">Upgrade as Artist</a>
+                <a class="text-decoration-none" href="{{ route('account.upgrade') }}">Upgrade as Artist</a>
             </button>
             @endif
             <button class="nav-link" id="v-pills-settings-tab">

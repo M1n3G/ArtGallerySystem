@@ -15494,23 +15494,6 @@ i.flag-zw:before {
   transition: box-shadow .2s, transform .2s, -webkit-box-shadow .2s, -webkit-transform .2s
 }
 
-.form-check-input:checked {
-  border-color: #1266f1
-}
-
-.form-check-input:checked:before {
-  opacity: .16
-}
-
-.form-check-input:checked:after {
-  content: "";
-  position: absolute
-}
-
-.form-check-input:checked:focus {
-  border-color: #1266f1
-}
-
 .form-check-input:checked:focus:before {
   -webkit-box-shadow: 0 0 0 13px #1266f1;
   box-shadow: 0 0 0 13px #1266f1;

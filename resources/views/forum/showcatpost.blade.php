@@ -29,7 +29,19 @@
                 <li class="breadcrumb-item active" aria-current="page">{{ $category->name}}</li>
             </ol>
         </nav>
+        <div class="container mt-4">
+            @if (Session::has('success'))
+            <div class="alert alert-success alert-dismissible fade show form-control" role="alert">
+                <div class="text-left">
+                    {{ Session::get('success') }}
+                    {{ Session::forget('success') }}
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
+        </div>
     </div>
+
 </div>
 
 <div class="py-4">
@@ -71,7 +83,7 @@
                 @foreach ($post as $posts)
                 <div class="card card-shadow mt-4 mb-4">
                     <div class="card-header" style="font-family: 'Poppins', sans-serif; font-size:14px;">
-                        Posted By: {{ Session::get('username') }}
+                        Posted By:  {{ $posts->created_by}}
                     </div>
                     <div class="card-body">
                         <form action="{{ route('post.view') }}" method="POST">
@@ -105,7 +117,7 @@
                     </div>
                     </form>
                 </div>
-               
+
                 @endforeach
                 @else
                 <div class="mt-4 alert alert-primary alert-dismissible fade show form-control" role="alert">

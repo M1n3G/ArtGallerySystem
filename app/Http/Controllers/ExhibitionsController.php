@@ -10,7 +10,7 @@ class ExhibitionsController extends Controller
 {
     public function index()
     {
-        $art = Art::all();
+        $art = Art::orderBy('datetime', 'DESC')->get();
         return view('exhibitions', compact('art'));
     }
 

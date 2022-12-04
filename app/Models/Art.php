@@ -12,6 +12,10 @@ class Art extends Model
     protected $table="art";
     protected $primaryKey = 'artID';
 
+    protected $fillable = [
+        'image',
+    ];
+
     public function wishlist(){
         return $this->hasMany(Wishlist::class);
     }

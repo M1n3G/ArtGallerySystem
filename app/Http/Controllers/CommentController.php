@@ -13,12 +13,14 @@ use App\Models\Forumcategories;
 use App\Models\View;
 use App\Models\Forumcomment;
 use App\Models\Comment;
+use App\Models\Likes;
+use App\Models\Dislikes;
 
 class CommentController extends Controller
 {
     public function index()
     {
-        $commentss = Comment::all();
+        $comments = Comment::all();
         $artID = Comment::where('artID')->get();
     }
 
@@ -45,17 +47,38 @@ class CommentController extends Controller
                 $comment->datetime = $date;
                 $comment->save();
                 return redirect()->back()->with('message', 'Comment posted');
-            }   else {
+            } else {
                 return redirect()->back()->with('warning', 'You already comment this art');
             }
         }
+    }
+
+    public function updateComment(Request $request)
+    {
+        $request->validate([
+            'comment_body' => 'required|string',
+        ]);
+
+        $id = $request->input('id');
+        $artID = $request->input('artID');
+
+        $art = Comment::where('id', $id)->where('artID', $artID)
+            ->update([
+                'comment_body' => $request['comment_body']
+            ]);
+
+        return redirect("/storeDetails/" . $artID)->with('message', 'Comment updated');
     }
 
     public function viewPost($postID, $category_id, $title)
     {
         $username = Session::get('username');
         $category = Forumcategories::where('id', $category_id)->where('status', 'Visible')->first();
-
+        $message = '';
+        $messagedanger = '';
+        $messagecomment = '';
+        $messagelike = '';
+        $messagedislike = '';
         $postCountExist = View::where('postID', $postID)->where('username', Session::get('username'))->first();
 
         if ($username != null) {
@@ -75,9 +98,12 @@ class CommentController extends Controller
             $com = Forumcomment::where('postID', $postID)->where('username', Session::get('username'))->get();
             $commentcount = Forumcomment::where('postID', $posts->id)->count();
             $postcount = View::where('postID', $postID)->count();
-            $message = 'Comment Posted';
+            $likecount = Likes::where('postID', $postID)->count();
+            $dislikecount = Dislikes::where('postID', $postID)->count();
 
-            return view('forum/showpost', compact('posts', 'category', 'latest_posts', 'showCom', 'postcount', 'commentcount', 'com', 'message'));
+            $messagecomment = 'Comment Posted';
+
+            return view('forum/showpost', compact('posts', 'category', 'latest_posts', 'showCom', 'postcount', 'commentcount', 'com', 'message', 'messagedanger', 'messagecomment','messagelike','messagedislike','likecount','dislikecount'));
         } else {
             return redirect('/forum');
         }
@@ -109,16 +135,16 @@ class CommentController extends Controller
         }
     }
 
-    public function removeForumComment($postID, $category_id, $title)
+    public function removeForumComment(Request $request, $id)
     {
-        $removecmt = Forumcomment::where('username', Session::get("username"))->where('postID', $postID)->first();
+        $removecmt = Forumcomment::where('username', Session::get("username"))->where('id', $id)->first();
 
-        if ($removecmt != null) {
-            $removecmt->delete();
-            return redirect()->back()->with('message', 'Comment removed successfully');
-        }
-
-        return redirect("/storeDetails/" . $postID)->with(['fail' => 'Wrong ID!!']);
+        $removecmt->delete();
+        $postID = $request->input('postID');
+        $category_id = $request->input('category_id');
+        $title = $request->input('title');
+        return $this->viewPost($postID, $category_id, $title);
+        // return redirect()->back()->with('message', 'Comment removed successfully');
     }
 
     public function reply(Request $request)

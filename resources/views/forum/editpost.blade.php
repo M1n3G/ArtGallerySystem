@@ -3,12 +3,16 @@
 @section('title', '| Edit Post')
 @section('content')
 
-<style>
-    .ck.ck-editor__main>.ck-editor__editable {
-        height: 200px;
-        min-height: 200px;
-    }
-</style>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ asset('Css/postart.css') }}">
+    <script language="JavaScript" type="text/javascript" src="{{ asset('Js/fileupload.js') }}"></script>
+    <style>
+        .ck.ck-editor__main>.ck-editor__editable {
+            height: 200px;
+            min-height: 200px;
+        }
+    </style>
+</head>
 
 <!-- Breadcumb link -->
 <div class="container px-4 mt-2">
@@ -39,12 +43,12 @@
             <div class="card">
                 <div class="card-header">Edit Post</div>
                 <div class="card-body">
-                    <form method="post" action="{{  route('post.update', $post->id) }}">
+                    <form method="post" action="{{  route('post.update', $post->id) }}" enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
                         <div class="form-group">
                             <label class="label fw-semibold fs-6 mb-2">Post Title</label>
-                            <input type="text" name="title" value="{{ $post->title}}" class="form-control mt-2" required />
+                            <input type="text" name="title1" value="{{ $post->title}}" class="form-control mt-2" required />
                         </div>
 
                         <div class="form-group mt-4">
@@ -54,7 +58,28 @@
 
                         <div class="form-group mt-4">
                             <label class="label fw-semibold fs-6 mb-2">Image (Optional)</label>
-                            <input type="file" class="form-control" name="image" accept="image/*">
+                            <!-- <input type="file" class="form-control" name="image" accept="image/*"> -->
+                        </div>
+
+                        <div class="form-group file-upload">
+                            <!-- ADD IMAGE BUTTON -->
+                            <button class="file-upload-btn w-100" type="button" onclick="$('.file-upload-input').trigger( 'click' )">ADD IMAGE</button>
+
+                            <!-- IMAGE UPLOAD AREA -->
+                            <div class="image-upload-wrap">
+                                <input class="file-upload-input" type="file" name="image" onchange="readURL(this);" accept="image/*" />
+                                <div class="drag-text">
+                                    <h3>Drag and drop a Image or select add Image</h3>
+                                </div>
+                            </div>
+
+                            <!-- REMOVE IMAGE -->
+                            <div class="file-upload-content">
+                                <img class="file-upload-image" src="#" alt="your image" />
+                                <div class="image-title-wrap">
+                                    <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="form-group mt-4">
@@ -62,8 +87,8 @@
                         </div>
 
                         <div class=" d-grid gap-2 d-md-flex mt-4 justify-content-md-end">
-                            <a class="btn btn-outline-dark text-capitalize" href="/forum" style="width:125px;">Cancel</a>
-                            <button class="btn btn-primary text-capitalize" style="width:125px; background-color:#910000; color:white;" type="submit">Update</button>
+                            <a class="btn btn-outline-dark text-capitalize rounded-pill" href="/forum" style="width:125px;">Cancel</a>
+                            <button class="btn btn-primary text-capitalize rounded-pill" style="width:125px; background-color:#910000; color:white;" type="submit">Update</button>
                             <input type="hidden" name="postID" value="{{$post->id}}">
                             <input type="hidden" name="category_id" value="{{$post->category_id}}">
                             <input type="hidden" name="title" value="{{$post->title}}">

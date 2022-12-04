@@ -12,6 +12,11 @@ use App\Models\View;
 use App\Models\Report;
 use App\Models\Bookmark;
 use App\Models\Subscription;
+use App\Models\Likes;
+use App\Models\Dislikes;
+use App\Models\Forumlikes;
+use App\Models\Forumdislikes;
+use Cloudinary\Transformation\Distort;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Support\Facades\Session;
 
@@ -42,13 +47,13 @@ class PostController extends Controller
 
         // error_log('Hello' . $request->image);
         if ($request->hasFile('image')) {
-            $des_path = 'images/';
-            $img = $request->file('image');
-            $img_name = "" . $request['title'] . " " . Session::get('username') . ".jpg";
-            $posts = $request->file('image')->storeAs($des_path, $img_name);
-            // $image = $request['image'];
-            // $uploadedFileUrl = Cloudinary::upload($image->getRealPath())->getSecurePath();
-            // $post->image = $uploadedFileUrl;
+            // $des_path = 'images/';
+            // $img = $request->file('image');
+            // $img_name = "" . $request['title'] . " " . Session::get('username') . ".jpg";
+            // $posts = $request->file('image')->storeAs($des_path, $img_name);
+            $image = $request['image'];
+            $uploadedFileUrl = Cloudinary::upload($image->getRealPath())->getSecurePath();
+            $post->image = $uploadedFileUrl;
         }
 
         $post->category_id = $request->get('category_id');
@@ -68,7 +73,7 @@ class PostController extends Controller
         return redirect()->back()->with('fail', 'Unable to create Post');
     }
 
-    public function subscribe(Request $request, $id)
+    public function subscribe($id)
     {
         $subscription = new Subscription();
         $subscription->username = Session::get('username');
@@ -120,7 +125,9 @@ class PostController extends Controller
         $category = Forumcategories::where('id', $category_id)->where('status', 'Visible')->first();
         $message = '';
         $messagedanger = '';
-        $messagedanger1 = '';
+        $messagecomment = '';
+        $messagelike = '';
+        $messagedislike = '';
 
         $postCountExist = View::where('postID', $postID)->where('username', Session::get('username'))->first();
 
@@ -141,8 +148,10 @@ class PostController extends Controller
             $com = Forumcomment::where('postID', $postID)->where('username', Session::get('username'))->get();
             $commentcount = Forumcomment::where('postID', $posts->id)->count();
             $postcount = View::where('postID', $postID)->count();
+            $likecount = Likes::where('postID', $postID)->count();
+            $dislikecount = Dislikes::where('postID', $postID)->count();
 
-            return view('forum/showpost', compact('posts', 'category', 'latest_posts', 'showCom', 'postcount', 'commentcount', 'com', 'message', 'messagedanger', 'messagedanger1'));
+            return view('forum/showpost', compact('posts', 'category', 'latest_posts', 'showCom', 'postcount', 'commentcount', 'com', 'message', 'messagedanger', 'messagecomment','messagelike','messagedislike','likecount','dislikecount'));
         } else {
             return redirect('/forum');
         }
@@ -154,7 +163,10 @@ class PostController extends Controller
         $category = Forumcategories::where('id', $category_id)->where('status', 'Visible')->first();
         $message = '';
         $messagedanger = '';
-        $messagedanger1 = '';
+        $messagecomment = '';
+        $messagelike = '';
+        $messagedislike = '';
+
         $postCountExist = View::where('postID', $postID)->where('username', Session::get('username'))->first();
         if ($action == "report") {
             $message = "Reported successfully";
@@ -165,8 +177,20 @@ class PostController extends Controller
         } else if ($action == "bookmarkexist") {
             $messagedanger = "You have save this post in your bookmarks.";
         } else if ($action == "reportexist") {
-            $messagedanger1 = "You have been reported this post.";
-        }
+            $messagedanger = "You have been reported this post.";
+        } else if ($action == "like") {
+            $messagelike = "You liked the post";
+        } else if ($action == "unlike") {
+            $messagelike = "You unlike the post";
+        } else if ($action == "dislike") {
+            $messagedislike = "You dislike the post";
+        } else if ($action == "forumlike") {
+            $messagelike = "You liked the comment";
+        } else if ($action == "forumunlike") {
+            $messagelike = "You unlike the comment";
+        } else if ($action == "forumdislike") {
+            $messagedislike = "You dislike the comment";
+        } 
 
         if ($username != null) {
             if (!$postCountExist) {
@@ -185,16 +209,135 @@ class PostController extends Controller
             $com = Forumcomment::where('postID', $postID)->where('username', Session::get('username'))->get();
             $commentcount = Forumcomment::where('postID', $posts->id)->count();
             $postcount = View::where('postID', $postID)->count();
-            return view('forum/showpost', compact('posts', 'category', 'latest_posts', 'showCom', 'postcount', 'commentcount', 'com', 'message', 'messagedanger', 'messagedanger1'));
+            $likecount = Likes::where('postID', $postID)->count();
+            $dislikecount = Dislikes::where('postID', $postID)->count();
+            return view('forum/showpost', compact('posts', 'category', 'latest_posts', 'showCom', 'postcount', 'commentcount', 'com', 'message', 'messagedanger', 'messagecomment', 'messagelike', 'likecount','messagedislike','dislikecount'));
         } else {
             return redirect('/forum');
         }
     }
 
+    public function like(Request $request)
+    {
+        $postID = $request->input('postID');
+        $category_id = $request->input('category_id');
+        $title = $request->input('title');
+        $username = Session::get('username');
+        $likeCountExist = Likes::where('postID', $postID)->where('username', Session::get('username'))->first();
+
+        if ($username != null) {
+            if (!$likeCountExist) {
+                $like = new Likes();
+                $like->postID = $postID;
+                $like->username = $username;
+                $like->save();
+                return $this->viewPost1($postID, $category_id, $title, "like");
+            } else {
+                $likeCountExist->delete();
+                return $this->viewPost1($postID, $category_id, $title, "unlike");
+            }
+        }
+    }
+
+    public function forumlike(Request $request)
+    {
+        $postID = $request->input('postID');
+        $commentID = $request->input('id');
+        $category_id = $request->input('category_id');
+        $title = $request->input('title');
+        $username = Session::get('username');
+        $forumlikeCountExist = Forumlikes::where('postID', $postID)->where('commentID', $commentID)->where('username', Session::get('username'))->first();
+
+        if ($username != null) {
+            if (!$forumlikeCountExist) {
+                $like = new Forumlikes();
+                $like->postID = $postID;
+                $like->commentID = $commentID;
+                $like->username = $username;
+                $like->save();
+                return $this->viewPost1($postID, $category_id, $title, "forumlike");
+            } else {
+                $forumlikeCountExist->delete();
+                return $this->viewPost1($postID, $category_id, $title, "forumunlike");
+            }
+        }
+    }
+
+    public function forumdislike(Request $request)
+    {
+        $postID = $request->input('postID');
+        $commentID = $request->input('id');
+        $category_id = $request->input('category_id');
+        $title = $request->input('title');
+        $username = Session::get('username');
+        $forumdislikeCountExist = Forumdislikes::where('postID', $postID)->where('commentID', $commentID)->where('username', Session::get('username'))->first();
+
+        if ($username != null) {
+            if (!$forumdislikeCountExist) {
+                $dislike = new Forumdislikes();
+                $dislike->postID = $postID;
+                $dislike->commentID = $commentID;
+                $dislike->username = $username;
+                $dislike->save();
+                return $this->viewPost1($postID, $category_id, $title, "forumdislike");
+            } else {
+                $forumdislikeCountExist->delete();
+                return $this->viewPost1($postID, $category_id, $title, "forumunlike");
+            }
+        }
+    }
+
+    public function dislike(Request $request)
+    {
+        $postID = $request->input('postID');
+        $category_id = $request->input('category_id');
+        $title = $request->input('title');
+        $username = Session::get('username');
+        $dislikeCountExist = Dislikes::where('postID', $postID)->where('username', Session::get('username'))->first();
+
+        if ($username != null) {
+            if (!$dislikeCountExist) {
+                $dislike = new Dislikes();
+                $dislike->postID = $postID;
+                $dislike->username = $username;
+                $dislike->save();
+                return $this->viewPost1($postID, $category_id, $title, "dislike");
+            } else {
+                $dislikeCountExist->delete();
+                return $this->viewPost1($postID, $category_id, $title, "unlike");
+            }
+        }
+    }
+
+    // public function editComment(Request $request, $id)
+    // {
+    //     $comment = Forumcomment::where('id', $id)->firstorFail();
+    //     $postID = $request->input('postID');
+    //     $category_id = $request->input('category_id');
+    //     $title = $request->input('title');
+    //     $posts = Post::where(['category_id' => $category_id, 'status' => 'Visible', 'title' => $title])->first();
+    //     return view('forum.editcomment', compact('posts', 'comment'));
+    // }
+
+    // public function updateForumComment(Request $request, $id)
+    // {
+    //     $comment2 = Forumcomment::where('id', $id)
+    //     ->update([
+    //         'comment_body' => $request['comment_body']
+    //     ]);
+
+    //     if ($comment2) {
+    //         $postID = $request->input('postID');
+    //         $category_id = $request->input('category_id');
+    //         $title = $request->input('title1');
+    //         return $this->viewPost1($postID, $category_id, $title, "edit");
+    //     }
+    //     // return redirect()->back()->with('success','Comment updated');
+    // }
+
     public function storeReport(Request $request)
     {
         $report = new Report;
-
         $postID = $request->input('postID');
         $category_id = $request->input('category_id');
         $title = $request->input('title');
@@ -257,33 +400,38 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => 'required|max:255',
+            'title1' => 'required|max:255',
             'body' => 'required|min:10',
         ]);
 
-        $post =  Post::find($id);
-        $post->title = $request->get('title');
-        $post->body = $request->get('body');
+        date_default_timezone_set("Asia/Kuala_Lumpur");
+        $date =  Carbon::now()->format('Y-m-d H:i:s');
 
         if ($request->hasFile('image')) {
             $image = $request['image'];
             $uploadedFileUrl = Cloudinary::upload($image->getRealPath())->getSecurePath();
-            $post->image = $uploadedFileUrl;
+            $post = Post::where('id', $id)
+                ->update([
+                    'title' => $request['title1'],
+                    'body' => $request['body'],
+                    'image' => $uploadedFileUrl,
+                    'datetime' => $date
+                ]);
+        } else {
+            $post = Post::where('id', $id)
+                ->update([
+                    'title' => $request['title1'],
+                    'body' => $request['body'],
+                    'datetime' => $date
+                ]);
         }
 
-        date_default_timezone_set("Asia/Kuala_Lumpur");
-        $date =  Carbon::now()->format('Y-m-d H:i:s');
-        $post->datetime = $date;
-
-        if ($post->update()) {
+        if ($post) {
             $postID = $request->input('postID');
             $category_id = $request->input('category_id');
-            $title = $request->input('title');
+            $title = $request->input('title1');
             return $this->viewPost1($postID, $category_id, $title, "edit");
-            // return redirect('/forum/category/post')->with('success', 'Post edited Successfully');
         }
-
-        return redirect()->back()->with('fail', 'Unable to update post');
     }
 
     public function destroy($id)
@@ -294,7 +442,6 @@ class PostController extends Controller
             $post->delete();
             return redirect(('/forum'))->with('success', 'Post Delete Successfully');
         }
-
     }
 
     public function storeBookmarks(Request $request)

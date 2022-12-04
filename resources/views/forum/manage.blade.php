@@ -97,7 +97,7 @@
 
                         <td>
                             <div class="p-2 icons d-flex" style="width: 100px;">
-                                <a href="{{ route('category.edit',$cat->id) }}" class="btn btn-dark  px-2" style="padding: 6px 8px; height:35px; max-height:35px;">
+                                <a href="{{ route('category.edit',$cat->id) }}" class="btn btn-dark px-2" style="padding: 6px 8px; height:35px; max-height:35px;">
                                     <i class="bi bi-pencil-square"></i></a>&nbsp&nbsp&nbsp
                                 <form action="{{ route('category.delete',$cat->id) }}" method="POST" onsubmit="return confirm('Are you sure you wish to delete this category with its post?');">
                                     @csrf

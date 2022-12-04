@@ -39,7 +39,7 @@
   <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 
   <style>
- 
+
   </style>
 
 </head>
@@ -52,20 +52,19 @@
 
       <a href="/" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
         <img src="{{ asset('Img/artcellslogo.png') }}" alt="logo" style="width: 55px">
-
       </a>
 
       <!-- Navbar -->
       <nav id="navbar" class="navbar bg-white">
         <ul class="navul" id="navul">
-          <li class="navli" id="navli"><a class="link" href="" style="text-decoration: none">Artists</a></li>
+          <li class="navli" id="navli"><a class="link" href="{{route('auctionlist')}}" style="text-decoration: none">Artists</a></li>
           <li class="navli" id="navli"><a class="link" href="/exhibitions" style="text-decoration: none">Exhibitions</a></li>
           <li class="navli" id="navli"><a class="link" href="{{route('store.index')}}" style="text-decoration: none">Store</a></li>
-          <li class="navli" id="navli"><a class="link" href="" style="text-decoration: none">Auction</a></li>
+          <li class="navli" id="navli"><a class="link" href="{{route('auctionlist')}}" style="text-decoration: none">Auction</a></li>
           <li class="navli" id="navli"><a class="link" href="/forum" style="text-decoration: none">Forum</a></li>
           <li class="navli" id="navli"><a class="link" href="/about" style="text-decoration: none">About</a></li>
           @if (\Session::has('username'))
-          <li class="navli" id="navli"><a class="link" href="/cart" style="text-decoration: none">Cart</a></li>
+          <li class="navli" id="navli"><a class="link" href="{{route('cart.list')}}" style="text-decoration: none">Cart</a></li>
           @endif
         </ul>
       </nav><!-- .navbar -->
@@ -81,7 +80,9 @@
           <li class="menuli" id="menuli"><a class="dropdown-item" href="{{ route('profile.show') }}">Profile</a></li>
           <li class="menuli" id="menuli"><a class="dropdown-item" href="{{ route('purchase.show') }}">My Purchase</a></li>
           <li class="menuli" id="menuli"><a class="dropdown-item" href="{{ route('wishlist.show') }}">My Wishlist</a></li>
-          <li class="menuli" id="menuli"><a class="dropdown-item" href="#">Upgrade as Artist</a></li>
+          @if (Session::get('userRole') == 'User')
+          <li class="menuli" id="menuli"><a class="dropdown-item" href="{{ route('account.upgrade') }}">Upgrade as Artist</a></li>
+          @endif
           <li class="menuli" id="menuli"><a class="dropdown-item" href="{{ route('logout.logout') }}">Logout</a></li>
         </ul>
       </div>

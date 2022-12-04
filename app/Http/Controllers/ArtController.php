@@ -62,7 +62,7 @@ class ArtController extends Controller
         if ($sort != NULL) {
             $count++;
             if ($sort == 1) {
-                array_push($subQry, (" ORDER BY datetime ASC"));
+                array_push($subQry, (" ORDER BY datetime DESC"));
             } else if ($sort == 2) {
                 array_push($subQry, (" ORDER BY artPrice ASC"));
             } else if ($sort == 3) {

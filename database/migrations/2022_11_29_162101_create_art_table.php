@@ -15,6 +15,7 @@ class CreateArtTable extends Migration
     {
         Schema::create('art', function (Blueprint $table) {
             $table->increments('artID');
+            $table->string('username');
             $table->string('artistName');
             $table->string('artName');
             $table->string('artImg', 255);
@@ -24,8 +25,8 @@ class CreateArtTable extends Migration
             $table->text('artDesc', 1000);
             $table->string('artStatus')->nullable();
             $table->integer('artYear');
-            $table->decimal('artWidth');
-            $table->decimal('artHeight');
+            $table->decimal('artWidth')->nullable();
+            $table->decimal('artHeight')->nullable();
             $table->dateTime('datetime');
             $table->timestamps();
         });

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Forumcategories;
 use App\Models\User;
 use App\Models\Comment;
+use App\Models\LikeDislike;
 
 class Post extends Model
 {
@@ -37,6 +38,14 @@ class Post extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class,'post_id', 'id');
+    }
+
+    public function likes(){
+        return $this->hasMany(LikeDislike::class,'post_id')->sum('like');
+    }
+    // Dislikes
+    public function dislikes(){
+        return $this->hasMany(LikeDislike::class,'post_id')->sum('dislike');
     }
 
 }

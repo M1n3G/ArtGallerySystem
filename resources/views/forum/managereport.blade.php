@@ -72,6 +72,7 @@
                                     <span class="fw-bold" style="color:#910000; font-size:15px;">NOT SOLVE</span>
                                     @endif
                                 </div>
+                                
                             </div>
 
                             <div class="d-flex flex-row ">
@@ -81,7 +82,7 @@
                             </div>
                             <div class="mt-1 mb-0 text-muted" style="font-size:15px">
                                 <span>Post ID Reported: {{ $r->postID }}</span><br />
-                                <span class="mt-4">Date Reported: {{ date('l, d-m-Y',strtotime($r['datetime'])) }}</span>
+                                <span class="mt-4">Date Reported: {{ date('l, d-m-Y h:i:s a',strtotime($r['datetime'])) }}</span>
                             </div>
 
                             <h6 class="fw-semibold mt-4" style="font-size: 17px">Report Description:</h6>
@@ -110,7 +111,7 @@
                                                 </form>                               
                                             </a>
                                         </li>
-                                        <li>
+                                        <!-- <li>
                                             <a class="dropdown-item">
                                                 <form action="{{ route('report.delete',$r->reportID) }}" method="POST" onsubmit="return confirm('Are you sure you wish to delete this report record?');">
                                                     @csrf
@@ -118,7 +119,7 @@
                                                     <button type="submit" class="btn btn-danger mt-2 px-2">Remove record</button>
                                                 </form>
                                             </a>
-                                        </li>
+                                        </li> -->
 
 
                                     </ul>

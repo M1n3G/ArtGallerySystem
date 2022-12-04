@@ -18,7 +18,9 @@ class AuthCheck
     public function handle(Request $request, Closure $next)
     {
         if (!session()->has('username')) {
-            return redirect('/login');
+            echo '<script>alert("Please login to proceed further step.");window.location.href="/login"</script>';
+            // return redirect('/login');
+            
         }
         return $next($request);
     }
