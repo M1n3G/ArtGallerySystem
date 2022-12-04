@@ -77,6 +77,7 @@ class UserController extends Controller
         } else {
             $request->session()->put('username', $user->username);
             $request->session()->put('userRole', $user->userRole);
+            $request->session()->put('email', $user->email);
             return redirect('/home')->with('success2', 'Login Successfully');
         }
     }
@@ -97,6 +98,7 @@ class UserController extends Controller
             session()->forget('username');
             session()->forget('userID');
             session()->forget('userRole');
+            session()->forget('email');
             return redirect('/');
         }
     }

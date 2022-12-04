@@ -20,6 +20,16 @@
 
 <body>
     <main id="main" class="main-site" style="margin-top: 30px;">
+        @if (\Session::has('msg'))
+        <div class="alert alert-success alert-dismissible fade show form-control" role="alert">
+            <div class="text-left">
+                {{ \Session::get('msg') }}
+                {{ \Session::forget('msg') }}
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
         <div class="container">
             <h2 class="text-center cartTitle">Your Cart</h2>
         </div>
@@ -34,9 +44,10 @@
             </div>
             @endif
 
-            <!-- CART -->
-            <form action="" method="POST">
+             <!-- CART -->
+            <form action="{{action('CartController@placeOrder')}}" method="POST">
                 <input type="hidden" name="_method" value="POST">
+                @csrf
 
                 <table class="table shadow p-3 mb-5 bg-body rounded">
                     <thead class="table-dark text-center">

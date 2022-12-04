@@ -110,6 +110,18 @@
             </div>
             @endif
 
+            @if (Session::has('message2'))
+            <div class="container">
+                <div class="alert alert-danger alert-dismissible fade show form-control" role="alert">
+                    <div class="text-left">
+                        {{ Session::get('message2') }}
+                        {{ Session::forget('message2') }}
+                        <a href="{{route('cart.list')}}">&nbspCart</a>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+            @endif
 
             @if (Session::has('message2'))
             <div class="alert alert-success alert-dismissible fade show form-control" role="alert">

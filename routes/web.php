@@ -36,6 +36,8 @@ Route::post('/register', 'UserController@store')->name('register.register');
 Route::post('/login', 'UserController@login')->name('login.login');
 Route::get('/user/accountUpgrade', 'UserController@upgrade')->name('account.upgrade');
 Route::post('/profile/artistacc', 'ArtistController@upgradeAccount')->name('artist.store');
+Route::get('/profile/editWorkshop/{userID}', 'ArtistController@editworkshop')->name('workshop.edit');
+Route::post('/profile/editWorkshop/success', 'ArtistController@updateworkshop')->name('workshop.store');
 
 //Store
 Route::get('/store', 'ArtController@index')->name('store.index');
@@ -183,8 +185,13 @@ Route::delete('/artwork/artworkList/deleteArtwork/{artID}', 'ArtworkController@d
 Route::get('/artwork/artworkEdit/{artID}', 'ArtworkController@editArtwork')->name('artwork.edit');
 Route::post('/artwork/artworkList/{artID}', 'ArtworkController@saveArtwork')->name('artwork.save');
 
-Route::middleware(['AuthCheck'])->group(function () {
-    //Add to Cart
-    Route::get('/cart', 'CartController@cartshow')->name('cart.list');
-    Route::get('/cart/Cartlist/delete/{cartID}', 'CartController@destroy');
-});
+//Add to Cart
+Route::post('/storeDetails/cartadd', 'CartController@addcart')->name('cart.add');
+Route::get('/cart', 'CartController@cartshow')->name('cart.list');
+Route::get('/cart/Cartlist/delete/{cartID}', 'CartController@destroy');
+Route::post('/Cart/place', 'CartController@placeOrder');
+
+//payment
+Route::post('/pay', 'PaymentController@pay')->name('payment');
+Route::get('success', 'PaymentController@success');
+Route::get('error', 'PaymentController@error');

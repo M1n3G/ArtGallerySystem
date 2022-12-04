@@ -15,14 +15,11 @@ class CreatePaymentTable extends Migration
     {
         Schema::create('payment', function (Blueprint $table) {
             $table->string('paymentID')->primary();
-            $table->string('userID');
-            $table->string('itemID');
-            $table->float('totalPay');
-            $table->float('finalPay');
-            $table->string('card');
-            $table->string('cardType');
+            $table->string('payer_id');
+            $table->string('userEmail');
+            $table->float('amount',10,2);
+            $table->string('currency');
             $table->string('paymentStatus');
-            $table->string('dateTime');
             $table->timestamps();  
         });
     }
