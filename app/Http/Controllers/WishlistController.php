@@ -40,9 +40,9 @@ class WishlistController extends Controller
             $wishlist->userID = Session::get("username");
             $wishlist->artID = $artID;
             $wishlist->save();
-            return redirect("/store")->with('message', 'Art is added to wishlist.');
+            return redirect("/storeDetails/" . $artID)->with('message2', 'Art is added to wishlist.');
         } else {
-            return redirect("/storeDetails/" . $artID)->with('warning', 'Art already added to wishlist ');
+            return redirect("/storeDetails/" . $artID)->with('warning2', 'Art already added to wishlist ');
         }
     }
 
@@ -54,9 +54,8 @@ class WishlistController extends Controller
 
         if ($wishlist != null) {
             $wishlist->delete();
-            return redirect('/store')->with('message', 'Art removed from wishlist.');
+            return redirect('/wishlist')->with('message', 'Art removed from wishlist.');
         }
 
-        return redirect()->route('/store')->with(['fail' => 'Wrong ID!!']);
     }
 }

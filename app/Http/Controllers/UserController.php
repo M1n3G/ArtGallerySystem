@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Artcategories;
 
 
 class UserController extends Controller
@@ -40,16 +41,16 @@ class UserController extends Controller
         $user->email = $request->get('email');
         $user->contactNum = $request->get('contactNum');
         $user->userRole = "User";
-        $user->password = Hash::make($request->get('password'));    
+        $user->password = Hash::make($request->get('password'));
         date_default_timezone_set("Asia/Kuala_Lumpur");
         $date =  Carbon::now()->format('Y-m-d H:i:s');
         $user->datetime = $date;
 
-        if ($user->save() ) {
-            return redirect('login')->with('success','Register Successfully');
+        if ($user->save()) {
+            return redirect('login')->with('success', 'Register Successfully');
         }
-        
-        return redirect()->back()->with('fail','Unable to register');
+
+        return redirect()->back()->with('fail', 'Unable to register');
     }
 
 
@@ -78,6 +79,16 @@ class UserController extends Controller
             $request->session()->put('userRole', $user->userRole);
             return redirect('/home')->with('success2', 'Login Successfully');
         }
+    }
+
+    public function upgrade()
+    {
+        $username = session()->get('username');
+        $result = DB::table('users')
+            ->where('username', '=', $username)
+            ->get();
+        $category = Artcategories::all();
+        return view('user/accountUpgrade', compact('result', 'category'));
     }
 
     public function logout()

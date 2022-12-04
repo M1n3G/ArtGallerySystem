@@ -72,6 +72,19 @@
             </div>
             @endif
 
+            @if (Session::has('warning2'))
+            <div class="container">
+                <div class="alert alert-danger alert-dismissible fade show form-control" role="alert">
+                    <div class="text-left">
+                        {{ Session::get('warning2') }}
+                        {{ Session::forget('warning2') }}
+                        <a href="{{route('wishlist.show')}}">&nbsp Wishlist</a>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+            @endif
+
             @if (Session::has('message'))
             <div class="container">
                 <div class="alert alert-success alert-dismissible fade show form-control" role="alert">
@@ -81,6 +94,31 @@
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
+            </div>
+            @endif
+
+            @if (Session::has('message1'))
+            <div class="container">
+                <div class="alert alert-success alert-dismissible fade show form-control" role="alert">
+                    <div class="text-left">
+                        {{ Session::get('message1') }}
+                        {{ Session::forget('message1') }}
+                        <a href="{{route('cart.list')}}">&nbspCart</a>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+            @endif
+
+
+            @if (Session::has('message2'))
+            <div class="alert alert-success alert-dismissible fade show form-control" role="alert">
+                <div class="text-left">
+                    {{ Session::get('message2') }}
+                    {{ Session::forget('message2') }}
+                    <a href="{{route('wishlist.show')}}">&nbsp Wishlist</a>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             @endif
 
@@ -99,10 +137,11 @@
                         <h1 class="text-uppercase fw-bold" style="font-size:45px;">{{$data -> artName}}</h1>
                     </div>
                     <div class="col-md-2">
+                        <!-- Wishlist -->
                         <form action="{{ route('wishlist.add', $data->artID) }}" method="POST">
                             @csrf
-                            <button class="rounded-circle btn btn-outline-dark mt-2" style="float:right;" type="submit">
-                                <i class="fa fa-heart" aria-hidden="true"></i>
+                            <button class="rounded-circle btn btn-dark mt-2" style="background-color:white; float:right;" type="submit">
+                                <i class="fa fa-heart" style="color:#910000" aria-hidden="true"></i>
                             </button>
                         </form>
                     </div>
@@ -129,9 +168,17 @@
                     </div>
                     @else
                     <div class="col-md-6">
-                        <button class="btn btn-outline-dark mt-2" style="width:150px; float:right;" type="button">
-                            <i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to cart
-                        </button>
+                        <form action="{{ route('cart.add') }}" method="post">
+                            @csrf
+                            <input type="hidden" value="{{ $data->artID }}" name="id">
+                            <input type="hidden" value="{{ $data->artName }}" name="name">
+                            <input type="hidden" value="{{ $data->artPrice }}" name="price">
+                            <input type="hidden" value="{{ $data->artImg }}" name="image">
+                            <input type="hidden" value="1" name="quantity">
+                            <button class="btn btn-outline-dark mt-2" style="width:150px; float:right;" type="submit">
+                                <i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to cart
+                            </button>
+                        </form>
                     </div>
                     @endif
                 </div>
@@ -289,7 +336,7 @@
 
                     <textarea name="comment_body" class="form-control" rows="3" required></textarea>
                     <div class="float-end mt-2 pt-1">
-                            <button type="submit" class="btn btn-primary mt-3">Submit</button>        
+                        <button type="submit" class="btn btn-primary mt-3">Submit</button>
                     </div>
                     <input type="hidden" value="{{$data->artID}}" name="artID" />
                 </form>
@@ -312,7 +359,7 @@
 
                         <div class="col-md-4 text-end">
                             <p class="text-muted small mb-0">
-                                Commented on: {{ date('l, d-m-Y',strtotime($comment['datetime'])) }}
+                                Commented on: {{ date('Y-m-d, h:i:s a',strtotime($comment['datetime'])) }}
                             </p>
                         </div>
                     </div>
@@ -376,24 +423,37 @@
             </p>
 
             <div class="row">
-                <div class="small d-flex justify-content-start">
-                    <a href="#" class="d-flex align-items-center me-3 text-decoration-none">
-                        <i class="bi bi-hand-thumbs-up" style="color:#910000"></i>&nbsp
-                        <p class="mb-0" style="color:#910000">Like</p>
-                    </a>
-                    <!-- <a href="#" class="d-flex align-items-center me-3 text-decoration-none">
-                        <i class="fa-regular fa-comment" style="color:#910000"></i>&nbsp
-                        <p class="mb-0" style="color:#910000">Comment</p>
-                    </a>
-                    <a href="#" class="d-flex align-items-center me-3 text-decoration-none">
-                        <i class="fa-solid fa-share" style="color:#910000"></i>&nbsp
-                        <p class="mb-0" style="color:#910000">Share</p>
-                    </a> -->
-                </div>
-
-                @foreach($com as $cc)
-                @if ($cc->username == Session::get('username'))
+                @if ( Session::get('username') == $comment->username)
                 <div class="d-flex justify-content-end">
+                    <button class="btn btn-success btn-sm me-2" data-bs-toggle="modal" data-bs-target="#commentModal">Edit &nbsp<i class="bi bi-pencil-square"></i></button>
+                    <!-- Comment Modal -->
+                    <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="editcomment">Edit Comment</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form method="post" action="{{ route('comment.update', $comment->id) }}" class="row g-3">
+                                    @csrf
+                                    <div class="modal-body">
+                                        <div class="col-md-12">
+                                            <label for="name" class="form-label">Comment Body</label>
+                                            <textarea name="comment_body" class="form-control" rows="3" required> {!! $comment->comment_body !!}</textarea>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" style="width: 125px" class="btn btn-outline-dark rounded-pill" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" style="width: 125px" class="btn btn-primary rounded-pill">Update</button>
+                                        <input type="hidden" value="{{$comment->id}}" name="id" />
+                                        <input type="hidden" value="{{$data->artID}}" name="artID" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
                     <form action="{{ route('comment.remove',$comment->artID) }}" method="POST" onsubmit="return confirm('Are you sure you want to remove your comment?');">
                         @csrf
                         @method('DELETE')
@@ -401,8 +461,8 @@
                     </form>
                 </div>
                 @endif
-                @break
-                @endforeach
+
+
 
             </div>
         </div>

@@ -8,6 +8,11 @@ use App\Models\Post;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('AuthCheck', ['except' => ['index']]);
+    }
+
     public function create()
     {
         // $categories = Forumcategories::all();

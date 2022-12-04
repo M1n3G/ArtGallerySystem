@@ -1,11 +1,21 @@
 @extends('master')
 @section('content')
 
+<div class="container mt-4">
+    @if (Session::has('message'))
+    <div class="alert alert-success alert-dismissible fade show form-control" role="alert">
+        <div class="text-left">
+            {{ Session::get('message') }}
+            {{ Session::forget('message') }}
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+</div>
+
 <div class="container my-5">
-
-    <div class="row align-items-start">
+    <div class="row align-items-start" style="margin-bottom: 500px;">
         <!-- Column for card-->
-
         <!-- CATEGORY NAME PURPOSE -->
         @foreach($cat as $category)
         @endforeach

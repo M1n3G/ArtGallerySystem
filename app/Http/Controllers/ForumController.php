@@ -12,6 +12,11 @@ use App\Models\User;
 
 class ForumController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('AuthCheck', ['except' => ['index']]);
+    }
+    
     public function index()
     {
         return view('forum/contentpolicy');

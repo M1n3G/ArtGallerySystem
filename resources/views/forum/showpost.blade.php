@@ -39,12 +39,47 @@
 </div>
 @endif
 
+
+
 @if ($message != null)
 <div class="container">
     <div class="alert alert-success alert-dismissible fade show form-control" role="alert">
         <div class="text-left">
             {{ $message }}
-            <a href="{{route('forumprofile.show')}}">&nbspBookmarks</a>
+            <a href="{{route('forumprofile.show')}}">&nbspView</a>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+@endif
+
+@if ($messagelike != null)
+<div class="container">
+    <div class="alert alert-success alert-dismissible fade show form-control" role="alert">
+        <div class="text-left">
+            {{ $messagelike }}
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+@endif
+
+@if ($messagedislike != null)
+<div class="container">
+    <div class="alert alert-danger alert-dismissible fade show form-control" role="alert">
+        <div class="text-left">
+            {{ $messagedislike }}
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+@endif
+
+@if ($messagecomment != null)
+<div class="container">
+    <div class="alert alert-success alert-dismissible fade show form-control" role="alert">
+        <div class="text-left">
+            {{ $messagecomment }}
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
@@ -56,26 +91,12 @@
     <div class="alert alert-danger alert-dismissible fade show form-control" role="alert">
         <div class="text-left">
             {{ $messagedanger }}
-            <a href="{{route('forumprofile.show')}}">&nbspBookmarks</a>
+            <a href="{{route('forumprofile.show')}}">&nbspView</a>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 </div>
 @endif
-
-@if ($messagedanger1 != null)
-<div class="container">
-    <div class="alert alert-danger alert-dismissible fade show form-control" role="alert">
-        <div class="text-left">
-            {{ $messagedanger1 }}
-            <a href="{{route('forumprofile.show')}}">&nbspView my Report</a>
-        </div>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-</div>
-@endif
-
-
 
 <div class="container py-4">
     <div class="row">
@@ -155,14 +176,36 @@
                     <div class="row">
                         <div class="col-md">
                             <div class="small d-flex justify-content-start">
-                                <a href="" class="d-flex align-items-center me-3 text-decoration-none">
-                                    <i class="bi bi-hand-thumbs-up" style="color:#910000"></i>&nbsp
-                                    <p class="mb-0" style="color:#910000">Like</p>
-                                </a>
+
+                                <form id="myform1" action="{{ route('like.post') }}" method="post">
+                                    @csrf
+                                    <a class="d-flex align-items-center me-3 text-decoration-none" onclick="document.getElementById('myform1').submit()">
+                                        <i class="bi bi-hand-thumbs-up" style="color:#910000"></i>&nbsp
+                                        <p class="mb-0" style="color:#910000">Like({{$likecount}})
+                                            <input type="hidden" value="{{$posts->id}}" name="postID" />
+                                            <input type="hidden" value="{{$posts->category_id}}" name="category_id" />
+                                            <input type="hidden" value="{{$posts->title}}" name="title" />
+                                        </p>
+                                    </a>
+                                </form>
+
+                                <form id="myform2" action="{{ route('dislike.post') }}" method="post">
+                                    @csrf
+                                    <a class="d-flex align-items-center me-3 text-decoration-none" onclick="document.getElementById('myform2').submit()">
+                                        <i class="bi bi-hand-thumbs-down" style="color:#910000"></i>&nbsp
+                                        <p class="mb-0" style="color:#910000">Dislike({{$dislikecount}})
+                                            <input type="hidden" value="{{$posts->id}}" name="postID" />
+                                            <input type="hidden" value="{{$posts->category_id}}" name="category_id" />
+                                            <input type="hidden" value="{{$posts->title}}" name="title" />
+                                        </p>
+                                    </a>
+                                </form>
+
                                 <a class="d-flex align-items-center me-3 text-decoration-none">
                                     <i class="fa-regular fa-comment" style="color:#910000"></i>&nbsp
                                     <p class="mb-0" style="color:#910000">{{$commentcount}} Comments</p>
                                 </a>
+
                                 <form id="myform" action="{{ route('bookmarks.store') }}" method="post">
                                     <a class="d-flex align-items-center me-3 text-decoration-none" onclick="document.getElementById('myform').submit()">
                                         @csrf
@@ -172,9 +215,10 @@
                                             <input type="hidden" value="{{$posts->category_id}}" name="category_id" />
                                             <input type="hidden" value="{{$posts->title}}" name="title" />
                                         </p>
+                                    </a>
                                 </form>
-                                </p>
-                                </a>
+
+
 
                                 <a class="d-flex align-items-center me-3 text-decoration-none" data-bs-toggle="modal" data-bs-target="#reportModal">
                                     <i class="bi bi-flag" style="color:#910000"></i>&nbsp
@@ -210,7 +254,7 @@
                                                                 <div class="col mb-4">
                                                                     <input class="checkbox-report" type="radio" name="report" id="Break_Rules" value="Break_Rules" required>
                                                                     <label class="for-checkbox-report" for="Break_Rules">
-                                                                        <span>Break Rules</span>
+                                                                        <span>Rules Violation</span>
                                                                     </label>
                                                                 </div>
                                                                 <div class="col mb-4">
@@ -259,7 +303,7 @@
                                                                 </li>
                                                                 <li class="list-group-item">
                                                                     <div class="fs-6 mb-2">Spam</div>
-                                                                    Repeated, unwanted, or unsolicited manual or automated actions that negatively affect redditors, communities, and the Reddit platform.
+                                                                    Repeated, unwanted, or unsolicited manual or automated actions that negatively affect users, communities, and the ArtCells platform.
                                                                 </li>
                                                                 <li class="list-group-item">
                                                                     <div class="fs-6 mb-2">Harassment</div>
@@ -353,7 +397,7 @@
                             {{$comment->username}}
                         </h6>
                         <p class="text-muted small mb-0">
-                            Commented on: {{$comment -> datetime}}
+                            Commented on: {{ date('l, d-m-Y h:i:s a',strtotime($comment['datetime'])) }}
                         </p>
                     </div>
                 </div>
@@ -364,32 +408,53 @@
 
                 <div class="row">
                     <div class="small d-flex justify-content-start">
-                        <a href="#" class="d-flex align-items-center me-3 text-decoration-none">
-                            <i class="bi bi-hand-thumbs-up" style="color:#910000"></i>&nbsp
-                            <p class="mb-0" style="color:#910000">Like</p>
-                        </a>
-                        <a href="#" class="d-flex align-items-center me-3 text-decoration-none">
+                        <form id="myform3" action="{{ route('forumlike.post') }}" method="post">
+                            @csrf
+                            <a class="d-flex align-items-center me-3 text-decoration-none" onclick="document.getElementById('myform3').submit()">
+                                <i class="bi bi-hand-thumbs-up" style="color:#910000"></i>&nbsp
+                                <p class="mb-0" style="color:#910000">Like
+                                    <input type="hidden" value="{{$comment->id}}" name="id" />
+                                    <input type="hidden" value="{{$posts->id}}" name="postID" />
+                                    <input type="hidden" value="{{$posts->category_id}}" name="category_id" />
+                                    <input type="hidden" value="{{$posts->title}}" name="title" />
+                                </p>
+                            </a>
+                        </form>
+
+                        <form id="myform4" action="{{ route('forumdislike.post') }}" method="post">
+                            @csrf
+                            <a class="d-flex align-items-center me-3 text-decoration-none" onclick="document.getElementById('myform4').submit()">
+                                <i class="bi bi-hand-thumbs-down" style="color:#910000"></i>&nbsp
+                                <p class="mb-0" style="color:#910000">Dislike
+                                    <input type="hidden" value="{{$comment->id}}" name="id" />
+                                    <input type="hidden" value="{{$posts->id}}" name="postID" />
+                                    <input type="hidden" value="{{$posts->category_id}}" name="category_id" />
+                                    <input type="hidden" value="{{$posts->title}}" name="title" />
+                                </p>
+                            </a>
+                        </form>
+
+                        <!-- <a href="#" class="d-flex align-items-center me-3 text-decoration-none">
                             <i class="fa-regular fa-comment" style="color:#910000"></i>&nbsp
                             <p class="mb-0" style="color:#910000">Comment</p>
-                        </a>
-                        <a href="#" class="d-flex align-items-center me-3 text-decoration-none">
-                            <i class="fa-solid fa-share" style="color:#910000"></i>&nbsp
-                            <p class="mb-0" style="color:#910000">Share</p>
-                        </a>
+                        </a> -->
+
                     </div>
 
-                    @foreach($com as $cc)
-                    @if ($cc->username == Session::get('username'))
+
+                    @if ( Session::get('username') == $comment->username)
                     <div class="d-flex justify-content-end">
-                        <form action="{{ route('forumcomment.remove',$comment->postID) }}" method="POST" onsubmit="return confirm('Are you sure you want to remove your comment?');">
+
+                        <form action="{{ route('forumcomment.remove',$comment->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to remove your comment?');">
                             @csrf
                             @method('DELETE')
+                            <input type="hidden" value="{{$posts->id}}" name="postID" />
+                            <input type="hidden" value="{{$posts->category_id}}" name="category_id" />
+                            <input type="hidden" value="{{$posts->title}}" name="title" />
                             <button class="btn btn-danger btn-sm me-2">Delete &nbsp<i class="bi bi-trash"></i></button>
                         </form>
                     </div>
                     @endif
-                    @break
-                    @endforeach
 
                 </div>
             </div>

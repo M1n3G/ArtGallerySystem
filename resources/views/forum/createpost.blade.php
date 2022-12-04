@@ -3,10 +3,17 @@
 @section('content')
 
 <head>
+    <link rel="stylesheet" type="text/css" href="{{ asset('Css/postart.css') }}">
+    <script language="JavaScript" type="text/javascript" src="{{ asset('Js/fileupload.js') }}"></script>
     <style>
         .ck.ck-editor__main>.ck-editor__editable {
             height: 200px;
             min-height: 200px;
+        }
+
+        .label {
+            font-family: EB Garamond, serif;
+            font-size: 18px;
         }
     </style>
 </head>
@@ -55,7 +62,28 @@
 
                             <div class="form-group mt-4">
                                 <label class="label fw-semibold fs-6 mb-2">Image (Optional)</label>
-                                <input type="file" class="form-control" name="image" accept="image/*" required>
+                                <!-- <input type="file" class="form-control" name="image" accept="image/*"> -->
+                            </div>
+
+                            <div class="form-group file-upload">
+                                <!-- ADD IMAGE BUTTON -->
+                                <button class="file-upload-btn w-100" type="button" onclick="$('.file-upload-input').trigger( 'click' )">ADD IMAGE</button>
+
+                                <!-- IMAGE UPLOAD AREA -->
+                                <div class="image-upload-wrap">
+                                    <input class="file-upload-input" type="file" name="image" onchange="readURL(this);" accept="image/*" />
+                                    <div class="drag-text">
+                                        <h3>Drag and drop a Image or select add Image</h3>
+                                    </div>
+                                </div>
+
+                                <!-- REMOVE IMAGE -->
+                                <div class="file-upload-content">
+                                    <img class="file-upload-image" src="#" alt="your image" />
+                                    <div class="image-title-wrap">
+                                        <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="form-group mt-4">

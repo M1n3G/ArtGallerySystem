@@ -99,8 +99,8 @@
 
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                <button type="submit" class="btn btn-primary">Add</button>
+                                                <button type="button" style="width: 125px" class="btn btn-outline-dark rounded-pill" data-bs-dismiss="modal">Cancel</button>
+                                                <button type="submit" style="width: 125px" class="btn btn-primary rounded-pill">Add</button>
                                                 </form>
 
                                                 <script>

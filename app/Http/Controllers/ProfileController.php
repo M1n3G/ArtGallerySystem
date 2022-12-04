@@ -11,6 +11,11 @@ use App\Models\Address;
 
 class ProfileController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('AuthCheck');
+    }
+
     public function profile()
     {
         $username = session()->get('username');

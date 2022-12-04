@@ -79,7 +79,7 @@
                             </div>
                             <div class="mt-1 mb-0 text-muted" style="font-size:15px">
                                 <span>Post ID Reported: {{ $r->postID }}</span><br />
-                                <span class="mt-4">Date Reported: {{ date('l, d-m-Y',strtotime($r['datetime'])) }}</span>
+                                <span class="mt-4">Date Reported: {{ date('l, d-m-Y h:i:s a',strtotime($r['datetime'])) }}</span>
                             </div>
 
                             <h6 class="fw-semibold mt-4" style="font-size: 17px">Report Description:</h6>
@@ -90,44 +90,6 @@
                                 - None -
                                 @endif
                             </p>
-
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                @if($r->status == null)
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Take action
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a class="dropdown-item " href="#">
-                                                <button class="btn btn-primary">Send Email</button></a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item">
-                                                <form action="{{ route('reportpost.delete', ['id' => $r->postID, 'reportID' => $r->reportID]) }}" method="POST" onsubmit="return confirm('Are you sure you wish to delete this post?');">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger mt-2 px-2">Remove Post</button>
-                                                </form>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item">
-                                                <form action="{{ route('report.delete',$r->reportID) }}" method="POST" onsubmit="return confirm('Are you sure you wish to delete this report record?');">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger mt-2 px-2">Remove record</button>
-                                                </form>
-                                            </a>
-                                        </li>
-
-
-                                    </ul>
-                                </div>
-                                @endif
-
-                            </div>
-
                         </div>
 
                         <hr class="mt-4 mb-4" />

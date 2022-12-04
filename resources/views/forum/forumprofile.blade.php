@@ -78,7 +78,7 @@
                                     <button class="nav-link" id="nav-subscriptions-tab" data-bs-toggle="tab" data-bs-target="#nav-subscriptions" type="button" role="tab" aria-controls="nav-subscriptions" aria-selected="false">Subscriptions</button>
                                     <button class="nav-link" id="nav-bookmarks-tab" data-bs-toggle="tab" data-bs-target="#nav-bookmarks" type="button" role="tab" aria-controls="nav-bookmarks" aria-selected="false">Bookmarks</button>
                                     <button class="nav-link" id="nav-post-tab" data-bs-toggle="tab" data-bs-target="#nav-post" type="button" role="tab" aria-controls="nav-post" aria-selected="false">Posts</button>
-                                    <!-- <button class="nav-link" id="nav-privacy-tab" data-bs-toggle="tab" data-bs-target="#nav-privacy" type="button" role="tab" aria-controls="nav-privacy" aria-selected="false">Privacy</button> -->
+                                    <button class="nav-link" id="nav-report-tab" data-bs-toggle="tab" data-bs-target="#nav-report" type="button" role="tab" aria-controls="nav-report" aria-selected="false">My Report</button>
                                 </div>
                             </nav>
                             <div class="tab-content" id="nav-tabContent">
@@ -153,6 +153,8 @@
                                                 <div class="fw-bold">{{ $s->name }}</div>
                                                 {!! $s->description !!}
                                             </div>
+
+                                            <a href="{{ route('category.post',$s->id) }}" class="btn btn-primary px-2">View</a>
                                         </li>
                                         @endforeach
                                         @else
@@ -164,6 +166,12 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                         </div>
                                         @endif
+                                        <!-- PAGINATION -->
+                                        <nav aria-label="pageNavigation">
+                                            <ul class="pagination justify-content-end mt-4">
+                                                {!! $subscribecat->appends(Request::all())->links() !!}
+                                            </ul>
+                                        </nav>
                                     </ol>
                                 </div>
                                 <div class="tab-pane fade" id="nav-bookmarks" role="tabpanel" aria-labelledby="nav-bookmarks-tab" tabindex="0">
@@ -175,7 +183,19 @@
                                                 <div class="fw-bold">{{ $b->title }}</div>
                                                 {!! $b->body !!}
                                             </div>
+                                            <form action="{{ route('post.view') }}" method="POST">
+                                                @csrf
+                                                <a href="">
+                                                    <button type="submit" class="btn btn-primary text-decoration-none">
+                                                        View
+                                                        <input type="hidden" name="postID" value="{{$b->id}}">
+                                                        <input type="hidden" name="category_id" value="{{$b->category_id}}">
+                                                        <input type="hidden" name="title" value="{{$b->title}}">
+                                                    </button>
+                                                </a>
+                                            </form>
                                         </li>
+
                                         @endforeach
                                         @else
                                         <div class="alert alert-primary alert-dismissible fade show form-control" role="alert">
@@ -186,6 +206,12 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                         </div>
                                         @endif
+                                        <!-- PAGINATION -->
+                                        <nav aria-label="pageNavigation">
+                                            <ul class="pagination justify-content-end mt-4">
+                                                {!! $bookpost->appends(Request::all())->links() !!}
+                                            </ul>
+                                        </nav>
                                     </ol>
 
                                 </div>
@@ -198,6 +224,17 @@
                                                 <div class="fw-bold">{{ $p->title }}</div>
                                                 {!! $p->body !!}
                                             </div>
+                                            <form action="{{ route('post.view') }}" method="POST">
+                                                @csrf
+                                                <a href="">
+                                                    <button type="submit" class="btn btn-primary text-decoration-none">
+                                                        View
+                                                        <input type="hidden" name="postID" value="{{$p->id}}">
+                                                        <input type="hidden" name="category_id" value="{{$p->category_id}}">
+                                                        <input type="hidden" name="title" value="{{$p->title}}">
+                                                    </button>
+                                                </a>
+                                            </form>
                                         </li>
                                         @endforeach
                                         @else
@@ -209,9 +246,54 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                         </div>
                                         @endif
+                                        <!-- PAGINATION -->
+                                        <nav aria-label="pageNavigation">
+                                            <ul class="pagination justify-content-end mt-4">
+                                                {!! $posts->appends(Request::all())->links() !!}
+                                            </ul>
+                                        </nav>
                                     </ol>
                                 </div>
-                                <!-- <div class="tab-pane fade" id="nav-privacy" role="tabpanel" aria-labelledby="nav-privacy-tab" tabindex="0">..3.</div> -->
+
+                                <!-- My Report -->
+                                <div class="tab-pane fade" id="nav-report" role="tabpanel" aria-labelledby="nav-report-tab" tabindex="0">
+                                    <ol class="list-group list-group-numbered">
+                                        @if (!empty($report) && count($report))
+                                        @foreach($report as $r)
+                                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                                            <div class="ms-2 me-auto">
+                                                <div class="fw-bold">{{ $r->reportType }}
+                                                    <div class="col-md-12 fw-bold mt-2"> @if($r->status == 'SOLVED')
+                                                        <span class="fw-bold" style="color:#910000; font-size:15px;">{{ $r->status }}</span>
+                                                        @else
+                                                        <span class="fw-bold" style="color:#910000; font-size:15px;">NOT SOLVE</span>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="mt-2 fw-normal"> @if($r->reportBody != null)
+                                                    {{ $r->reportBody }}
+                                                    @else
+                                                    - No description -
+                                                    @endif
+                                                </div>
+                                                <div class="mt-4 fw-normal">{{ date('l, d-m-Y h:i:s a',strtotime($r['datetime'])) }}</div>
+
+                                            </div>
+                                        </li>
+                                        @endforeach
+                                        @else
+                                        <div class="alert alert-primary alert-dismissible fade show form-control" role="alert">
+                                            <div class="text-left">
+                                                You does not report any post in forum.
+                                                <a href="{{route('category.view')}}">&nbsp Forum</a>
+                                            </div>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                        @endif
+
+                                    </ol>
+
+                                </div>
                             </div>
 
                         </div>

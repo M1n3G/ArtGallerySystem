@@ -14,12 +14,12 @@
         <!-- TITLE -->
         <h5 class="store-Title" style="font-family: 'Poppins', sans-serif;">Original Contemporary Art in Malaysia</h5>
 
-        @if (\Session::has('message'))
+        @if (Session::has('message'))
         <div class="alert alert-success alert-dismissible fade show form-control" role="alert">
             <div class="text-left">
-                {{ \Session::get('message') }}
-                {{ \Session::forget('message') }}
-                <a href="/wishlist">&nbsp Wishlist</a>
+                {{ Session::get('message') }}
+                {{ Session::forget('message') }}
+             
             </div>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
@@ -73,12 +73,15 @@
                         <select class="form-select" name="style" id="inputGroupSelect02">
                             <option value="" selected>Any Style</option>
                             <option value="Abstract">Abstract</option>
-                            <option value="Figurative">Figurative</option>
+                            <option value="Cosmic Art">Cosmic Art</option>
                             <option value="Geometric">Geometric</option>
-                            <option value="Minimalist">Minimalist</option>
-                            <option value="Sculpture">Sculpture</option>
+                            <option value="Modern Art">Modern Art</option>
+                            <option value="Media Art">Media Art</option>
                             <option value="Nature">Nature</option>
-                            <option value="Potrraiture">Potrraiture</option>
+                            <option value="Sculpture">Sculpture</option>
+                            <option value="Woodcut Printed">Woodcut Printed</option>
+                            <option value="Urban">Urban</option>
+                            '
                         </select>
                         <button class="btn btn-outline-secondary searchBtn" type="submit">
                             <i class="fa fa-search" aria-hidden="true"></i></button>
