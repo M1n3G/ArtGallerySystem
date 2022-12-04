@@ -8,6 +8,7 @@ use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Address;
+use App\Models\Workshop;
 
 class ProfileController extends Controller
 {
@@ -21,7 +22,8 @@ class ProfileController extends Controller
         $username = session()->get('username');
         $user = new User;
         $users = User::where('username', $username)->first();
-        return view('user/profile', compact('users'));
+        $workshop= Workshop::where('userID',$username)->first();
+        return view('user/profile', compact('users','workshop'));
     }
 
     public function editprofile($userID)

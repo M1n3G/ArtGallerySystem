@@ -77,6 +77,7 @@ class CommentController extends Controller
         $message = '';
         $messagedanger = '';
         $messagecomment = '';
+        $removecomment = '';
         $messagelike = '';
         $messagedislike = '';
         $postCountExist = View::where('postID', $postID)->where('username', Session::get('username'))->first();
@@ -102,8 +103,9 @@ class CommentController extends Controller
             $dislikecount = Dislikes::where('postID', $postID)->count();
 
             $messagecomment = 'Comment Posted';
+            $removecomment = 'Comment removed';
 
-            return view('forum/showpost', compact('posts', 'category', 'latest_posts', 'showCom', 'postcount', 'commentcount', 'com', 'message', 'messagedanger', 'messagecomment','messagelike','messagedislike','likecount','dislikecount'));
+            return view('forum/showpost', compact('posts', 'category', 'latest_posts', 'showCom', 'postcount', 'commentcount', 'com', 'message', 'messagedanger', 'messagecomment','messagelike','messagedislike','likecount','dislikecount','removecomment'));
         } else {
             return redirect('/forum');
         }
@@ -143,7 +145,7 @@ class CommentController extends Controller
         $postID = $request->input('postID');
         $category_id = $request->input('category_id');
         $title = $request->input('title');
-        return $this->viewPost($postID, $category_id, $title);
+        return $this->viewPost($postID, $category_id, $title,'removecomment');
         // return redirect()->back()->with('message', 'Comment removed successfully');
     }
 

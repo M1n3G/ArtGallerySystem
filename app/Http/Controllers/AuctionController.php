@@ -41,9 +41,9 @@ class AuctionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|max:50',
+            'title' => 'required|min:20|max:50',
             'artDesc' => 'required|min:20',
-            'auctionImg' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+            'auctionImg' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp',
             'category_id' => 'required',
             'startPrice' => 'required|integer',
             'endPrice' => 'required|integer',

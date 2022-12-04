@@ -17,7 +17,7 @@
                     <a class="nav-link text-white" href="/forum">Forum</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-white" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle text-white" href="{{route ('category.view')}}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Topic
                     </a>
                     <ul class="dropdown-menu">           
