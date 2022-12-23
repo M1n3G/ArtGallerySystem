@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Auction;
 use App\Models\Artcategories;
 use App\Models\User;
+use App\Models\Cart;
+use App\Models\Bid;
 use App\Models\Payment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -34,15 +36,24 @@ class AuctionController extends Controller
     {
         $cat = Artcategories::join('auction', 'auctionCate', '=', 'artcategories.id')->select('auction.auctionCate', 'artcategories.name')->distinct()->get();
 
-        $auction = DB::table('auction')->where('auctionStatus', '=', 'Available')->get();
+        $auction = DB::table('auction')
+            ->where('auctionStatus', '=', 'Available')
+            ->orWhere('auctionStatus', '=', 'Bidding')
+            ->get();
+
+        DB::table('auction')
+            ->where('auctionStatus', "ONEBID")
+            ->update([
+                'auctionStatus' => "Available"
+            ]);
         return view('auction/auction', compact('auction', 'cat'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|min:20|max:50',
-            'artDesc' => 'required|min:20',
+            'title' => 'required|min:10|max:50',
+            'artDesc' => 'required|min:10',
             'auctionImg' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp',
             'category_id' => 'required',
             'startPrice' => 'required|integer',
@@ -103,8 +114,14 @@ class AuctionController extends Controller
 
         // $result=$this->auction->viewDetails($auctionID);
         $result = DB::table('auction')
-            ->where('auctionID', '=', $auctionID)
+            ->where('auction.auctionID', '=', $auctionID)
+            ->distinct()
             ->get();
+
+        $bid = DB::table('bid')
+            ->where('auctionID', $auctionID)
+            ->get();
+
 
         //  $name = User::join('auction', 'username', '=', 'users.username')->select('auction.username', 'users.name')->distinct()->get();
         $users = DB::table('users')
@@ -114,26 +131,34 @@ class AuctionController extends Controller
             ->get();
         // $users=Auction::with('userName')->get();
         // $userss=User::with('userName')->get();
-        return view('auction/auctionDetails', compact('result', 'users'));
+        return view('auction/auctionDetails', compact('result', 'users', 'bid'));
     }
 
-    public function oneBid($auctionID)
+    public function oneBid(Request $request, $auctionID)
     {
+        $users = session()->get('username');
+
         $result = DB::table('auction')
             ->where('auctionID', '=', $auctionID)
             ->get();
 
-        // $resultPayment = new Payment();
-        // $resultPayment ->paymentID=$this->generatePaymentID();
-        // $resultPayment -> userID = $result->username;
-        // $resultPayment -> itemID = $result->auctionID;
-        // $resultPayment -> totalPay = $result -> endPrice;
-        // $resultPayment -> finalPay = $result -> endPrice +5;
-        // $resultPayment -> paymentStatus = "processing";
-        // $resultPayment->save();
+        $user = DB::table('users')
+            ->join('addresses', 'addresses.username', '=', 'users.username')
+            ->where('users.username', $users)
+            ->select('users.*', 'addresses.*')
+            ->get();
+
+        session()->put('auctionOrder', $auctionID);
 
 
-        return view('/payment/payment', compact('result'));
+        DB::table('auction')
+            ->where('auctionID', $auctionID)
+            ->update([
+                'auctionStatus' => "ONEBID",
+                'bidPrice' => null
+            ]);
+
+        return view('/payment/payment', compact('result', 'user'));
     }
 
     public static function generatePaymentID(int $length = 8): string
@@ -148,5 +173,102 @@ class AuctionController extends Controller
         }
 
         return $payment_id; //Return the generated id as it does not exist in the DB
+    }
+
+    public function manualBid(Request $request, $auctionID)
+    {
+        $users = session()->get('username');
+
+        $bid = new Bid();
+        if (empty($request->bid)) {
+            if ($request->manual <= $request->startP) {
+                return redirect()->back()->with('fail', 'Bidding Price cannot less than starting Price.');
+            } else {
+                $bid->auctionID = $auctionID;
+                $bid->Bidder = $users;
+                $bid->bidPrice = $request->manual;
+                $bid->save();
+
+                DB::table('auction')
+                    ->where('auctionID', $auctionID)
+                    ->update([
+                        'bidPrice' => $request->manual,
+                        'auctionStatus' => 'Bidding'
+                    ]);
+            }
+        } else {
+            if ($request->manual < $request->startP) {
+                return redirect()->back()->with('fail', 'Bidding Price cannot less than starting Price.');
+            } else {
+                if ($request->manual >= $request->endP) {
+                    return redirect()->back()->with('fail', 'Bidding Price cannot more than Buy Now Price');
+                } else {
+                    if ($request->manual <= $request->bid) {
+                        return redirect()->back()->with('fail', 'Please Enter the valid price. More than Bidding Price Now.');
+                    } else {
+                        DB::table('bid')
+                            ->where('auctionID', $auctionID)
+                            ->update([
+                                'Bidder' => session()->get('username'),
+                                'bidPrice' => $request->manual
+                            ]);
+
+                        DB::table('auction')
+                            ->where('auctionID', $auctionID)
+                            ->update([
+                                'bidPrice' => $request->manual,
+                                'auctionStatus' => 'Bidding'
+                            ]);
+                    }
+                }
+            }
+        }
+
+        return redirect()->back()->with('success', 'Bid Successfully.');
+    }
+
+    public function viewAucPay()
+    {
+        $userss = session()->get('username');
+        $user = new User;
+        $users = User::where('username', $userss)->first();
+
+        $auc = DB::table('auction')
+            ->where('username', $userss)
+            ->get();
+
+        $bid = DB::table('bid')
+            ->join('auction', 'bid.auctionID', '=', 'auction.auctionID')
+            ->join('users', 'bid.Bidder', '=', 'users.username')
+            ->where('bid.Bidder', $userss)
+            ->select('users.name', 'auction.*')
+            ->distinct()
+            ->get();
+
+        $payment = DB::table('payment')
+            ->where('payer_id', $userss)
+            ->get();
+
+        return view('/auction/viewAuction', compact('auc', 'bid', 'users', 'payment'));
+    }
+
+    public function manual(Request $request, $auctionID)
+    {
+        $users = session()->get('username');
+
+        $result = DB::table('auction')
+            ->where('auctionID', '=', $auctionID)
+            ->get();
+
+        $user = DB::table('users')
+            ->join('addresses', 'addresses.username', '=', 'users.username')
+            ->where('users.username', $users)
+            ->select('users.*', 'addresses.*')
+            ->get();
+
+        session()->put('auctionOrder', $auctionID);
+
+
+        return view('/payment/payment', compact('result', 'user'));
     }
 }

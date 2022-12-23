@@ -58,20 +58,16 @@
                             </div>
                             <nav>
                                 <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                    <button class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab"
-                                        data-bs-target="#nav-profile" type="button" role="tab"
-                                        aria-controls="nav-profile" aria-selected="true">Profile</button>
-                                        @if(Session::get('userRole') == 'Artist')
-                                    <button class="nav-link" id="nav-subscriptions-tab" data-bs-toggle="tab"
-                                        data-bs-target="#nav-subscriptions" type="button" role="tab"
-                                        aria-controls="nav-subscriptions" aria-selected="false">WorkShop</button>
-                                        @endif
+                                    <button class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="true">Profile</button>
+                                    @if(Session::get('userRole') == 'Artist')
+                                    <button class="nav-link" id="nav-subscriptions-tab" data-bs-toggle="tab" data-bs-target="#nav-subscriptions" type="button" role="tab" aria-controls="nav-subscriptions" aria-selected="false">WorkShop</button>
+                                    @endif
 
                                 </div>
                             </nav>
+
                             <div class="tab-content" id="nav-tabContent">
-                                <div class="tab-pane fade show active" id="nav-profile" role="tabpanel"
-                                    aria-labelledby="nav-profile-tab" tabindex="0">
+                                <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
                                     <!-- Username -->
                                     <div class="mb-3 row">
                                         <label for="username" class="col-sm-2 col-form-label">Username</label>
@@ -124,15 +120,18 @@
                                     <div class="mb-3 row">
                                         <label for="about" class="col-sm-2 col-form-label">About</label>
                                         <div class="col-sm-10 text-left">
-                                            <textarea name="about" rows="5" cols="30" class="form-control mt-2"
-                                                readonly> {{$users->about}}</textarea>
+                                            <textarea name="about" rows="5" cols="30" class="form-control mt-2" readonly> {{$users->about}}</textarea>
                                         </div>
                                     </div>
+                                    <div class="d-grid gap-2 d-md-flex mt-4 justify-content-md-end">
+                                        <a class="btn btn-dark text-capitalize" href="{{route('profile.edit',$users->userID) }}" style="width:125px;">Edit</a>
+                                    </div>
+
                                 </div>
+
                                 @if(Session::get('userRole') == 'Aritst')
-                                <div class="tab-pane fade" id="nav-subscriptions" role="tabpanel"
-                                    aria-labelledby="nav-subscriptions-tab" tabindex="0">
-                                    
+                                <div class="tab-pane fade" id="nav-subscriptions" role="tabpanel" aria-labelledby="nav-subscriptions-tab" tabindex="0">
+
                                     <!-- workshop Name -->
                                     <div class="mb-3 row">
                                         <label for="username" class="col-sm-2 col-form-label">WorkShop Name</label>
@@ -181,7 +180,8 @@
                                         <label for="Gender" class="col-sm-2 col-form-label">Address</label>
                                         <div class="col-sm-10">
                                             <div readonly class="form-control-plaintext">{{ $workshop->address}},
-                                                {{ $workshop->city }}, {{ $workshop->state}}</div>
+                                                {{ $workshop->city }}, {{ $workshop->state}}
+                                            </div>
                                         </div>
                                     </div>
 
@@ -189,18 +189,18 @@
                                     <div class="mb-3 row">
                                         <label for="about" class="col-sm-2 col-form-label">About</label>
                                         <div class="col-sm-10 text-left">
-                                            <textarea name="about" rows="5" cols="30" class="form-control mt-2"
-                                                readonly> {!!$workshop->description!!}</textarea>
+                                            <textarea name="about" rows="5" cols="30" class="form-control mt-2" readonly> {!!$workshop->description!!}</textarea>
                                         </div>
                                     </div>
-                                    
+
+                                    <div class="d-grid gap-2 d-md-flex mt-4 justify-content-md-end">
+                                        <a class="btn btn-dark text-capitalize" href="{{route('workshop.edit',$users->username) }}" style="width:125px;">Edit</a>
+                                    </div>
 
                                 </div>
                                 @endif
                             </div>
                         </div>
-
-
 
                         <!-- Image -->
                         <!-- <div class="mb-3 row">
@@ -216,10 +216,6 @@
 
                         <hr class="mt-4 mb-4" />
 
-                        <div class="d-grid gap-2 d-md-flex mt-4 justify-content-md-end">
-                            <a class="btn btn-dark text-capitalize" href="{{route('workshop.edit',$users->username) }}"
-                                style="width:125px;">Edit</a>
-                        </div>
                     </div>
 
                 </div>

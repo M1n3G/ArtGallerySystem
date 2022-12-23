@@ -21,7 +21,7 @@ class ForumProfileController extends Controller
         $users = User::where('username', $username)->first();
 
         $bookmarks = Bookmark::where('username', $username)->get();
-        $bookpost = Bookmark::join('posts', 'posts.id', '=', 'bookmarks.postID')->select('posts.*')->orderBy('created_at', 'DESC')->paginate(10);
+        $bookpost = Bookmark::join('posts', 'posts.id', '=', 'bookmarks.postID')->where('bookmarks.username', $username)->select('posts.*')->orderBy('created_at', 'DESC')->paginate(10);
 
         $subscribe = Subscription::where('username', $username)->get();
         $subscribecat = Subscription::join('forumcategories', 'forumcategories.id', '=', 'subscriptions.category_id')->where('subscriptions.username',$username)->select('forumcategories.*')->orderBy('created_at', 'DESC')->paginate(10);
@@ -31,6 +31,19 @@ class ForumProfileController extends Controller
         $report = Report::where('username', $username)->get();
         $reports = Report::join('posts', 'posts.id', '=', 'reports.postID')->where('reports.username',$username)->select('posts.*')->orderBy('created_at', 'DESC')->paginate(10);
 
-        return view('forum/forumprofile', compact('users','bookpost','posts','subscribecat','report'));
+        return view('forum/forumprofile', compact('users','bookpost','posts','subscribecat','report','bookmarks'));
+    }
+
+    public function removeBookmarks($bookmarkID)
+    {
+        $bookmark = new Bookmark;
+        $username = session()->get('username');
+        $bookmark = Bookmark::where('bookmarkID', $bookmarkID)->where('username', $username)->first();
+
+        if ($bookmark != null) {
+            $bookmark->delete();
+            return redirect('/forumprofile')->with('message', 'Bookmarks removed.');
+        }
+
     }
 }

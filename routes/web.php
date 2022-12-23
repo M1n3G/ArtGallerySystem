@@ -43,6 +43,14 @@ Route::post('/profile/editWorkshop/success', 'ArtistController@updateworkshop')-
 Route::get('/store', 'ArtController@index')->name('store.index');
 Route::get('/storeDetails/{artID}', 'ArtController@details')->name('storeDetails.details');
 
+// Reset Password
+Route::get('/forget-password', 'ForgotPasswordController@showForgetPasswordForm')->name('forget.password.get');
+Route::post('/forget-password', 'ForgotPasswordController@submitForgetPasswordForm')->name('forget.password.post');
+Route::get('/reset-password/{token}', 'ForgotPasswordController@showResetPasswordForm')->name('reset.password.get');
+Route::post('/reset-password', 'ForgotPasswordController@submitResetPasswordForm')->name('reset.password.post');
+Route::get('/profile/changepassword', 'ProfileController@password')->name('password.show');
+Route::post('/profile/changepassword', 'ProfileController@changeUserPassword')->name('password.update');
+
 //Profile AuthCheck
 Route::middleware(['AuthCheck'])->group(function () {
     // Profile
@@ -55,17 +63,11 @@ Route::middleware(['AuthCheck'])->group(function () {
     Route::get('/profile/editaddress/{userID}', 'ProfileController@editAddress')->name('address.edit');
     Route::post('/profile/editaddress/{userID}', 'ProfileController@updateAddress')->name('address.update');
 
-    // Reset Password
-    Route::get('/forget-password', 'ForgotPasswordController@showForgetPasswordForm')->name('forget.password.get');
-    Route::post('/forget-password', 'ForgotPasswordController@submitForgetPasswordForm')->name('forget.password.post');
-    Route::get('/reset-password/{token}', 'ForgotPasswordController@showResetPasswordForm')->name('reset.password.get');
-    Route::post('/reset-password', 'ForgotPasswordController@submitResetPasswordForm')->name('reset.password.post');
-    Route::get('/profile/changepassword', 'ProfileController@password')->name('password.show');
-    Route::post('/profile/changepassword', 'ProfileController@changeUserPassword')->name('password.update');
 
     Route::get('/profile/mypurchase', 'ProfileController@purchase')->name('purchase.show');
 
     Route::get('/forumprofile', 'ForumProfileController@forumProfile')->name('forumprofile.show');
+    Route::delete('/forumprofile/removeBookmarks/{bookmarkID}', 'ForumProfileController@removeBookmarks')->name('bookmark.delete');
 });
 
 
@@ -176,6 +178,10 @@ Route::post('/auction/addAuction', 'AuctionController@store')->name('auction.sto
 Route::get('/auction/addAuction', 'AuctionController@create');
 Route::get('/auction/auctionDetails/{auctionID}', 'AuctionController@viewDetails');
 Route::get('/payment/payment/{auctionID}', 'AuctionController@oneBid');
+Route::get('/payment/payment/pay/{auctionID}', 'AuctionController@manual');
+Route::post('/auction/auctionDetails/{auctionID}','AuctionController@manualBid')->name('manualBid');
+Route::get('/profile/view', 'AuctionController@viewAucPay')->name('auctionView');
+
 
 //Artwork Management
 Route::get('/artwork/artworkList', 'ArtworkController@list')->name('artworklist');
@@ -195,3 +201,13 @@ Route::post('/Cart/place', 'CartController@placeOrder');
 Route::post('/pay', 'PaymentController@pay')->name('payment');
 Route::get('success', 'PaymentController@success');
 Route::get('error', 'PaymentController@error');
+Route::get('/profile/purchase', 'PaymentController@index')->name('payment.index');
+
+Route::get('sendEmail',function(){
+    $details = [
+        'title'=>'Mail From ArtCells Platform',
+        'body' =>'You Are successfully to bid the item, please make the payment in your Profile -> Auction -> Auction Status.'
+    ];
+
+    Mail::to('yapys-wm19@student.tarc.edu.my')->send(new \App\Mail\paymentReminder($details));
+});

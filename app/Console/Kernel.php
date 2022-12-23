@@ -15,11 +15,13 @@ class Kernel extends ConsoleKernel
      */
     protected $commands=[
         Commands\StatusUpdate::class,
+        Commands\AutoSendPaymentEmail::class,
     ];
 
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('auction:auctionStatus')->everyMinute();
+        $schedule->command('auction:PaymentReminder')->everyMinute();
     }
 
     /**

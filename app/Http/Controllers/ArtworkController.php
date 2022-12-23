@@ -25,6 +25,7 @@ class ArtworkController extends Controller
             ->where('username', $username)
             ->select('art.*', 'artcategories.name')
             ->distinct()
+            ->orderBy('datetime', 'DESC')
             ->paginate(10);
         return view('artwork/artworkList', compact('users', 'artwork'));
     }
@@ -41,7 +42,7 @@ class ArtworkController extends Controller
         $request->validate([
             'artistName' => 'required|min:10|max:50|regex:/^[\pL\s\-]+$/u',
             'title' => 'required|min:10',
-            'artDesc' => 'required|min:20|max:200',
+            'artDesc' => 'required|min:20',
             'artImg' => 'nullable|mimes:jpeg,png,jpg,gif,svg,webp',
             'category_id' => 'required',
             'style' => 'required',
@@ -63,7 +64,8 @@ class ArtworkController extends Controller
             $art->artImg = $uploadedFileUrl;
             $des_path = 'images/';
             $img = $request->file('image');
-            $img_name = "" . $request['title'] . " " . Session::get('username') . ".jpg";
+            // $img_name = "" . $request['title'] . " " . Session::get('username') . ".jpg";
+            $img_name = "" . $request['title'] . " " . "BY "  . $request['artistName'] . ".jpg";
             $arts = $request->file('image')->storeAs($des_path, $img_name);
         }
 
@@ -110,7 +112,7 @@ class ArtworkController extends Controller
         $request->validate([
             'artName' => 'required|min:10',
             'artistName' => 'required|min:10|max:50|regex:/^[\pL\s\-]+$/u',
-            'artDesc' => 'required|min:20|max:200',
+            'artDesc' => 'required|min:20',
             'artImg' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp',
             'category_id' => 'required',
             'style' => 'required',

@@ -14,6 +14,8 @@ class Payment extends Model
         'paymentID',
         'payer_id',
         'userEmail',
+        'itemID',
+        'type',
         'amount',
         'currency',
         'paymentStatus'

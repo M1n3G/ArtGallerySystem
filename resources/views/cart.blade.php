@@ -20,6 +20,25 @@
 
 <body>
     <main id="main" class="main-site" style="margin-top: 30px;">
+        @if (\Session::has('msg'))
+        <div class="alert alert-success alert-dismissible fade show form-control" role="alert">
+            <div class="text-left">
+                {{ \Session::get('msg') }}
+                {{ \Session::forget('msg') }}
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+        @if (\Session::has('fail'))
+        <div class="alert alert-success alert-dismissible fade show form-control" role="alert">
+            <div class="text-left">
+                {{ \Session::get('fail') }}
+                {{ \Session::forget('fail') }}
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
         <div class="container">
             <h2 class="text-center cartTitle">Your Cart</h2>
         </div>
@@ -28,22 +47,11 @@
 
             <!-- MESSAGE -->
             @if($count == 0)
-            <div class="alert alert-primary alert-dismissible fade show" id="alert" role="alert">
+            <div class="alert alert-info alert-dismissible fade show" id="alert" role="alert">
                 <p>There are nothing in the Cart now. <a href="/store" class="link-primary">STORE</a></p>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             @endif
-
-            @if (\Session::has('msg')) <div class="alert alert-success alert-dismissible fade show form-control" role="alert">
-                <div class="text-left">
-                    {{ \Session::get('msg') }}
-                    {{ \Session::forget('msg') }}
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            @endif
-
-
 
             <!-- CART -->
             <form action="{{action('CartController@placeOrder')}}" method="POST">
@@ -64,7 +72,7 @@
                     @foreach($cart as $row)
                     <tbody>
                         <tr class="text-center">
-                            <td><input type="checkbox" name="cart[]" value="{{$row->itemID}}" class="form-check-input" style="width: 20px; height: 20px;"></td>
+                            <td><input type="checkbox" name="cart[{{$row->itemID}}]" value="{{$row->itemID}}" class="form-check-input" style="width: 20px; height: 20px;"></td>
                             <td><img src="{{$row ->artImg}}" alt="img" style="width: 175px; height: 135px"></td>
                             <td class="fw-bold fs-6">{{$row ->itemName}}</td>
                             <td class="fw-bold fs-6">MYR {{$row ->Price}}</td>
@@ -78,7 +86,7 @@
 
 
                             <td>
-                                <button type="submit" class="btn btn-danger" formaction="{{ action('CartController@destroy', $row->cartID) }}" formmethod="GET" onclick="return confirm('Are you sure you want to remove this art from cart')"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                <button type="submit" class="btn btn-danger" formaction="{{ action('CartController@destroy', $row->cartID) }}" formmethod="GET" onclick="return confirm('Delete Confirmation')"><i class="fa fa-trash" aria-hidden="true"></i></button>
                             </td>
 
                         </tr>

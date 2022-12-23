@@ -9,6 +9,8 @@ use App\Models\User;
 use App\Models\Cart;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Notification;
+use App\Notifications\ReminderPayment;
 
 class PaymentController extends Controller
 {
@@ -60,10 +62,19 @@ class PaymentController extends Controller
 
                 $result = $arr_body['id'];
 
+
                 $payment = new Payment;
                 $payment->paymentID = $arr_body['id'];
                 $payment->payer_id = session()->get('username');
                 $payment->userEmail = session()->get('email');
+                if ($request->session()->has('cartOrder')) {
+                    $payment->itemID = json_encode(session()->get('cartOrder'));
+                    $payment->type = "c";
+                } else {
+                    $payment->itemID = session()->get('auctionOrder');
+                    $payment->type = "a";
+                }
+
                 $payment->amount = $arr_body['transactions'][0]['amount']['total'];
                 $payment->currency = "MYR";
                 $payment->paymentStatus = $arr_body['state'];
@@ -71,12 +82,15 @@ class PaymentController extends Controller
                 if ($payment->save()) {
                     $users = session()->get('username');
 
+
                     $cart = DB::table('cart')
                         ->where('userID', $users)
                         ->get();
 
                     $address = DB::table('addresses')
-                        ->where('username', $users)
+                        ->join('users', 'users.username', '=', 'addresses.username')
+                        ->where('addresses.username', $users)
+                        ->select('addresses.*', 'users.contactNum')
                         ->get();
 
                     $payment = DB::table('payment')
@@ -84,18 +98,68 @@ class PaymentController extends Controller
                         ->get();
 
 
-                    return view('payment/invoice', compact('cart', 'address', 'payment'));
+
+                    if ($request->session()->has('cartOrder')) {
+
+                        $product = session()->get('cartOrder');
+                        DB::table('cart')
+                            ->whereIn('itemID', $product)
+                            ->delete();
+
+                        DB::table('art')
+                            ->whereIn('artID', $product)
+                            ->update([
+                                'artStatus' => "SOLD"
+                            ]);
+
+                        return view('payment/invoice', compact('cart', 'address', 'payment'));
+                    } else {
+                        $auc = session()->get('auctionOrder');
+                        $auction = DB::table('auction')
+                            ->where('auctionID', $auc)
+                            ->get();
+
+                        DB::table('auction')
+                            ->where('auctionID', $auc)
+                            ->update([
+                                'auctionStatus' => "FINISH"
+                            ]);
+
+                        return view('payment/invoice', compact('cart', 'address', 'payment', 'auction'));
+                    }
                 }
             } else {
                 return $response->getMessage();
             }
         } else {
-            return "payment END";
+            return redirect('/cart')->with('fail', 'User Declined the payment.');
         }
     }
 
     public function error()
     {
-        return "payment end";
+        return redirect('/cart')->with('fail', 'Payment Declined');
+    }
+
+    public function index()
+    {
+        $user = session()->get('username');
+        $users = User::where('username', $user)->first();
+
+        $payment = DB::table('payment')
+            ->where('payer_id', $user)
+            ->distinct()
+            ->get();
+
+        $art = DB::table('art')
+            ->get();
+
+        $auction = DB::table('auction')
+            ->join('payment', 'payment.itemID', '=', 'auction.auctionID')
+            ->where('payment.payer_id', $user)
+            ->select('payment.*', 'auction.*')
+            ->get();
+
+        return view('user/purchase', compact('payment', 'users', 'art', 'auction'));
     }
 }

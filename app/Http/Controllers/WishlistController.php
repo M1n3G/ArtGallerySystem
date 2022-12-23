@@ -40,7 +40,7 @@ class WishlistController extends Controller
             $wishlist->userID = Session::get("username");
             $wishlist->artID = $artID;
             $wishlist->save();
-            return redirect("/storeDetails/" . $artID)->with('message2', 'Art is added to wishlist.');
+            return redirect("/storeDetails/" . $artID)->with('message3', 'Art is added to wishlist.');
         } else {
             return redirect("/storeDetails/" . $artID)->with('warning2', 'Art already added to wishlist ');
         }

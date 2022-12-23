@@ -123,11 +123,11 @@
             </div>
             @endif
 
-            @if (Session::has('message2'))
+            @if (Session::has('message3'))
             <div class="alert alert-success alert-dismissible fade show form-control" role="alert">
                 <div class="text-left">
-                    {{ Session::get('message2') }}
-                    {{ Session::forget('message2') }}
+                    {{ Session::get('message3') }}
+                    {{ Session::forget('message3') }}
                     <a href="{{route('wishlist.show')}}">&nbsp Wishlist</a>
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -346,7 +346,7 @@
 
                     </div>
 
-                    <textarea name="comment_body" class="form-control" rows="3" required></textarea>
+                    <textarea name="comment_body" class="form-control" rows="3" placeholder="Comment Section" required></textarea>
                     <div class="float-end mt-2 pt-1">
                         <button type="submit" class="btn btn-primary mt-3">Submit</button>
                     </div>
@@ -430,7 +430,7 @@
                 @endif
             </span>
 
-            <p class="mt-3 mb-4 pb-2">
+            <p class="mt-3 mb-4 pb-2" >
                 {!! $comment -> comment_body !!}
             </p>
 

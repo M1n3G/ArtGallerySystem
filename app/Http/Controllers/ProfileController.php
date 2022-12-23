@@ -44,6 +44,7 @@ class ProfileController extends Controller
             $uploadedFileUrl = Cloudinary::upload($image->getRealPath())->getSecurePath();
             $user = User::where('userID', $id)
                 ->update([
+                    'name' => $request['name'],
                     'contactNum' => $request['contactNum'],
                     'gender' => $request['gender'],
                     'about' => $request['about'],
@@ -52,6 +53,7 @@ class ProfileController extends Controller
         } else {
             $user = User::where('userID', $id)
                 ->update([
+                    'name' => $request['name'],
                     'contactNum' => $request['contactNum'],
                     'gender' => $request['gender'],
                     'about' => $request['about']
