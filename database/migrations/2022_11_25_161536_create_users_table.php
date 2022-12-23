@@ -24,8 +24,6 @@ class CreateUsersTable extends Migration
             $table->string('userImg', 255)->nullable();
             $table->text('about', 255)->nullable();
             $table->string('userRole')->nullable();
-            $table->text('forumabout', 255)->nullable();
-            $table->string('privacystatus')->nullable();
             $table->dateTime('datetime');
             $table->rememberToken();
             $table->timestamps();
