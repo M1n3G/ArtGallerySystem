@@ -17,7 +17,6 @@ class CreateForumcommentsTable extends Migration
             $table->id();
             $table->integer('postID');
             $table->integer('category_id');
-            $table->integer('replies_id')->nullable();
             $table->string('username');
             $table->text('comment_body');
             $table->dateTime('datetime');

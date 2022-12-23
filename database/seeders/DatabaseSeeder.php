@@ -13,9 +13,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(UserSeeder::class);
         $this->call(ArtcategorySeeder::class);
         $this->call(ArtSeeder::class);
         $this->call(ArtcommentSeeder::class);
-        
+        $this->call(ForumcategorySeeder::class);
+        $this->call(PostSeeder::class);
+        $this->call(ForumcommentsSeeder::class);
     }
 }
