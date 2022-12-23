@@ -29,6 +29,15 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
+        @if (\Session::has('fail'))
+        <div class="alert alert-success alert-dismissible fade show form-control" role="alert">
+            <div class="text-left">
+                {{ \Session::get('fail') }}
+                {{ \Session::forget('fail') }}
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
 
         <div class="container">
             <h2 class="text-center cartTitle">Your Cart</h2>
@@ -44,7 +53,7 @@
             </div>
             @endif
 
-             <!-- CART -->
+            <!-- CART -->
             <form action="{{action('CartController@placeOrder')}}" method="POST">
                 <input type="hidden" name="_method" value="POST">
                 @csrf
@@ -63,7 +72,7 @@
                     @foreach($cart as $row)
                     <tbody>
                         <tr class="text-center">
-                            <td><input type="checkbox" name="cart[]" value="{{$row->itemID}}" class="form-check-input" style="width: 20px; height: 20px;"></td>
+                            <td><input type="checkbox" name="cart[{{$row->itemID}}]" value="{{$row->itemID}}" class="form-check-input" style="width: 20px; height: 20px;"></td>
                             <td><img src="{{$row ->artImg}}" alt="img" style="width: 175px; height: 135px"></td>
                             <td class="fw-bold fs-6">{{$row ->itemName}}</td>
                             <td class="fw-bold fs-6">MYR {{$row ->Price}}</td>
@@ -77,7 +86,6 @@
 
 
                             <td>
-
                                 <button type="submit" class="btn btn-danger" formaction="{{ action('CartController@destroy', $row->cartID) }}" formmethod="GET" onclick="return confirm('Delete Confirmation')"><i class="fa fa-trash" aria-hidden="true"></i></button>
                             </td>
 

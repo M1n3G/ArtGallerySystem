@@ -88,7 +88,7 @@
                                 <hr class="mt-4 mb-4" />
 
                                 <div class="d-grid gap-2 d-md-flex mt-4 justify-content-md-end">
-                                    <a class="btn btn-outline-dark text-capitalize" href=""
+                                    <a class="btn btn-outline-dark text-capitalize" href="{{route ('profile.show') }}"
                                         style="width:125px;">Back</a>
                                     <button class="btn btn-primary text-capitalize"
                                         onsubmit="return confirm('Are you sure you wish to update workshop Details?');"

@@ -78,7 +78,7 @@
 
         <ul class="dropdown-menu" id="dropdown-menu" style="width:200px;">
           <li class="menuli" id="menuli"><a class="dropdown-item" href="{{ route('profile.show') }}">Profile</a></li>
-          <li class="menuli" id="menuli"><a class="dropdown-item" href="{{ route('purchase.show') }}">My Purchase</a></li>
+          <li class="menuli" id="menuli"><a class="dropdown-item" href="{{ route('payment.index') }}">My Purchase</a></li>
           <li class="menuli" id="menuli"><a class="dropdown-item" href="{{ route('wishlist.show') }}">My Wishlist</a></li>
           @if (Session::get('userRole') == 'User')
           <li class="menuli" id="menuli"><a class="dropdown-item" href="{{ route('account.upgrade') }}">Upgrade as Artist</a></li>

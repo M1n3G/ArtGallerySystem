@@ -2,7 +2,33 @@
 @section('content')
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
-<div class="page-content container">
+<style type="text/css">
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+
+        #section-to-print,
+        #section-to-print * {
+            visibility: visible;
+        }
+
+        #section-no-print,
+        #section-no-print * {
+            visibility: hidden;
+        }
+
+        #section-to-print {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    }
+</style>
+@php
+$finalPrice=0;
+@endphp
+<div class="page-content container" id="section-to-print">
     <div class="page-header text-blue-d2">
         @foreach($payment as $pay)
         <h1 class="page-title text-secondary-d1">
@@ -13,15 +39,11 @@
             </small>
         </h1>
 
-        <div class="page-tools">
+        <div class="page-tools" id="section-no-print">
             <div class="action-buttons">
-                <a class="btn bg-white btn-light mx-1px text-95" href="#" data-title="Print">
+                <a class="btn bg-white btn-light mx-1px text-95" id="printBtn" onClick="window.print()" data-title="Print">
                     <i class="mr-1 fa fa-print text-primary-m1 text-120 w-2"></i>
                     Print
-                </a>
-                <a class="btn bg-white btn-light mx-1px text-95" href="#" data-title="PDF">
-                    <i class="mr-1 fa fa-file-pdf-o text-danger-m1 text-120 w-2"></i>
-                    Export
                 </a>
             </div>
         </div>
@@ -56,7 +78,7 @@
                             <div class="my-1">
                                 {{$rows->state}}
                             </div>
-                            <div class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600">111-111-111</b></div>
+                            <div class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600">{{$rows->contactNum}}</b></div>
                         </div>
                     </div>
                     @endforeach
@@ -91,6 +113,8 @@
                         <div class="col-2">Amount</div>
                     </div>
 
+                    @if(\Session::has('cartOrder'))
+
                     @foreach (\Session::get('cartOrder') as $f)
                     @foreach ($cart as $row)
                     @if ($row->itemID == $f)
@@ -103,8 +127,6 @@
                             <div class="d-none d-sm-block col-2 text-95">RM{{$row->Price}}</div>
                             <div class="col-2 text-secondary-d2">RM{{$row->Price}}</div>
                             @php
-                            $finalPrice=0;
-
                             $finalPrice += $row->Price;
 
                             @endphp
@@ -113,6 +135,35 @@
                     @endif
                     @endforeach
                     @endforeach
+
+                    @else
+                    @foreach($auction as $auc)
+                    <div class="text-95 text-secondary-d3">
+                        <div class="row mb-2 mb-sm-0 py-25">
+                            <div class="d-none d-sm-block col-1">{{$auc->auctionID}}</div>
+                            <div class="col-9 col-sm-5">{{$auc->auctionName}}:Auction</div>
+                            <div class="d-none d-sm-block col-2">1</div>
+                            @if($auc->bidPrice==null||$auc->auctionStatus=='ONEBID')
+                            <div class="d-none d-sm-block col-2 text-95">RM{{$auc->endPrice}}</div>
+                            <div class="col-2 text-secondary-d2">RM{{$auc->endPrice}}</div>
+                            @php
+                            $finalPrice += $auc->endPrice;
+
+                            @endphp
+                            @else
+                            <div class="d-none d-sm-block col-2 text-95">RM{{$auc->bidPrice}}</div>
+                            <div class="col-2 text-secondary-d2">RM{{$auc->bidPrice}}</div>
+                            @php
+                            $finalPrice += $auc->bidPrice;
+
+                            @endphp
+                            @endif
+
+                        </div>
+                    </div>
+                    @endforeach
+                    @endif
+
 
                     <div class="row border-b-2 brc-default-l2"></div>
 
@@ -135,9 +186,9 @@
 
                     <hr />
 
-                    <div>
-                        <span class="text-secondary-d1 text-105">Please Click To send Your mailbox.</span>
-                        <a href="#" class="btn btn-info btn-bold px-4 float-right mt-3 mt-lg-0">SEND</a>
+                    <div id="section-no-print">
+                        <span class="text-secondary-d1 text-105">Please Click To Back Profile</span>
+                        <a href="{{ route('profile.show') }}" class="btn btn-info btn-bold px-4 float-right mt-3 mt-lg-0">Back</a>
                     </div>
                 </div>
             </div>

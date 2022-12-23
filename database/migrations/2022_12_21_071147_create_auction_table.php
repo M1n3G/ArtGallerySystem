@@ -21,6 +21,7 @@ class CreateAuctionTable extends Migration
             $table->string('auctionDesc');
             $table->string('auctionCate');
             $table->float('startPrice');
+            $table->float('bidPrice')->nullable();
             $table->float('endPrice');
             $table->dateTime('start_date');
             $table->string('auctionStatus');

@@ -17,6 +17,8 @@ class CreatePaymentTable extends Migration
             $table->string('paymentID')->primary();
             $table->string('payer_id');
             $table->string('userEmail');
+            $table->string('itemID');
+            $table->string('type');
             $table->float('amount',10,2);
             $table->string('currency');
             $table->string('paymentStatus');

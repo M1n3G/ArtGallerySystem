@@ -18,9 +18,9 @@ class ArtistController extends Controller
     public function upgradeAccount(Request $request)
     {
         $request->validate([
-            'artName' => 'required|min:10',
+            'title' => 'required|min:10',
             'artistName' => 'required|min:10|max:50|regex:/^[\pL\s\-]+$/u',
-            'artDesc' => 'required|min:20|max:200',
+            'artDesc' => 'required|min:20',
             'artImg' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp',
             'category_id' => 'required',
             'style' => 'required',
@@ -31,8 +31,8 @@ class ArtistController extends Controller
             'workshopAddress' => 'required|min:10|max:70',
             'city' => 'required|max:20|regex:/^[\pL\s\-]+$/u',
             'state' => 'required|max:30|regex:/^[\pL\s\-]+$/u',
-            'postcode' => 'required|integer|max:6',
-            'shopDesc' => 'required|min:10|max:200',
+            'postcode' => 'required|integer|regex:/^[0-9]{5}$/',
+            'shopDesc' => 'required|min:10',
             'emailAddress' => 'required|email',
             'phoneNumber' => 'required|regex:/^[0-9]{3}[-]{1}[0-9]{7,8}$/',
             'shopCreateDate' => 'required'
@@ -111,7 +111,7 @@ class ArtistController extends Controller
             'shopCity' => 'required|max:20|regex:/^[\pL\s\-]+$/u',
             'shopState' => 'required|max:30|regex:/^[\pL\s\-]+$/u',
             'shopPostcode' => 'required|integer|min:5',
-            'shopDesc' => 'required|min:10|max:200',
+            'shopDesc' => 'required|min:10',
             'shopEmail' => 'required|email',
             'shopContact' => 'required|regex:/^[0-9]{3}[-]{1}[0-9]{7,8}$/'
         ]);

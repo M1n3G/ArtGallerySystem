@@ -3,20 +3,41 @@
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
 <div class="container px-4 mt-2">
-        <div class="row mt-4">
-            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-                <ol class="breadcrumb" style="font-family: 'Poppins', sans-serif;">
-                    <li class="breadcrumb-item"><a href="/auction/auction" class="text-decoration-none">Auction</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Item Details</li>
-                </ol>
-            </nav>
-        </div>
+    <div class="row mt-4">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb" style="font-family: 'Poppins', sans-serif;">
+                <li class="breadcrumb-item"><a href="/auction/auction" class="text-decoration-none">Auction</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Item Details</li>
+            </ol>
+        </nav>
     </div>
+</div>
+@if (Session::has('success'))
+<div class="container alert alert-success alert-dismissible fade show mt-4" role="alert">
+    <div class="text-left">
+        {{ Session::get('success') }}
+        {{ Session::forget('success') }}
+    </div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+@if (Session::has('fail'))
+<div class="container alert alert-success alert-dismissible fade show mt-4" role="alert">
+    <div class="text-left">
+        {{ Session::get('fail') }}
+        {{ Session::forget('fail') }}
+    </div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
 <div class="container">
+
     <!-- product -->
     <div class="product-content product-wrap clearfix product-deatil">
         <div class="row">
             @foreach($result as $row)
+            
+            
             <div class="col-md-5 col-sm-12 col-xs-12">
                 <div class="product-image">
                     <div id="myCarousel-2" class="carousel slide">
@@ -28,7 +49,7 @@
                         <div class="carousel-inner">
                             <!-- Slide 1 -->
                             <div class="item active">
-                                <img src="{{$row->auctionImg}}" class="img-responsive" alt="" width=400 height=300/>
+                                <img src="{{$row->auctionImg}}" class="img-responsive" alt="" width=400 height=300 />
                             </div>
                         </div>
                         <a class="left carousel-control" href="#myCarousel-2" data-slide="prev"> <span
@@ -53,13 +74,22 @@
                 <span class="fa fa-2x">
 
                 </span>
-                <a href="javascript:void(0);">109 customer reviews</a>
                 </h2>
                 <hr />
+                
+                
                 <h3 class="price-container">
-                    asdasd
-                    <small>Start From: RM{{$row->startPrice}}</small>
+                    
+
+                    @if($row->bidPrice!=null)
+
+                    Bidding Price: RM{{$row->bidPrice}}
+                    @else
+                    Start From: RM{{$row->startPrice}}
+                    @endif
+                    
                 </h3>
+
                 <div class="certified">
                     <ul>
                         <li>
@@ -76,7 +106,7 @@
                 <div class="description description-tabs">
                     <ul id="myTab" class="nav nav-pills">
                         <li class="active"><a href="#more-information" data-toggle="tab" class="no-margin">Product
-                        Description </a></li>
+                                Description </a></li>
                     </ul>
                     <div id="myTabContent" class="tab-content">
                         {!!$row->auctionDesc!!}
@@ -89,14 +119,54 @@
                 <hr />
                 <div class="row">
                     <div class="col-sm-12 col-md-6 col-lg-6">
-                        <a href="{{ action('AuctionController@oneBid', $row->auctionID ) }}" class="btn btn-success btn-lg">One Bid: RM{{$row->endPrice}}</a>
+                        <a href="{{ action('AuctionController@oneBid', $row->auctionID ) }}"
+                            class="btn btn-success btn-lg">Buy Now: RM{{$row->endPrice}}</a>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-6">
-                    <a href="javascript:void(0);" class="btn btn-primary btn-lg" color="">Manual Bid</a>
-                        <a href="javascript:void(0);" class="btn btn-info btn-lg">Auto Bid</a>
+                        <a href="javascript:void(0);" class="btn btn-primary btn-lg" color="" data-bs-toggle="modal"
+                            data-bs-target="#ManualBid">Manual Bid</a>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="ManualBid" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form action="{{ route('manualBid',$row->auctionID) }}" method='POST'>
+                                        @csrf
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Manual Bid</h1>
+                                            <input type="hidden" id="bid" name="bid" value="{{$row->bidPrice}}">
+                                            <input type="hidden" id="startP" name="startP" value="{{$row->startPrice}}">
+                                            <input type="hidden" id="endP" name="endP" value="{{$row->endPrice}}">
+                                            <input type="hidden" id="id" name="id" value="{{$row->auctionID}}">
+                                            <input type="hidden" id="picture" name="picture" value="{{$row->auctionImg}}">
+
+
+
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label class="label fw-semibold fs-6">Enter Manual Price</label>
+                                                <input type="text" id="manual" name="manual" class="form-control mt-2"
+                                                    required />
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
+            
             @endforeach
         </div>
     </div>

@@ -20,6 +20,7 @@ class Auction extends Model
         'auctionDesc',
         'auctionCate',
         'startPrice',
+        'bidPrice',
         'endPrice',
         'start_date',
         'auctionStatus'

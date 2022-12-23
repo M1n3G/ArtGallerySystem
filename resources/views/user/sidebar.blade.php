@@ -63,7 +63,10 @@
                 <a class="text-decoration-none" href="{{ route('address.show') }}">Address</a>
             </button>
             <button class="nav-link" id="v-pills-purchase-tab">
-                <a class="text-decoration-none" href="{{ route('purchase.show') }}">My Purchase</a>
+                <a class="text-decoration-none" href="{{ route('payment.index') }}">My Purchase</a>
+            </button>
+            <button class="nav-link" id="v-pills-purchase-tab">
+                <a class="text-decoration-none" href="{{ route('auctionView') }}">Auction</a>
             </button>
             <button class="nav-link" id="v-pills-purchase-tab">
                 <a class="text-decoration-none" href="{{ route('forumprofile.show') }}">Forum Profile</a>

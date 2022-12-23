@@ -290,7 +290,7 @@
                                                                 </div>
                                                             </div>
                                                             <p class="fs-6 mt-2">Provide more report info (Optional)</p>
-                                                            <textarea name="reportBody" rows="2" cols="30" class="form-control mt-2" maxlength="200"></textarea>
+                                                            <textarea name="reportBody" rows="2" cols="30" class="form-control mt-2" placeholder="Info section (Optional)" maxlength="200"></textarea>
                                                         </div>
 
 
@@ -376,7 +376,7 @@
                     <h6 class="card-title">Leave a comment</h6>
                     <form method="post" action="{{ route('forumcomment.store') }}">
                         @csrf
-                        <textarea name="comment_body" class="form-control" rows="3" required></textarea>
+                        <textarea name="comment_body" class="form-control" rows="3" placeholder="Comment Section" required></textarea>
                         <div class="float-end mt-2 pt-1">
                             <button type="submit" class="btn btn-primary mt-3">Submit</button>
                         </div>

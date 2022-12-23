@@ -1,6 +1,15 @@
 @extends('master')
 @section('content')
-
+@if (count($errors) > 0)
+    <div class="container">
+        <div class="alert alert-danger alert-dismissible fade show form-control" role="alert">
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    @endif
 <div class="container">
     <div class="row justify-content-center align-items-center">
         <div class="col-xl-12 mt-4 mb-4">

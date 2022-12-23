@@ -37,6 +37,18 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
+
+        
+        @if (\Session::has('message'))
+        <div class="alert alert-success alert-dismissible fade show form-control" role="alert">
+            <div class="text-left">
+                {{ Session::get('message') }}
+                {{ Session::forget('message') }}
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+        
     </div>
 
     <div class="row profile">
@@ -183,6 +195,7 @@
                                                 <div class="fw-bold">{{ $b->title }}</div>
                                                 {!! $b->body !!}
                                             </div>
+                                            <div class="text-end">
                                             <form action="{{ route('post.view') }}" method="POST">
                                                 @csrf
                                                 <a href="">
@@ -194,6 +207,15 @@
                                                     </button>
                                                 </a>
                                             </form>
+
+                                            @foreach($bookmarks as $bo) @endforeach
+                                            
+                                                <form action="{{ route('bookmark.delete',$bo->bookmarkID) }}" method="POST" onsubmit="return confirm('Are you sure you want to remove this bookmarks?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger mt-2 px-2" style="height:35px; max-height:35px;"><i class="bi bi-trash"></i></button>
+                                                </form>
+                                            </div>
                                         </li>
 
                                         @endforeach

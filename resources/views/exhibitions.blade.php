@@ -89,7 +89,7 @@
                     </div>
                     <div class="card-footer bg-white" style="height:60px">
                         <div class="text-center">
-                            <a href="http://192.168.0.23:9966/" target="_blank" class="btn btn btn-outline-dark rounded-pill" style="width:200px; font-size: 17px">View 3D Tour</a>
+                            <a href="http://192.168.0.43:9966/" target="_blank" class="btn btn btn-outline-dark rounded-pill" style="width:200px; font-size: 17px">View 3D Tour</a>
                         </div>
                     </div>
                 </div>

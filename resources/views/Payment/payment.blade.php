@@ -41,6 +41,7 @@
                 </div>
 
                 <div class="panel-body">
+                    @if (\Session::has('cartOrder'))
                     @foreach (\Session::get('cartOrder') as $f)
                     @foreach ($cart as $row)
                     @if ($row->itemID == $f)
@@ -57,7 +58,7 @@
                             @php
 
                             $finalPrice += $row->Price;
-                            $finalPrice = $finalPrice*0.23838;
+
 
                             @endphp
                         </div>
@@ -69,10 +70,12 @@
                     @endforeach
                     @endforeach
 
+
                     <div class="form-group">
                         <div class="col-xs-12">
                             <strong>Order Total</strong>
                             <div class="pull-right"><span>USD</span><span>@php
+                                    $finalPrice = $finalPrice * 0.24;
                                     echo number_format($finalPrice,2);
                                     @endphp
                                 </span></div>
@@ -81,90 +84,142 @@
 
 
                 </div>
+                @else
+                @foreach ($result as $row)
+                <div class="form-group">
+                    <div class="col-sm-3 col-xs-3">
+                        <img class="img-responsive" src="{{$row->auctionImg}}" />
+                    </div>
+                    <div class="col-sm-6 col-xs-6">
+                        <div class="col-xs-12">{{$row->auctionName}}</div>
+                        <div class="col-xs-12"><small>Quantity:<span>1</span></small></div>
+                    </div>
+                    <div class="col-sm-3 col-xs-3 text-right">
+                        @if(empty($row->bidPrice) || $row->auctionStatus == 'ONEBID')
+                        <h6><span>RM</span>{{$row->endPrice}}</h6>
+                        @php
+
+                        $finalPrice += $row->endPrice;
+
+
+                        @endphp
+                        @else
+                        <h6><span>RM</span>{{$row->bidPrice}}</h6>
+                        @php
+
+                        $finalPrice += $row->bidPrice;
+
+
+                        @endphp
+                        @endif
+                    </div>
+                </div>
+                <div class="form-group">
+                    <hr />
+                </div>
+
+
+
+
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <strong>Order Total</strong>
+                        <div class="pull-right"><span>USD</span><span>@php
+                                $finalPrice = $finalPrice * 0.24;
+                                echo number_format($finalPrice,2);
+                                @endphp
+                            </span></div>
+                    </div>
+                </div>
+
 
             </div>
-
-
-            <!--REVIEW ORDER END-->
+            @endforeach
+            @endif
 
         </div>
 
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-md-pull-6 col-sm-pull-6">
-            <!--SHIPPING METHOD-->
-            @foreach($user as $row)
-            <div class="panel panel-info">
-                <div class="panel-heading">Address</div>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            <h4>Shipping Address</h4>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-12"><strong>Country:</strong></div>
-                        <div class="col-md-12">
-                            <input readonly type="text" class="form-control" name="country" value="Malaysia" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            <strong>Name:</strong>
-                            <input type="text" name="first_name" class="form-control" value="{{$row->name}}" />
-                        </div>
 
+        <!--REVIEW ORDER END-->
+
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-md-pull-6 col-sm-pull-6">
+        <!--SHIPPING METHOD-->
+        @foreach($user as $row)
+        <div class="panel panel-info">
+            <div class="panel-heading">Address</div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <h4>Shipping Address</h4>
                     </div>
-                    <div class="form-group">
-                        <div class="col-md-12"><strong>Address:</strong></div>
-                        <div class="col-md-12">
-                            <input type="text" name="address" class="form-control" value="{{$row->address}}" />
-                        </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12"><strong>Country:</strong></div>
+                    <div class="col-md-12">
+                        <input readonly type="text" class="form-control" name="country" value="Malaysia" />
                     </div>
-                    <div class="form-group">
-                        <div class="col-md-12"><strong>City:</strong></div>
-                        <div class="col-md-12">
-                            <input type="text" name="city" class="form-control" value="{{$row->city}}" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-12"><strong>State:</strong></div>
-                        <div class="col-md-12">
-                            <input type="text" name="state" class="form-control" value="{{$row->state}}" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-12"><strong>Zip / Postal Code:</strong></div>
-                        <div class="col-md-12">
-                            <input type="text" name="zip_code" class="form-control" value="{{$row->postalcode}}" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-12"><strong>Phone Number:</strong></div>
-                        <div class="col-md-12"><input type="text" name="phone_number" class="form-control" value="{{$row->contact}}" /></div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-12"><strong>Email Address:</strong></div>
-                        <div class="col-md-12"><input type="text" name="email_address" class="form-control" value="{{$row->email}}" /></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <strong>Name:</strong>
+                        <input type="text" name="first_name" class="form-control" value="{{$row->name}}" />
                     </div>
 
-                    <div class="form-group">
-                        <form action="{{route('payment')}}" method="post">
-                            @csrf
-                            <input type="hidden" name="amount" value="{{$finalPrice}}">
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <button type="submit" class="btn btn-primary btn-submit-fix">Pay With Paypal</button>
-                            </div>
-                        </form>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12"><strong>Address:</strong></div>
+                    <div class="col-md-12">
+                        <input type="text" name="address" class="form-control" value="{{$row->address}}" />
                     </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12"><strong>City:</strong></div>
+                    <div class="col-md-12">
+                        <input type="text" name="city" class="form-control" value="{{$row->city}}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12"><strong>State:</strong></div>
+                    <div class="col-md-12">
+                        <input type="text" name="state" class="form-control" value="{{$row->state}}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12"><strong>Zip / Postal Code:</strong></div>
+                    <div class="col-md-12">
+                        <input type="text" name="zip_code" class="form-control" value="{{$row->postalcode}}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12"><strong>Phone Number:</strong></div>
+                    <div class="col-md-12"><input type="text" name="phone_number" class="form-control" value="{{$row->contact}}" /></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12"><strong>Email Address:</strong></div>
+                    <div class="col-md-12"><input type="text" name="email_address" class="form-control" value="{{$row->email}}" /></div>
+                </div>
+                <div class="form-group">
+                    <form action="{{route('payment')}}" method="post">
+                        @csrf
+                        <input type="hidden" name="amount" value="{{(int)$finalPrice}}">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <br />
+                            <button type="submit" class="btn btn-primary btn-submit-fix">Pay With Paypal</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-
-
-        @endforeach
     </div>
-    <div class="row cart-footer">
 
-    </div>
+
+    @endforeach
+</div>
+<div class="row cart-footer">
+
+</div>
 </div>
 
 <style>
